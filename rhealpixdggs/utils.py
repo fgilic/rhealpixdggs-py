@@ -15,8 +15,8 @@ unless indicated otherwise.
 #                  http://www.gnu.org/licenses/
 # *****************************************************************************
 
-# Import third-party modules.
-from numpy import pi, floor, sqrt, log, sin, arcsin, deg2rad, rad2deg, sign
+# Import standard modules.
+from math import asin, copysign, log, pi, sin, sqrt
 from typing import Any
 
 
@@ -68,16 +68,16 @@ def wrap_longitude(lam: float, radians: bool = False) -> float:
     """
     if not radians:
         # Convert to radians.
-        lam = deg2rad(lam)
+        lam = lam * pi / 180
     if lam < -pi or lam >= pi:
-        result = lam - 2 * pi * floor(lam / (2 * pi))  # x mod 2*pi
+        result = lam % (2 * pi)
         if result >= pi:
             result = result - 2 * pi
     else:
         result = lam
     if not radians:
         # Convert to degrees.
-        result = rad2deg(result)
+        result = result * 180 / pi
     return result
 
 
@@ -110,16 +110,16 @@ def wrap_latitude(phi: float, radians: bool = False) -> float:
     """
     if not radians:
         # Convert to radians.
-        phi = deg2rad(phi)
+        phi = phi * pi / 180
     # Put phi in range -pi <= phi < pi.
     phi = wrap_longitude(phi, radians=True)
     if abs(phi) <= pi / 2:
         result = phi
     else:
-        result = phi - sign(phi) * pi
+        result = phi - copysign(pi, phi)
     if not radians:
         # Convert to degrees.
-        result = rad2deg(result)
+        result = result * 180 / pi
     return result
 
 
@@ -159,7 +159,7 @@ def auth_lat(
         return phi
     if not radians:
         # Convert to radians to do calculations below.
-        phi = deg2rad(phi)
+        phi = phi * pi / 180
     if not inverse:
         # Compute authalic latitude from latitude phi.
         q = ((1 - e**2) * sin(phi)) / (1 - (e * sin(phi)) ** 2) - (1 - e**2) / (
@@ -170,8 +170,8 @@ def auth_lat(
         # Avoid rounding errors.
         if abs(ratio) > 1:
             # Make abs(ratio) = 1
-            ratio = sign(ratio)
-        result = arcsin(ratio)
+            ratio = copysign(1, ratio)
+        result = asin(ratio)
     else:
         # Compute an approximation of latitude from authalic latitude phi.
         result = (
@@ -183,7 +183,7 @@ def auth_lat(
         )
     if not radians:
         # Convert back to degrees.
-        result = rad2deg(result)
+        result = result * 180 / pi
     return result
 
 
