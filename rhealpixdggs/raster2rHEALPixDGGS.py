@@ -34,7 +34,7 @@ def get_s2_cells(s2_tci):
 
     rdggs = RHEALPixDGGS(ellipsoid=E, north_square=1, south_square=2, N_side=3)
     cells = rdggs.cells_from_region(
-        12, (ul_wgs[1], ul_wgs[0]), (lr_wgs[1], lr_wgs[0]), plane=False
+        13, (ul_wgs[1], ul_wgs[0]), (lr_wgs[1], lr_wgs[0]), plane=False
     )
 
     return cells
@@ -97,7 +97,7 @@ gdf = gpd.GeoDataFrame(
     data={"rgba": cell_rgba, "geometry": cell_geometry}, crs=CRS.from_epsg(4326)
 )
 
-gdf.to_file("cells_s2_12.fgb", engine="pyogrio")
+gdf.to_file("cells_s2_13.fgb", engine="pyogrio")
 
 
 
