@@ -1,9 +1,12 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
 from shapely import LineString, Polygon
 from shapely.plotting import plot_line, plot_points
 import itertools
+from mayavi import mlab
 
 # 'curved' is curved square
 # 'square' is rectangular square with straight sides
@@ -148,14 +151,24 @@ def lambert_inverse(point_xy, tangent_plane, geographic=False):
 fig = plt.figure()
 ax_2d = fig.add_subplot(121)
 ax_3d = fig.add_subplot(122, projection='3d')
-square_grid_4 = build_square_grid(4, aperture=4)["level_1"]
+square_grid_4 = build_square_grid(4, aperture=4)["level_0"]
+
+# plot sphere
+la = np.linspace(-np.pi, np.pi, 100)
+fi = np.linspace(-np.pi / 2, np.pi / 2, 100)
+x = np.outer(np.cos(fi), np.cos(la))
+y = np.outer(np.cos(fi), np.sin(la))
+z = np.outer(np.sin(fi), np.ones(np.size(la)))
+s = mlab.mesh(x, y, z, color = (0.5,0.5,0.5))
+
+
 
 for square in square_grid_4:
-    ax_2d.plot(*square.boundary.xy, color="blue")
+    ax_2d.plot(*(square).boundary.xy, color="blue")
     curved_square = square_to_curved(square)
     ax_2d.plot(*curved_square.boundary.xy, color="red")
 
-    x_coords_s, y_coords_s = square.boundary.xy
+    x_coords_s, y_coords_s = densify_square(square).boundary.xy
     points_s = list(zip(x_coords_s, y_coords_s))
 
     x_coords_c, y_coords_c = curved_square.boundary.xy
@@ -168,14 +181,18 @@ for square in square_grid_4:
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
     ax_3d.plot3D(x, y, z, 'blue')
 
+
     points_3d_c = []
     for point in points_c:
         points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 0, 1)))
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
     ax_3d.plot3D(x, y, z, 'red')
+    mlab.plot3d(x, y, z, color=(0,0.8,0.1))
 
-    curve_c1_s = LineString([(math.sqrt(2 * math.pi / 3) / 2, math.sqrt(2 * math.pi / 3) / 2), (math.sqrt(2 * math.pi / 3) / 2,- math.sqrt(2 * math.pi / 3) / 2)])
+
+    # curve_c1_s = LineString([(math.sqrt(2 * math.pi / 3) / 2, math.sqrt(2 * math.pi / 3) / 2), (math.sqrt(2 * math.pi / 3) / 2,- math.sqrt(2 * math.pi / 3) / 2)])
+    curve_c1_s = LineString([(math.sqrt(2 * math.pi / 3) / 2, math.sqrt(2 * math.pi / 3) / 2), (math.sqrt(2 * math.pi / 3) / 2, 0)])
     curve_c1_s = curve_c1_s.segmentize(curve_c1_s.length / 10)
     points_curve_c1_s = list(zip(*curve_c1_s.coords.xy))
     points_curve_c1_c = []
@@ -183,12 +200,12 @@ for square in square_grid_4:
         points_curve_c1_c.append(map_to_curved(point))
     curve_c1_c = LineString(points_curve_c1_c)
     ax_2d.plot(*curve_c1_s.coords.xy, color="green")
-    ax_2d.plot(*curve_c1_c.coords.xy, color="yellow")
+    ax_2d.plot(*curve_c1_c.coords.xy, color="black")
     x_point = ()
     y_point = ()
     z_point = ()
     for point in points_curve_c1_s:
-        x, y, z = lambert_inverse(point, tangent_plane=(0, 0, 1))
+        x, y, z = lambert_inverse(point, tangent_plane=(-1, 0, 0))
         x_point = x_point + (x,)
         y_point = y_point + (y,)
         z_point = z_point + (z,)
@@ -197,11 +214,11 @@ for square in square_grid_4:
     y_point = ()
     z_point = ()
     for point in points_curve_c1_c:
-        x, y, z = lambert_inverse(point, tangent_plane=(0, 0, 1))
+        x, y, z = lambert_inverse(point, tangent_plane=(-1, 0, 0))
         x_point = x_point + (x,)
         y_point = y_point + (y,)
         z_point = z_point + (z,)
-    ax_3d.plot3D(x_point, y_point, z_point, 'yellow')
+    ax_3d.plot3D(x_point, y_point, z_point, 'black', linewidth=3)
     ax_2d.set_xlabel("x")
     ax_2d.set_ylabel("y")
     ax_3d.set_xlabel("x")
@@ -214,6 +231,7 @@ for square in square_grid_4:
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
     ax_3d.plot3D(x, y, z, 'red')
+    mlab.plot3d(x, y, z, color=(0, 0.8, 0.1))
 
     points_3d_c = []
     for point in points_c:
@@ -221,6 +239,7 @@ for square in square_grid_4:
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
     ax_3d.plot3D(x, y, z, 'red')
+    mlab.plot3d(x, y, z, color=(0, 0.8, 0.1))
 
     points_3d_c = []
     for point in points_c:
@@ -228,6 +247,7 @@ for square in square_grid_4:
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
     ax_3d.plot3D(x, y, z, 'red')
+    mlab.plot3d(x, y, z, color=(0, 0.8, 0.1))
 
     points_3d_c = []
     for point in points_c:
@@ -235,6 +255,7 @@ for square in square_grid_4:
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
     ax_3d.plot3D(x, y, z, 'red')
+    mlab.plot3d(x, y, z, color=(0, 0.8, 0.1))
 
     points_3d_c = []
     for point in points_c:
@@ -242,7 +263,7 @@ for square in square_grid_4:
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
     ax_3d.plot3D(x, y, z, 'red')
-
+    mlab.plot3d(x, y, z, color=(0, 0.8, 0.1))
 
     # points_3d = []
     # for point in points:
@@ -329,6 +350,7 @@ for square in square_grid_4:
 # ax.plot3D(np.array(xs), np.array(ys), np.array(zs), 'black')
 # ax.plot3D(np.array(xc), np.array(yc), np.array(zc), 'blue')
 
+mlab.show()
 ax_2d.set_aspect('equal')
 ax_3d.set_aspect('equal')
 plt.show()
