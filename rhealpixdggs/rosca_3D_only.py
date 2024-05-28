@@ -17,19 +17,45 @@ WGS84_F = 1 / 298.257223563
 WGS84_B = WGS84_A - WGS84_A * WGS84_F
 
 
-
 def map_to_curved(point_xy):
     x, y = point_xy
     if x == 0 and y == 0:
         return (0, 0)
 
     if abs(y) <= abs(x):
-        x_c = pow(2, 1/4) * x / math.sqrt(math.pi / 6) * (math.sqrt(2) * math.cos(y * math.pi / (12 * x)) - 1) / math.sqrt(math.sqrt(2) - math.cos(y * math.pi / (12 * x)))
-        y_c = pow(2, 1/4) * x / math.sqrt(math.pi / 6) * math.sqrt(2) * math.sin(y * math.pi / (12 * x)) / math.sqrt(math.sqrt(2) - math.cos(y * math.pi / (12 * x)))
+        x_c = (
+            pow(2, 1 / 4)
+            * x
+            / math.sqrt(math.pi / 6)
+            * (math.sqrt(2) * math.cos(y * math.pi / (12 * x)) - 1)
+            / math.sqrt(math.sqrt(2) - math.cos(y * math.pi / (12 * x)))
+        )
+        y_c = (
+            pow(2, 1 / 4)
+            * x
+            / math.sqrt(math.pi / 6)
+            * math.sqrt(2)
+            * math.sin(y * math.pi / (12 * x))
+            / math.sqrt(math.sqrt(2) - math.cos(y * math.pi / (12 * x)))
+        )
     else:
-        x_c = pow(2, 1/4) * y / math.sqrt(math.pi / 6) * math.sqrt(2) * math.sin(x * math.pi / (12 * y)) / math.sqrt(math.sqrt(2) - math.cos(x * math.pi / (12 * y)))
-        y_c = pow(2, 1/4) * y / math.sqrt(math.pi / 6) * (math.sqrt(2) * math.cos(x * math.pi / (12 * y)) - 1) / math.sqrt(math.sqrt(2) - math.cos(x * math.pi / (12 * y)))
+        x_c = (
+            pow(2, 1 / 4)
+            * y
+            / math.sqrt(math.pi / 6)
+            * math.sqrt(2)
+            * math.sin(x * math.pi / (12 * y))
+            / math.sqrt(math.sqrt(2) - math.cos(x * math.pi / (12 * y)))
+        )
+        y_c = (
+            pow(2, 1 / 4)
+            * y
+            / math.sqrt(math.pi / 6)
+            * (math.sqrt(2) * math.cos(x * math.pi / (12 * y)) - 1)
+            / math.sqrt(math.sqrt(2) - math.cos(x * math.pi / (12 * y)))
+        )
     return (x_c, y_c)
+
 
 def map_to_square(point_xy):
     x, y = point_xy
@@ -37,18 +63,49 @@ def map_to_square(point_xy):
         return (0, 0)
 
     if abs(y) <= abs(x):
-        x_s = math.sqrt(math.pi / 6) / math.sqrt(2) * math.copysign(1, x) * math.pow(2 * x ** 2 + y ** 2, 1/4) * math.sqrt(abs(x) + math.sqrt(2 * x ** 2 + y ** 2))
-        y_s = math.sqrt(2) / math.sqrt(math.pi / 6) * math.pow(2 * x ** 2 + y ** 2, 1/4) * math.sqrt(abs(x) + math.sqrt(2 * x ** 2 + y ** 2)) * (math.copysign(1, x) * math.atan(y / x) - math.atan(y / math.sqrt(2 * x ** 2 + y ** 2)))
+        x_s = (
+            math.sqrt(math.pi / 6)
+            / math.sqrt(2)
+            * math.copysign(1, x)
+            * math.pow(2 * x**2 + y**2, 1 / 4)
+            * math.sqrt(abs(x) + math.sqrt(2 * x**2 + y**2))
+        )
+        y_s = (
+            math.sqrt(2)
+            / math.sqrt(math.pi / 6)
+            * math.pow(2 * x**2 + y**2, 1 / 4)
+            * math.sqrt(abs(x) + math.sqrt(2 * x**2 + y**2))
+            * (
+                math.copysign(1, x) * math.atan(y / x)
+                - math.atan(y / math.sqrt(2 * x**2 + y**2))
+            )
+        )
     else:
-        x_s = math.sqrt(2) / math.sqrt(math.pi / 6) * math.pow(2 * y ** 2 + x ** 2, 1/4) * math.sqrt(abs(y) + math.sqrt(2 * y ** 2 + x ** 2)) * (math.copysign(1, y) * math.atan(x / y) - math.atan(x / math.sqrt(2 * y ** 2 + x ** 2)))
-        y_s = math.sqrt(math.pi / 6) / math.sqrt(2) * math.copysign(1, y) * math.pow(2 * y ** 2 + x ** 2, 1/4) * math.sqrt(abs(y) + math.sqrt(2 * y ** 2 + x ** 2))
+        x_s = (
+            math.sqrt(2)
+            / math.sqrt(math.pi / 6)
+            * math.pow(2 * y**2 + x**2, 1 / 4)
+            * math.sqrt(abs(y) + math.sqrt(2 * y**2 + x**2))
+            * (
+                math.copysign(1, y) * math.atan(x / y)
+                - math.atan(x / math.sqrt(2 * y**2 + x**2))
+            )
+        )
+        y_s = (
+            math.sqrt(math.pi / 6)
+            / math.sqrt(2)
+            * math.copysign(1, y)
+            * math.pow(2 * y**2 + x**2, 1 / 4)
+            * math.sqrt(abs(y) + math.sqrt(2 * y**2 + x**2))
+        )
     return (x_s, y_s)
 
 
-def densify_square(square, parts_along_sides = 10):
+def densify_square(square, parts_along_sides=10):
     max_segment_length = square.length / (4 * parts_along_sides)
     densified_square = square.segmentize(max_segment_length)
     return densified_square
+
 
 def square_to_curved(square):
     densified_square = densify_square(square)
@@ -61,6 +118,7 @@ def square_to_curved(square):
     curved_square = Polygon(points_on_curved)
     return curved_square
 
+
 def construct_square(ul_coords, side):
     ul_x, ul_y = ul_coords
 
@@ -70,72 +128,83 @@ def construct_square(ul_coords, side):
 
     return Polygon([ul_coords, ur_coords, lr_coords, ll_coords])
 
+
 def decompose_square_4(square):
     minx, miny, maxx, maxy = square.bounds
     new_square_size = (maxx - minx) / 2
     ul_square = construct_square((minx, maxy), new_square_size)
     ur_square = construct_square((minx + new_square_size, maxy), new_square_size)
-    lr_square = construct_square((minx + new_square_size, miny + new_square_size), new_square_size)
+    lr_square = construct_square(
+        (minx + new_square_size, miny + new_square_size), new_square_size
+    )
     ll_square = construct_square((minx, miny + new_square_size), new_square_size)
 
     return [ul_square, ur_square, lr_square, ll_square]
 
-def build_square_grid(max_level, aperture = 4):
+
+def build_square_grid(max_level, aperture=4):
     # TODO implement different apertures
     a = math.sqrt(2 * math.pi / 3)
-    square_0 = Polygon([(- a / 2, a / 2), (a / 2, a / 2), (a / 2, - a / 2), (- a / 2, - a / 2)])
-    grid = {'level_0': [square_0]}
+    square_0 = Polygon(
+        [(-a / 2, a / 2), (a / 2, a / 2), (a / 2, -a / 2), (-a / 2, -a / 2)]
+    )
+    grid = {"level_0": [square_0]}
     for level in range(1, max_level + 1):
-        squares_previous_level = grid[f'level_{level - 1}']
+        squares_previous_level = grid[f"level_{level - 1}"]
         squares_current_level = []
         for square in squares_previous_level:
             squares_current_level.extend(decompose_square_4(square))
-        grid[f'level_{level}'] = squares_current_level
+        grid[f"level_{level}"] = squares_current_level
     return grid
 
 
-def lambert_inverse(point_xy, tangent_plane, geographic=False):
+def lambert_inverse(point_xy, tangent_plane, geographic=False, radians=True):
     x, y = point_xy
-
+    # TODO catch error if wrong tangent plane
     if tangent_plane == (0, 0, 1):
-        x_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * x
-        y_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * y
-        z_sphere = 1 - (x ** 2 + y ** 2) / 2
+        x_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * x
+        y_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * y
+        z_sphere = 1 - (x**2 + y**2) / 2
 
-    if tangent_plane == (1, 0, 0):
-        x_sphere = 1 - (x ** 2 + y ** 2) / 2
-        y_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * x
-        z_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * y
+    elif tangent_plane == (1, 0, 0):
+        x_sphere = 1 - (x**2 + y**2) / 2
+        y_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * x
+        z_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * y
 
-    if tangent_plane == (0, 1, 0):
-        x_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * x
-        y_sphere = 1 - (x ** 2 + y ** 2) / 2
-        z_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * y
+    elif tangent_plane == (0, 1, 0):
+        x_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * x
+        y_sphere = 1 - (x**2 + y**2) / 2
+        z_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * y
 
-    if tangent_plane == (-1, 0, 0):
-        x_sphere = -(1 - (x ** 2 + y ** 2) / 2)
-        y_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * x
-        z_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * y
+    elif tangent_plane == (-1, 0, 0):
+        x_sphere = -(1 - (x**2 + y**2) / 2)
+        y_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * x
+        z_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * y
 
-    if tangent_plane == (0, -1, 0):
-        x_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * x
-        y_sphere = -(1 - (x ** 2 + y ** 2) / 2)
-        z_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * y
+    elif tangent_plane == (0, -1, 0):
+        x_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * x
+        y_sphere = -(1 - (x**2 + y**2) / 2)
+        z_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * y
 
-    if tangent_plane == (0, 0, -1):
-        x_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * x
-        y_sphere = math.sqrt(1 - (x ** 2 + y ** 2) / 4) * y
-        z_sphere = -(1 - (x ** 2 + y ** 2) / 2)
+    elif tangent_plane == (0, 0, -1):
+        x_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * x
+        y_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * y
+        z_sphere = -(1 - (x**2 + y**2) / 2)
 
     if not geographic:
         return (x_sphere, y_sphere, z_sphere)
     else:
-        lat = math.atan2(y_sphere/x_sphere) * 180 / math.pi
-        long = math.asin(z_sphere) * 180 / math.pi
-        return (fi, la)
+        long = math.atan2(y_sphere, x_sphere)
+        lat = math.asin(z_sphere)
+
+        if not radians:
+            lat = lat * 180 / math.pi
+            long = long * 180 / math.pi
+
+        return lat, long
 
 
-def map_sphere_to_ellips(point_lat_long, return_geographic=True, radians = True):
+def map_sphere_to_ellips(point_lat_long, return_geographic=True, radians=True):
     # authalic latitude and (common) longitude
     auth_lat, long = point_lat_long
 
@@ -156,10 +225,16 @@ def map_sphere_to_ellips(point_lat_long, return_geographic=True, radians = True)
         [0, 0, 0, 0, 0, 4210684958 / 1915538625],
     ]
 
-    mat_s = [math.sin(2 * auth_lat), math.sin(4 * auth_lat), math.sin(6 * auth_lat), math.sin(8 * auth_lat), math.sin(10 * auth_lat),
-             math.sin(12 * fi)]
+    mat_s = [
+        math.sin(2 * auth_lat),
+        math.sin(4 * auth_lat),
+        math.sin(6 * auth_lat),
+        math.sin(8 * auth_lat),
+        math.sin(10 * auth_lat),
+        math.sin(12 * auth_lat),
+    ]
 
-    mat_p = np.transpose([n, n ** 2, n ** 3, n ** 4, n ** 5, n ** 6])
+    mat_p = np.transpose([n, n**2, n**3, n**4, n**5, n**6])
 
     common_lat = auth_lat + np.matmul(np.matmul(mat_s, c_auth_to_phi), mat_p)
 
@@ -173,16 +248,29 @@ def map_sphere_to_ellips(point_lat_long, return_geographic=True, radians = True)
         z = n * math.sin(common_lat)
         return x, y, z
 
+
 square_grid_4 = build_square_grid(4, aperture=4)["level_3"]
 
-# plot sphere
+# # plot sphere
+# la = np.linspace(-np.pi, np.pi, 100)
+# fi = np.linspace(-np.pi / 2, np.pi / 2, 100)
+# x = np.outer(np.cos(fi), np.cos(la))
+# y = np.outer(np.cos(fi), np.sin(la))
+# z = np.outer(np.sin(fi), np.ones(np.size(la)))
+# s = mlab.mesh(x, y, z, color = (0.5,0.5,0.5))
+
+# plot WGS84 ellipsoid
+a = 6378137
+b = 6356752.3141
+e_2 = (a**2 - b**2) / a**2
 la = np.linspace(-np.pi, np.pi, 100)
 fi = np.linspace(-np.pi / 2, np.pi / 2, 100)
-x = np.outer(np.cos(fi), np.cos(la))
-y = np.outer(np.cos(fi), np.sin(la))
-z = np.outer(np.sin(fi), np.ones(np.size(la)))
-s = mlab.mesh(x, y, z, color = (0.5,0.5,0.5))
-
+x = np.outer(a / np.sqrt(1 - e_2 * (np.sin(fi)) ** 2) * np.cos(fi), np.cos(la))
+y = np.outer(a / np.sqrt(1 - e_2 * (np.sin(fi)) ** 2) * np.cos(fi), np.sin(la))
+z = np.outer(
+    a / np.sqrt(1 - e_2 * (np.sin(fi)) ** 2) * np.sin(fi), np.ones(np.size(la))
+)
+s = mlab.mesh(x, y, z, color=(0.5, 0.5, 0.5))
 
 
 for square in square_grid_4:
@@ -193,6 +281,7 @@ for square in square_grid_4:
     x_coords_c, y_coords_c = curved_square.boundary.xy
     points_c = list(zip(x_coords_c, y_coords_c))
 
+    # # on sphere
     # points_3d_s = []
     # for point in points_s:
     #     points_3d_s.append(lambert_inverse(point, tangent_plane=(0, 0, 1)))
@@ -202,45 +291,87 @@ for square in square_grid_4:
 
     points_3d_c = []
     for point in points_c:
-        points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 0, 1)))
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 0, 1)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(0, 0, 1), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=0.015)
+    # mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=0.015)
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
 
     points_3d_c = []
     for point in points_c:
-        points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 0, -1)))
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 0, -1)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(0, 0, -1), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=0.015)
-
-
-    points_3d_c = []
-    for point in points_c:
-        points_3d_c.append(lambert_inverse(point, tangent_plane=(1, 0, 0)))
-    polygon_3d = Polygon(points_3d_c)
-    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=0.015)
-
-    points_3d_c = []
-    for point in points_c:
-        points_3d_c.append(lambert_inverse(point, tangent_plane=(-1, 0, 0)))
-    polygon_3d = Polygon(points_3d_c)
-    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=0.015)
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
 
     points_3d_c = []
     for point in points_c:
-        points_3d_c.append(lambert_inverse(point, tangent_plane=(0, -1, 0)))
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(1, 0, 0)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(1, 0, 0), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=0.015)
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
 
     points_3d_c = []
     for point in points_c:
-        points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 1, 0)))
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(-1, 0, 0)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(-1, 0, 0), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=0.015)
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
+
+    points_3d_c = []
+    for point in points_c:
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(0, -1, 0)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(0, -1, 0), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
+    polygon_3d = Polygon(points_3d_c)
+    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
+
+    points_3d_c = []
+    for point in points_c:
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 1, 0)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(0, 1, 0), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
+    polygon_3d = Polygon(points_3d_c)
+    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
 
 mlab.show()
