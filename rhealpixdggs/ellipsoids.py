@@ -20,6 +20,7 @@ Points lying on an ellipsoid are given in geodetic (longitude, latitude) coordin
 
 # Import third-party modules.
 from numpy import pi, sqrt, sin, cos, arcsin, arctanh, deg2rad, rad2deg
+import math
 
 # Import standard modules.
 from random import uniform
@@ -35,10 +36,10 @@ WGS84_F = (
 # WGS84_F = 1 / 298.257222100882711  # GRS80 from https://en.wikipedia.org/wiki/World_Geodetic_System
 # WGS84_F = 1 / 298.257223563  # new value from EPSG:7030
 WGS84_B = WGS84_A * (1 - WGS84_F)
-WGS84_E = sqrt(WGS84_F * (1 - WGS84_F))
+WGS84_E = sqrt(WGS84_F * (2 - WGS84_F))
+WGS84_N = WGS84_F / (2 - WGS84_F)  # third flattening
 WGS84_R_A = sqrt(WGS84_A**2 / 2 + WGS84_B**2 / 2 * (arctanh(WGS84_E) / WGS84_E))
 R_EM = 6371000  # Earth's mean radius
-
 
 class Ellipsoid(object):
     """
@@ -54,6 +55,7 @@ class Ellipsoid(object):
     - `b` - Minor radius of the ellipsoid in meters.
     - `e` - Eccentricity of the ellipsoid.
     - `f` - Flattening of the ellipsoid.
+    - 'n' - Third flattening of the ellipsoid.
     - `R_A` - Authalic radius of the ellipsoid in meters.
     - `lon_0` - Central meridian.
     - `lat_0` - Latitude of origin.
@@ -73,6 +75,7 @@ class Ellipsoid(object):
         b=None,
         e=None,
         f=WGS84_F,
+        n = None,
         lon_0=0,
         lat_0=0,
         radians=False,
@@ -89,6 +92,7 @@ class Ellipsoid(object):
             self.b = R
             self.e = 0
             self.f = 0
+            self.n = 0
             self.R_A = R
         else:
             self.sphere = False
@@ -96,17 +100,20 @@ class Ellipsoid(object):
             if b is not None:
                 # Derive the other geometric parameters from a and b.
                 self.b = b
-                self.e = sqrt(1 - (b / a) ** 2)
+                self.e = math.sqrt(1 - (b / a) ** 2)
                 self.f = (a - b) / a
+                self.n = (a - b) / (a + b)
             elif e is not None:
                 # Derive the other geometric parameters from a and e.
                 self.e = e
-                self.b = a * sqrt(1 - e**2)
-                self.f = 1 - sqrt(1 - e**2)
+                self.b = a * math.sqrt(1 - e**2)
+                self.f = 1 - math.sqrt(1 - e**2)
+                self.n = (1 - math.sqrt(1 - e**2)) / (1 + math.sqrt(1 - e**2))
             else:
                 self.f = f
                 self.b = self.a * (1 - f)
-                self.e = sqrt(f * (1 - f))
+                self.e = math.sqrt(f * (2 - f))
+                self.n = f / (2 - f)
             self.R_A = auth_rad(self.a, self.e)
         self.phi_0 = auth_lat(arcsin(2.0 / 3), e=self.e, radians=True, inverse=True)
         if not self.radians:

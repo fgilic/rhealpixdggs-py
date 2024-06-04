@@ -58,27 +58,31 @@ def wrap_longitude(lam: float, radians: bool = False) -> float:
     NOTES:: .. Issue #1 was ..
         -3.1415926535897931
 
-        >>> wrap_longitude(-185, radians=False)
+        >>> wrap_longitude(-185.0, radians=False)
         175.0
-        >>> wrap_longitude(-180, radians=False)
+        >>> wrap_longitude(-180.0, radians=False)
         -180.0
-        >>> wrap_longitude(185, radians=False)
+        >>> wrap_longitude(185.0, radians=False)
         -175.0
 
     """
-    if not radians:
-        # Convert to radians.
-        lam = lam * pi / 180
-    if lam < -pi or lam >= pi:
-        result = lam % (2 * pi)
-        if result >= pi:
-            result = result - 2 * pi
+    if radians:
+        if lam < -pi or lam >= pi:
+            result = lam % (2 * pi)
+            if result >= pi:
+                result = result - 2 * pi
+        else:
+            result = lam
+        return result
+
     else:
-        result = lam
-    if not radians:
-        # Convert to degrees.
-        result = result * 180 / pi
-    return result
+        if lam < -180 or lam >= 180:
+            result = lam % (360)
+            if result >= 180:
+                result = result - 360
+        else:
+            result = lam
+        return result
 
 
 def wrap_latitude(phi: float, radians: bool = False) -> float:
@@ -94,33 +98,35 @@ def wrap_latitude(phi: float, radians: bool = False) -> float:
 
     EXAMPLES::
 
-        >>> wrap_latitude(45, radians=False)
+        >>> wrap_latitude(45.0, radians=False)
         45.0
-        >>> wrap_latitude(-45, radians=False)
+        >>> wrap_latitude(-45.0, radians=False)
         -45.0
-        >>> wrap_latitude(90, radians=False)
+        >>> wrap_latitude(90.0, radians=False)
         90.0
-        >>> wrap_latitude(-90, radians=False)
+        >>> wrap_latitude(-90.0, radians=False)
         -90.0
-        >>> wrap_latitude(135, radians=False)
+        >>> wrap_latitude(135.0, radians=False)
         -45.0
-        >>> wrap_latitude(-135, radians=False)
+        >>> wrap_latitude(-135.0, radians=False)
         45.0
 
     """
-    if not radians:
-        # Convert to radians.
-        phi = phi * pi / 180
     # Put phi in range -pi <= phi < pi.
-    phi = wrap_longitude(phi, radians=True)
-    if abs(phi) <= pi / 2:
-        result = phi
+    phi = wrap_longitude(phi, radians=radians)
+
+    if radians:
+        if abs(phi) <= pi / 2:
+            result = phi
+        else:
+            result = phi - copysign(pi, phi)
+        return result
     else:
-        result = phi - copysign(pi, phi)
-    if not radians:
-        # Convert to degrees.
-        result = result * 180 / pi
-    return result
+        if abs(phi) <= 180 / 2:
+            result = phi
+        else:
+            result = phi - copysign(180, phi)
+        return result
 
 
 def auth_lat(
@@ -133,21 +139,18 @@ def auth_lat(
 
     EXAMPLES::
 
-        >>> beta = auth_lat(pi/4, 0.5, radians=True)
-        >>> print(my_round(beta, 15))
+        >>> print(my_round(auth_lat(pi/4, 0.5, radians=True), 15))
         0.68951821243544
 
     NOTES:: .. Issue #1 was ..
         0.689518212435
 
-        >>> print(my_round(auth_lat(beta, 0.5, radians=True, inverse=True), 15))
-        0.785126523581272
+        >>> beta = auth_lat(1, 0.08181919111988805, radians=True)
+        >>> print(my_round(beta, 15))
+        0.997962280319472
 
-    NOTES:: .. Issue #1 was ..
-        0.785126523581
-
-        >>> print(my_round(pi/4, 15))
-        0.785398163397448
+        >>> print(my_round(auth_lat(beta, 0.08181919111988805, radians=True, inverse=True), 15))
+        1.0
 
     NOTES:
 
@@ -155,36 +158,83 @@ def auth_lat(
     standard in cartography (PROJ.4 uses it, for instance)
     and accurate for small eccentricities.
     """
+    # TODO instead of eccentricity e, make this function require third flattening n
     if e == 0:
         return phi
-    if not radians:
-        # Convert to radians to do calculations below.
-        phi = phi * pi / 180
+
+    n = (1 - sqrt(1 - e ** 2)) / (1 + sqrt(1 - e ** 2))
+    f = 1 - sqrt(1 - e ** 2)
+
     if not inverse:
-        # Compute authalic latitude from latitude phi.
-        q = ((1 - e**2) * sin(phi)) / (1 - (e * sin(phi)) ** 2) - (1 - e**2) / (
-            2.0 * e
-        ) * log((1 - e * sin(phi)) / (1 + e * sin(phi)))
-        qp = 1 - (1 - e**2) / (2.0 * e) * log((1.0 - e) / (1.0 + e))
-        ratio = q / qp
-        # Avoid rounding errors.
-        if abs(ratio) > 1:
-            # Make abs(ratio) = 1
-            ratio = copysign(1, ratio)
-        result = asin(ratio)
+        if abs(f) > 1 / 150:
+            if not radians:
+                # Convert to radians to do calculations below.
+                phi = phi * pi / 180
+            # Compute authalic latitude from latitude phi.
+            q = ((1 - e**2) * sin(phi)) / (1 - (e * sin(phi)) ** 2) - (1 - e**2) / (
+                2.0 * e
+            ) * log((1 - e * sin(phi)) / (1 + e * sin(phi)))
+            qp = 1 - (1 - e**2) / (2.0 * e) * log((1.0 - e) / (1.0 + e))
+            ratio = q / qp
+            # Avoid rounding errors.
+            if abs(ratio) > 1:
+                # Make abs(ratio) = 1
+                ratio = copysign(1, ratio)
+            result = asin(ratio)
+            if not radians:
+                result = result * 180 / pi
+            return result
+        else:
+            if radians:
+                authalic_lat = phi + (
+                    (- 4 / 3 * n - 4 / 45 * n ** 2 + 88 / 315 * n ** 3 + 538 / 4725 * n ** 4 + 20824 / 467775 * n ** 5 - 44732 / 2837835 * n ** 6) * sin(2 * phi) +
+                    (34 / 45 * n ** 2 + 8 / 105 * n ** 3 - 2482 / 14175 * n ** 4 - 37192 / 467775 * n ** 5 - 12467764 / 212837625 * n ** 6) * sin(4 * phi) +
+                    (-1532 / 2835 * n ** 3 - 898 / 14175 * n ** 4 + 54968 / 467775 * n ** 5 + 100320856 / 1915538625 * n ** 6) * sin(6 * phi) +
+                    (6007 / 14175 * n ** 4 + 24496 / 467775 * n ** 5 - 5884124 / 70945875 * n ** 6) * sin(8 * phi) +
+                    (-23356 / 66825 * n ** 5 - 839792 / 19348875 * n ** 6) * sin(10 * phi) +
+                    (570284222 / 1915538625 * n ** 6) * sin(12 * phi)
+                )
+                return authalic_lat
+            else:
+                authalic_lat = phi * pi / 180 + (
+                    (- 4 / 3 * n - 4 / 45 * n ** 2 + 88 / 315 * n ** 3 + 538 / 4725 * n ** 4 + 20824 / 467775 * n ** 5 - 44732 / 2837835 * n ** 6) * sin(2 * phi * pi / 180) +
+                    (34 / 45 * n ** 2 + 8 / 105 * n ** 3 - 2482 / 14175 * n ** 4 - 37192 / 467775 * n ** 5 - 12467764 / 212837625 * n ** 6) * sin(4 * phi * pi / 180) +
+                    (-1532 / 2835 * n ** 3 - 898 / 14175 * n ** 4 + 54968 / 467775 * n ** 5 + 100320856 / 1915538625 * n ** 6) * sin(6 * phi * pi / 180) +
+                    (6007 / 14175 * n ** 4 + 24496 / 467775 * n ** 5 - 5884124 / 70945875 * n ** 6) * sin(8 * phi * pi / 180) +
+                    (-23356 / 66825 * n ** 5 - 839792 / 19348875 * n ** 6) * sin(10 * phi * pi / 180) +
+                    (570284222 / 1915538625 * n ** 6) * sin(12 * phi * pi / 180)
+                )
+                return authalic_lat
+
     else:
-        # Compute an approximation of latitude from authalic latitude phi.
-        result = (
-            phi
-            + (e**2 / 3.0 + 31 * e**4 / 180.0 + 517 * e**6 / 5040.0)
-            * sin(2 * phi)
-            + (23 * e**4 / 360.0 + 251 * e**6 / 3780.0) * sin(4 * phi)
-            + (761 * e**6 / 45360.0) * sin(6 * phi)
-        )
-    if not radians:
-        # Convert back to degrees.
-        result = result * 180 / pi
-    return result
+        # # Compute an approximation of latitude from authalic latitude phi.
+        # result = (
+        #     phi
+        #     + (e**2 / 3.0 + 31 * e**4 / 180.0 + 517 * e**6 / 5040.0)
+        #     * sin(2 * phi)
+        #     + (23 * e**4 / 360.0 + 251 * e**6 / 3780.0) * sin(4 * phi)
+        #     + (761 * e**6 / 45360.0) * sin(6 * phi)
+        # )
+        if radians:
+            common_lat = phi + (
+                (4 / 3 * n + 4 / 45 * n ** 2 - 16 / 35 * n ** 3 - 2582 / 14175 * n ** 4 + 60136 / 467775 * n ** 5 + 28112932 / 212837625 * n ** 6) * sin(2 * phi) +
+                (46 / 45 * n ** 2 + 152 / 945 * n ** 3 - 11966 / 14175 * n ** 4 - 21016 / 51975 * n ** 5 + 251310128 / 638512875 * n ** 6) * sin(4 * phi) +
+                (3044 / 2835 * n ** 3 + 3802 / 14175 * n ** 4 - 94388 / 66825 * n ** 5 - 8797648 / 10945935 * n ** 6) * sin(6 * phi) +
+                (6059 / 4725 * n ** 4 + 41072 / 93555 * n ** 5 - 1472637812 / 638512875 * n ** 6) * sin(8 * phi) +
+                (768272 / 467775 * n ** 5 + 455935736 / 638512875 * n ** 6) * sin(10 * phi) +
+                (4210684958 / 1915538625 * n ** 6) * sin(12 * phi)
+            )
+            return common_lat
+        else:
+            common_lat = phi * pi / 180 + (
+                (4 / 3 * n + 4 / 45 * n ** 2 - 16 / 35 * n ** 3 - 2582 / 14175 * n ** 4 + 60136 / 467775 * n ** 5 + 28112932 / 212837625 * n ** 6) * sin(2 * phi * pi /180) +
+                (46 / 45 * n ** 2 + 152 / 945 * n ** 3 - 11966 / 14175 * n ** 4 - 21016 / 51975 * n ** 5 + 251310128 / 638512875 * n ** 6) * sin(4 * phi * pi / 180) +
+                (3044 / 2835 * n ** 3 + 3802 / 14175 * n ** 4 - 94388 / 66825 * n ** 5 - 8797648 / 10945935 * n ** 6) * sin(6 * phi * pi / 180) +
+                (6059 / 4725 * n ** 4 + 41072 / 93555 * n ** 5 - 1472637812 / 638512875 * n ** 6) * sin(8 * phi * pi / 180) +
+                (768272 / 467775 * n ** 5 + 455935736 / 638512875 * n ** 6) * sin(10 * phi * pi / 180) +
+                (4210684958 / 1915538625 * n ** 6) * sin(12 * phi * pi / 180)
+            )
+            return common_lat
 
 
 def auth_rad(a: float, e: float, inverse: bool = False) -> float:
