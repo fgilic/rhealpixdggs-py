@@ -249,7 +249,11 @@ def map_sphere_to_ellips(point_lat_long, return_geographic=True, radians=True):
         return x, y, z
 
 
-square_grid_4 = build_square_grid(4, aperture=4)["level_3"]
+square_grid_0 = build_square_grid(1, aperture=9)["level_0"]
+square_grid_1 = build_square_grid(1, aperture=9)["level_1"]
+square_grid_2 = build_square_grid(2, aperture=9)["level_2"]
+square_grid_3 = build_square_grid(3, aperture=9)["level_3"]
+square_grid_4 = build_square_grid(4, aperture=9)["level_4"]
 
 # # plot sphere
 # la = np.linspace(-np.pi, np.pi, 100)
@@ -273,7 +277,7 @@ z = np.outer(
 s = mlab.mesh(x, y, z, color=(0.5, 0.5, 0.5))
 
 
-for square in square_grid_4:
+for square in square_grid_2:
     x_coords_s, y_coords_s = densify_square(square).boundary.xy
     points_s = list(zip(x_coords_s, y_coords_s))
 
@@ -302,7 +306,7 @@ for square in square_grid_4:
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
     # mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=0.015)
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=120000)
 
     points_3d_c = []
     for point in points_c:
@@ -316,7 +320,7 @@ for square in square_grid_4:
         )
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=120000)
 
     points_3d_c = []
     for point in points_c:
@@ -330,7 +334,7 @@ for square in square_grid_4:
         )
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=120000)
 
     points_3d_c = []
     for point in points_c:
@@ -344,7 +348,7 @@ for square in square_grid_4:
         )
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=120000)
 
     points_3d_c = []
     for point in points_c:
@@ -358,7 +362,7 @@ for square in square_grid_4:
         )
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=120000)
 
     points_3d_c = []
     for point in points_c:
@@ -372,6 +376,115 @@ for square in square_grid_4:
         )
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=100000)
+    mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=120000)
+
+
+for square in square_grid_3:
+    x_coords_s, y_coords_s = densify_square(square).boundary.xy
+    points_s = list(zip(x_coords_s, y_coords_s))
+
+    curved_square = square_to_curved(square)
+    x_coords_c, y_coords_c = curved_square.boundary.xy
+    points_c = list(zip(x_coords_c, y_coords_c))
+
+    # # on sphere
+    # points_3d_s = []
+    # for point in points_s:
+    #     points_3d_s.append(lambert_inverse(point, tangent_plane=(0, 0, 1)))
+    # polygon_3d = Polygon(points_3d_s)
+    # x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+    # mlab.plot3d(x, y, z, color=(0.1, 0.1, 0.8), tube_radius=0.015)
+
+    points_3d_c = []
+    for point in points_c:
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 0, 1)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(0, 0, 1), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
+    polygon_3d = Polygon(points_3d_c)
+    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+    # mlab.plot3d(x, y, z, color=(0.8, 0.1, 0.1), tube_radius=0.015)
+    mlab.plot3d(x, y, z, color=(0.1, 0.8, 0.1), tube_radius=100000)
+
+    points_3d_c = []
+    for point in points_c:
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 0, -1)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(0, 0, -1), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
+    polygon_3d = Polygon(points_3d_c)
+    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+    mlab.plot3d(x, y, z, color=(0.1, 0.8, 0.1), tube_radius=100000)
+
+    points_3d_c = []
+    for point in points_c:
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(1, 0, 0)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(1, 0, 0), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
+    polygon_3d = Polygon(points_3d_c)
+    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+    mlab.plot3d(x, y, z, color=(0.1, 0.8, 0.1), tube_radius=100000)
+
+    points_3d_c = []
+    for point in points_c:
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(-1, 0, 0)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(-1, 0, 0), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
+    polygon_3d = Polygon(points_3d_c)
+    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+    mlab.plot3d(x, y, z, color=(0.1, 0.8, 0.1), tube_radius=100000)
+
+    points_3d_c = []
+    for point in points_c:
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(0, -1, 0)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(0, -1, 0), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
+    polygon_3d = Polygon(points_3d_c)
+    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+    mlab.plot3d(x, y, z, color=(0.1, 0.8, 0.1), tube_radius=100000)
+
+    points_3d_c = []
+    for point in points_c:
+        # points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 1, 0)))
+        points_3d_c.append(
+            map_sphere_to_ellips(
+                lambert_inverse(point, tangent_plane=(0, 1, 0), geographic=True),
+                return_geographic=False,
+                radians=True,
+            )
+        )
+    polygon_3d = Polygon(points_3d_c)
+    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+    mlab.plot3d(x, y, z, color=(0.1, 0.8, 0.1), tube_radius=100000)
+
+
+
+
+
+
+
 
 mlab.show()

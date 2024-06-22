@@ -149,9 +149,9 @@ def lambert_inverse(point_xy, tangent_plane, geographic=False):
 # square_0 = Polygon([(- a / 2, a / 2), (a / 2, a / 2), (a / 2, - a / 2), (- a / 2, - a / 2)])
 
 fig = plt.figure()
-ax_2d = fig.add_subplot(121)
-ax_3d = fig.add_subplot(122, projection='3d')
-square_grid_4 = build_square_grid(4, aperture=4)["level_0"]
+ax_2d = fig.add_subplot()
+# ax_3d = fig.add_subplot(122, projection='3d')
+square_grid_4 = build_square_grid(4, aperture=4)["level_3"]
 
 # plot sphere
 la = np.linspace(-np.pi, np.pi, 100)
@@ -164,7 +164,7 @@ s = mlab.mesh(x, y, z, color = (0.5,0.5,0.5))
 
 
 for square in square_grid_4:
-    ax_2d.plot(*(square).boundary.xy, color="blue")
+    # ax_2d.plot(*(square).boundary.xy, color="black")
     curved_square = square_to_curved(square)
     ax_2d.plot(*curved_square.boundary.xy, color="red")
 
@@ -179,7 +179,7 @@ for square in square_grid_4:
         points_3d_s.append(lambert_inverse(point, tangent_plane=(0, 0, 1)))
     polygon_3d = Polygon(points_3d_s)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    ax_3d.plot3D(x, y, z, 'blue')
+    # ax_3d.plot3D(x, y, z, 'blue')
 
 
     points_3d_c = []
@@ -187,7 +187,7 @@ for square in square_grid_4:
         points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 0, 1)))
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    ax_3d.plot3D(x, y, z, 'red')
+    # ax_3d.plot3D(x, y, z, 'red')
     mlab.plot3d(x, y, z, color=(0,0.8,0.1))
 
 
@@ -199,8 +199,8 @@ for square in square_grid_4:
     for point in points_curve_c1_s:
         points_curve_c1_c.append(map_to_curved(point))
     curve_c1_c = LineString(points_curve_c1_c)
-    ax_2d.plot(*curve_c1_s.coords.xy, color="green")
-    ax_2d.plot(*curve_c1_c.coords.xy, color="black")
+    # ax_2d.plot(*curve_c1_s.coords.xy, color="green")
+    # ax_2d.plot(*curve_c1_c.coords.xy, color="black")
     x_point = ()
     y_point = ()
     z_point = ()
@@ -209,7 +209,7 @@ for square in square_grid_4:
         x_point = x_point + (x,)
         y_point = y_point + (y,)
         z_point = z_point + (z,)
-    ax_3d.plot3D(x_point, y_point, z_point, 'green')
+    # ax_3d.plot3D(x_point, y_point, z_point, 'green')
     x_point = ()
     y_point = ()
     z_point = ()
@@ -218,19 +218,19 @@ for square in square_grid_4:
         x_point = x_point + (x,)
         y_point = y_point + (y,)
         z_point = z_point + (z,)
-    ax_3d.plot3D(x_point, y_point, z_point, 'black', linewidth=3)
+    # ax_3d.plot3D(x_point, y_point, z_point, 'black', linewidth=3)
     ax_2d.set_xlabel("x")
     ax_2d.set_ylabel("y")
-    ax_3d.set_xlabel("x")
-    ax_3d.set_ylabel("y")
-    ax_3d.set_zlabel("z")
+    # ax_3d.set_xlabel("x")
+    # ax_3d.set_ylabel("y")
+    # ax_3d.set_zlabel("z")
 
     points_3d_c = []
     for point in points_c:
         points_3d_c.append(lambert_inverse(point, tangent_plane=(1, 0, 0)))
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    ax_3d.plot3D(x, y, z, 'red')
+    # ax_3d.plot3D(x, y, z, 'red')
     mlab.plot3d(x, y, z, color=(0, 0.8, 0.1))
 
     points_3d_c = []
@@ -238,7 +238,7 @@ for square in square_grid_4:
         points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 1, 0)))
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    ax_3d.plot3D(x, y, z, 'red')
+    # ax_3d.plot3D(x, y, z, 'red')
     mlab.plot3d(x, y, z, color=(0, 0.8, 0.1))
 
     points_3d_c = []
@@ -246,7 +246,7 @@ for square in square_grid_4:
         points_3d_c.append(lambert_inverse(point, tangent_plane=(-1, 0, 0)))
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    ax_3d.plot3D(x, y, z, 'red')
+    # ax_3d.plot3D(x, y, z, 'red')
     mlab.plot3d(x, y, z, color=(0, 0.8, 0.1))
 
     points_3d_c = []
@@ -254,7 +254,7 @@ for square in square_grid_4:
         points_3d_c.append(lambert_inverse(point, tangent_plane=(0, -1, 0)))
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    ax_3d.plot3D(x, y, z, 'red')
+    # ax_3d.plot3D(x, y, z, 'red')
     mlab.plot3d(x, y, z, color=(0, 0.8, 0.1))
 
     points_3d_c = []
@@ -262,7 +262,7 @@ for square in square_grid_4:
         points_3d_c.append(lambert_inverse(point, tangent_plane=(0, 0, -1)))
     polygon_3d = Polygon(points_3d_c)
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    ax_3d.plot3D(x, y, z, 'red')
+    # ax_3d.plot3D(x, y, z, 'red')
     mlab.plot3d(x, y, z, color=(0, 0.8, 0.1))
 
     # points_3d = []
@@ -350,7 +350,7 @@ for square in square_grid_4:
 # ax.plot3D(np.array(xs), np.array(ys), np.array(zs), 'black')
 # ax.plot3D(np.array(xc), np.array(yc), np.array(zc), 'blue')
 
-mlab.show()
+# mlab.show()
 ax_2d.set_aspect('equal')
-ax_3d.set_aspect('equal')
+# ax_3d.set_aspect('equal')
 plt.show()

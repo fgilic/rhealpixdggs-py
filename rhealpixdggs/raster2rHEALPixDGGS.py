@@ -8,6 +8,7 @@ import geopandas as gpd
 import pandas as pd
 from shapely.geometry import mapping
 import time
+import pyogrio
 
 start_time = time.time()
 raster_crs = CRS.from_epsg(32633)
@@ -79,27 +80,47 @@ def write_polygons(cells_polygons, fiona_schema):
             cells_geojson.write(cell)
 
 
-s2_tci, red_band, green_band, blue_band = read_RGB_raster("https://cloud-storage-fg.s3.eu-central-1.amazonaws.com/dggs/raster.tif")
-cells = get_s2_cells(s2_tci)
+# s2_tci, red_band, green_band, blue_band = read_RGB_raster("https://cloud-storage-fg.s3.eu-central-1.amazonaws.com/dggs/raster.tif")
+# cells = get_s2_cells(s2_tci)
+#
+# cell_geometry = []
+# cell_rgba = []
+# for cell_group in cells:
+#     for cell in cell_group:
+#         cell_polygon, row, column = s2_cell_nn(cell)
+#         red, green, blue = get_cell_rgb(row, column, red_band, green_band, blue_band)
+#         cell_geometry.append(cell_polygon)
+#         cell_rgba.append(f"{red},{green},{blue},255")
+#
+# #  write_polygons(cells_polygons, fiona_schema)
+#
+# gdf = gpd.GeoDataFrame(
+#     data={"rgba": cell_rgba, "geometry": cell_geometry}, crs=CRS.from_epsg(4326)
+# )
+#
+# gdf.to_file("cells_s2_13.fgb", engine="pyogrio")
+
+
+E = WGS84_ELLIPSOID
+
+rdggs = RHEALPixDGGS(ellipsoid=E, north_square=1, south_square=2, N_side=3)
+cells = rdggs.cells_from_region(
+    6, (-180, 90), (180, -90), plane=False
+)
 
 cell_geometry = []
-cell_rgba = []
 for cell_group in cells:
     for cell in cell_group:
-        cell_polygon, row, column = s2_cell_nn(cell)
-        red, green, blue = get_cell_rgb(row, column, red_band, green_band, blue_band)
+        vertices = cell.vertices(plane=False)
+        cell_polygon = Polygon([vertices[0], vertices[1], vertices[2], vertices[3]])
         cell_geometry.append(cell_polygon)
-        cell_rgba.append(f"{red},{green},{blue},255")
 
 #  write_polygons(cells_polygons, fiona_schema)
 
 gdf = gpd.GeoDataFrame(
-    data={"rgba": cell_rgba, "geometry": cell_geometry}, crs=CRS.from_epsg(4326)
+    data={"geometry": cell_geometry}, crs=CRS.from_epsg(4326)
 )
-
-gdf.to_file("cells_s2_13.fgb", engine="pyogrio")
-
-
+gdf.to_file("cells_6.fgb", engine="pyogrio")
 
 
 print(f"Elapsed time: {(time.time() - start_time)} s")
