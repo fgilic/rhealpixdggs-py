@@ -4,18 +4,19 @@ import math
 import mpmath as mp
 import numpy as np
 
-# precision to 70 decimal places
+# set precision to 70 decimal places
 mp.mp.dps = 70
 
 
-def auth_lat_mpmath(fi, e2):
+def auth_lat_direct_mpmath(fi, e2):
     fi = mp.mpf(str(fi))
+    e2 = mp.mpf(str(e2))
     return mp.degrees(
         mp.asin(
             (
                 (1 - e2)
                 * (
-                    mp.sin(mp.radians(fi)) / (1 - e2 * (mp.sin(mp.radians(fi))) ** 2)
+                    mp.sin(mp.radians(fi)) / (1 - e2 * mp.power(mp.sin(mp.radians(fi)), 2))
                     - 1
                     / (2 * mp.sqrt(e2))
                     * mp.log(
@@ -59,6 +60,41 @@ def auth_lat_old(phi, e, inverse = False, radians = False):
     if not radians:
         # Convert back to degrees.
         result = np.rad2deg(result)
+    return result
+
+
+def auth_lat_old_mpmath(phi, e, inverse=False, radians=False):
+    phi = mp.mpf(str(phi))
+    e = mp.mpf(str(e))
+    if e == 0:
+        return phi
+    if not radians:
+        # Convert to radians to do calculations below.
+        phi = mp.radians(phi)
+    if not inverse:
+        # Compute authalic latitude from latitude phi.
+        q = ((1 - mp.power(e, 2)) * mp.sin(phi)) / (1 - mp.power(e * mp.sin(phi), 2)) - (1 - mp.power(e, 2)) / (
+            2 * e
+        ) * mp.log((1 - e * mp.sin(phi)) / (1 + e * mp.sin(phi)))
+        qp = 1 - (1 - mp.power(e, 2)) / (2 * e) * mp.log((1 - e) / (1 + e))
+        ratio = q / qp
+        # Avoid rounding errors.
+        if abs(ratio) > 1:
+            # Make abs(ratio) = 1
+            ratio = np.sign(ratio)
+        result = mp.asin(ratio)
+    else:
+        # Compute an approximation of latitude from authalic latitude phi.
+        result = (
+            phi
+            + (mp.power(e, 2) / 3 + 31 * mp.power(e, 4) / 180 + 517 * mp.power(e, 6) / 5040)
+            * mp.sin(2 * phi)
+            + (23 * mp.power(e, 4) / 360 + 251 * mp.power(e, 6) / 3780) * mp.sin(4 * phi)
+            + (761 * mp.power(e, 6) / 45360) * mp.sin(6 * phi)
+        )
+    if not radians:
+        # Convert back to degrees.
+        result = mp.degrees(result)
     return result
 
 
@@ -262,43 +298,251 @@ def auth_lat_new(phi, e, inverse = False, radians = False):
         return common_lat
 
 
+def auth_lat_new_mpmath(phi, e, inverse=False, radians=False):
+    phi = mp.mpf(str(phi))
+    e = mp.mpf(str(e))
+
+    if e == mp.mpf("0"):
+        return phi
+    # Compute flattening f and third flattening n from eccentricity e.
+    f = 1 - mp.sqrt(1 - mp.power(e, 2))
+    n = (1 - mp.sqrt(1 - mp.power(e, 2))) / (1 + mp.sqrt(1 - mp.power(e, 2)))
+
+    if not inverse:
+        # Compute authalic latitude from common latitude phi.
+        # For large flattenings (f > 1/150) use direct formula,
+        # for small flattenings (f <= 1/150) use power series.
+        if abs(f) > 1 / 150:
+            # Use direct formula for large flattenings.
+            if not radians:
+                # Convert to radians to do calculations below.
+                phi = mp.radians(phi)
+            # Compute authalic latitude from latitude phi.
+            q = ((1 - mp.power(e, 2)) * mp.sin(phi)) / (1 - mp.power(e * mp.sin(phi), 2)) - (1 - mp.power(e, 2)) / (
+                2 * e
+            ) * mp.log((1 - e * mp.sin(phi)) / (1 + e * mp.sin(phi)))
+            qp = 1 - (1 - mp.power(e)) / (2 * e) * mp.log((1 - e) / (1 + e))
+            ratio = q / qp
+            # Avoid rounding errors.
+            if abs(ratio) > 1:
+                # Make abs(ratio) = 1
+                ratio = math.copysign(1, ratio)
+            result = mp.asin(ratio)
+            if not radians:
+                result = mp.degrees(result)
+            return result
+        else:
+            # Use power series approximation for small flattenings (f <= 1/150).
+            # Power series expansion taken from https://doi.org/10.48550/arXiv.2212.05818 (Equation A19)
+            if not radians:
+                phi = mp.radians(phi)
+
+            authalic_lat = phi + (
+                n
+                * (
+                    -4 / 3
+                    + n
+                    * (
+                        -4 / 45
+                        + n
+                        * (
+                            88 / 315
+                            + n
+                            * (
+                                538 / 4725
+                                + n * (20824 / 467775 + n * (-44732 / 2837835))
+                            )
+                        )
+                    )
+                )
+                * mp.sin(2 * phi)
+                + n
+                * (
+                    n
+                    * (
+                        34 / 45
+                        + n
+                        * (
+                            8 / 105
+                            + n
+                            * (
+                                -2482 / 14175
+                                + n * (-37192 / 467775 + n * (-12467764 / 212837625))
+                            )
+                        )
+                    )
+                )
+                * mp.sin(4 * phi)
+                + n
+                * (
+                    n
+                    * (
+                        n
+                        * (
+                            -1532 / 2835
+                            + n
+                            * (
+                                -898 / 14175
+                                + n * (54968 / 467775 + n * 100320856 / 1915538625)
+                            )
+                        )
+                    )
+                )
+                * mp.sin(6 * phi)
+                + n
+                * (
+                    n
+                    * (
+                        n
+                        * (
+                            n
+                            * (
+                                6007 / 14175
+                                + n * (24496 / 467775 + n * (-5884124 / 70945875))
+                            )
+                        )
+                    )
+                )
+                * mp.sin(8 * phi)
+                + n
+                * (n * (n * (n * (n * (-23356 / 66825 + n * (-839792 / 19348875))))))
+                * mp.sin(10 * phi)
+                + n
+                * (n * (n * (n * (n * (n * 570284222 / 1915538625)))))
+                * mp.sin(12 * phi)
+            )
+
+            if not radians:
+                authalic_lat = mp.degrees(authalic_lat)
+
+            return authalic_lat
+    else:
+        # Compute common latitude from authalic latitude phi.
+        # Power series expansion taken from https://doi.org/10.48550/arXiv.2212.05818 (Equation A20)
+        if not radians:
+            phi = mp.radians(phi)
+
+        common_lat = phi + (
+            n
+            * (
+                4 / 3
+                + n
+                * (
+                    4 / 45
+                    + n
+                    * (
+                        -16 / 35
+                        + n
+                        * (
+                            -2582 / 14175
+                            + n * (60136 / 467775 + n * 28112932 / 212837625)
+                        )
+                    )
+                )
+            )
+            * mp.sin(2 * phi)
+            + n
+            * (
+                n
+                * (
+                    46 / 45
+                    + n
+                    * (
+                        152 / 945
+                        + n
+                        * (
+                            -11966 / 14175
+                            + n * (-21016 / 51975 + n * 251310128 / 638512875)
+                        )
+                    )
+                )
+            )
+            * mp.sin(4 * phi)
+            + n
+            * (
+                n
+                * (
+                    n
+                    * (
+                        3044 / 2835
+                        + n
+                        * (
+                            3802 / 14175
+                            + n * (-94388 / 66825 + n * (-8797648 / 10945935))
+                        )
+                    )
+                )
+            )
+            * mp.sin(6 * phi)
+            + n
+            * (
+                n
+                * (
+                    n
+                    * (
+                        n
+                        * (
+                            6059 / 4725
+                            + n * (41072 / 93555 + n * (-1472637812 / 638512875))
+                        )
+                    )
+                )
+            )
+            * mp.sin(8 * phi)
+            + n
+            * (n * (n * (n * (n * (768272 / 467775 + n * 455935736 / 638512875)))))
+            * mp.sin(10 * phi)
+            + n * (n * (n * (n * (n * (n * 4210684958 / 1915538625))))) * mp.sin(12 * phi)
+        )
+
+        if not radians:
+            common_lat = mp.degrees(common_lat)
+
+        return common_lat
+
+
 # GRS 80 (EPSG:7019)
-a = mp.mpf("6378137")
-b = mp.mpf("6356752.31414")
-e2 = (a**2 - b**2) / a**2
+# a = mp.mpf("6378137")
+# b = mp.mpf("6356752.31414")
+# eccenricity_2_mp = (a**2 - b**2) / a**2
 # e2 = mp.mpf("0.08181919104281579") ** 2
 
 
 # GRS 80 (EPSG:7019)
 a = 6378137
 b = 6356752.31414
-e = math.sqrt((a**2 - b**2) / a**2)
+eccentricity = math.sqrt((a*a - b*b) / (a*a))
+eccentricity_2 = (a*a - b*b) / (a*a)
 
 
-common_latitudes = [x/10 for x in range(-900,902)]
-auth_latitudes_mpmath = [auth_lat_mpmath(x, e2) for x in common_latitudes]
-auth_latitudes_old = [auth_lat_old(x, e) for x in common_latitudes]
-auth_latitudes_new = [auth_lat_new(x, e) for x in common_latitudes]
+common_latitudes = [x / 10 for x in range(-900, 901)]
 
-auth_latitudes_inverse_old = [auth_lat_old(float(x), e, inverse=True) for x in auth_latitudes_mpmath]
-auth_latitudes_inverse_new = [auth_lat_new(float(x), e, inverse=True) for x in auth_latitudes_mpmath]
-
-with open("results_2.csv", "w", newline="") as csvfile:
+with open("results.csv", "w", newline="") as csvfile:
     csv_writer = csv.writer(csvfile, delimiter=",")
-    csv_writer.writerow(["Common latitude", "Authalic (mpmath)", "Authalic (old code)", "Authalic (new code)",
-                         "Diff. (old - new) E-10", "Diff. (new - mpmath) E-10", "Diff. (old - mpmath)E-10",
-                         "Authalic inverse (old code)", "Authalic inverse (new code)", "Diff. (auth_inv_new - common)E-10",
-                         "Diff. (auth_inv_old - common)E-10"])
-    for i in range(0, len(auth_latitudes_old) - 1):
-        write_list = [common_latitudes[i], str(auth_latitudes_mpmath[i]), auth_latitudes_old[i], auth_latitudes_new[i]]
+    csv_writer.writerow(["Common latitude", "Authalic (direct mpmath)", "Authalic (OLD)", "Authalic (NEW)",
+                         "Diff (auth OLD - auth NEW) E-12", "Diff (auth OLD - auth direct mpmath) E-12",
+                         "Diff (auth NEW - auth direct mpmath) E-12",  "Authalic inverse (OLD)",
+                         "Authalic inverse (NEW)", "Diff (auth inv OLD - auth inv NEW) E-12",
+                         "Diff (auth inv OLD - common) E-12", "Diff (auth inv NEW - common) E-12"])
+    for phi in common_latitudes:
+        auth_latitude_mpmath = auth_lat_direct_mpmath(phi, eccentricity_2)
+        auth_latitude_old = auth_lat_old(phi, eccentricity)
+        auth_latitude_new = auth_lat_new(phi, eccentricity)
 
-        diff_old_new = str((mp.mpf(str(auth_latitudes_old[i])) - mp.mpf(str(auth_latitudes_new[i])))*10000000000)
-        diff_new_mpmath = str((mp.mpf(str(auth_latitudes_new[i])) - auth_latitudes_mpmath[i])*10000000000)
-        diff_old_mpmath = str((mp.mpf(str(auth_latitudes_old[i])) - auth_latitudes_mpmath[i])*10000000000)
+        diff_old_new = str((mp.mpf(str(auth_latitude_old)) - mp.mpf(str(auth_latitude_new))) * 10**12)
+        diff_old_mpmath = str((mp.mpf(str(auth_latitude_old)) - mp.mpf(str(auth_latitude_mpmath))) * 10**12)
+        diff_new_mpmath = str((mp.mpf(str(auth_latitude_new)) - mp.mpf(str(auth_latitude_mpmath))) * 10**12)
 
-        diff_invnew_common = str((mp.mpf(str(auth_latitudes_inverse_new[i])) - mp.mpf(str(common_latitudes[i]))) * 10000000000)
-        diff_invold_common = str((mp.mpf(str(auth_latitudes_inverse_old[i])) - mp.mpf(str(common_latitudes[i])))*10000000000)
+        auth_latitude_inverse_old = auth_lat_old(float(auth_latitude_mpmath), eccentricity, inverse=True)
+        auth_latitude_inverse_new = auth_lat_new(float(auth_latitude_mpmath), eccentricity, inverse=True)
 
-        write_list.extend([diff_old_new, diff_new_mpmath, diff_old_mpmath, auth_latitudes_inverse_old[i], auth_latitudes_inverse_new[i], diff_invnew_common, diff_invold_common])
+        diff_inverse_old_new = str((mp.mpf(str(auth_latitude_inverse_old)) - mp.mpf(str(auth_latitude_inverse_new))) * 10**12)
+        diff_inverse_old_common = str((mp.mpf(str(auth_latitude_inverse_old)) - mp.mpf(str(phi))) * 10**12)
+        diff_inverse_new_common = str((mp.mpf(str(auth_latitude_inverse_new)) - mp.mpf(str(phi))) * 10**12)
+
+        write_list = [phi, auth_latitude_mpmath, auth_latitude_old, auth_latitude_new, diff_old_new, diff_old_mpmath,
+                      diff_new_mpmath, auth_latitude_inverse_old, auth_latitude_inverse_new, diff_inverse_old_new,
+                      diff_inverse_old_common, diff_inverse_new_common]
 
         csv_writer.writerow(write_list)
+
