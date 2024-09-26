@@ -5,12 +5,12 @@ from rhealpixdggs import ellipsoids
 from rhealpixdggs import dggs
 from shapely import Polygon, segmentize
 import geopandas as gpd
-import pyogrio
+import pandas as pd
 from shapely.ops import transform
 from dask.distributed import Client
 
 if __name__ == "__main__":
-    client = Client(processes=True)
+    client = Client(processes=True, n_workers=16)
 
     a_wgs84 = pyproj.list.get_ellps_map()["WGS84"]["a"]
     f_wgs84 = 1 / pyproj.list.get_ellps_map()["WGS84"]["rf"]
@@ -22,16 +22,14 @@ if __name__ == "__main__":
         ellipsoid=wgs84_ellipsoid, N_side=3, north_square=0, south_square=0
     )
 
-    print(f"Number of cells at level 2: {rdggs.num_cells(res_1=2)}")
-    print(f"Cell area at level 2 (plane): {rdggs.cell_area(resolution=2, plane=True)} m2")
+    level = 1
+    print(f"Number of cells at level {level}: {rdggs.num_cells(res_1=level)}")
+    print(f"Cell area at level {level} (plane): {rdggs.cell_area(resolution=level, plane=True)} m2")
     print(
-        f"Cell area at level 2 (ellipsoid): {rdggs.cell_area(resolution=2, plane=False)} m2"
+        f"Cell area at level {level} (ellipsoid): {rdggs.cell_area(resolution=level, plane=False)} m2"
     )
 
-    grid2 = rdggs.grid(2)
-
-    cells_data = []
-
+    grid = rdggs.grid(level)
 
     def func(cell):
         cell_suid = str(cell)
@@ -52,9 +50,9 @@ if __name__ == "__main__":
         cell_vertices = cell.vertices(plane=True)
         cell_polygon = Polygon(cell_vertices)
 
-        # densify cell boundary by factor 10000
+        # densify cell boundary by factor 1200000
         cell_polygon = segmentize(
-            cell_polygon, max_segment_length=cell_polygon.length / 40000
+            cell_polygon, max_segment_length=cell_polygon.length / 1200000
         )
 
         # project densified cell vertices to ellipsoid and construct shapely polygon on ellipsoid
@@ -86,10 +84,41 @@ if __name__ == "__main__":
 
         return cell_data
 
+    # # if input dggs grid is too large to be processed at once, divide it in ten parts and process
+    # # each part individualy (creates 11 output files
+    # grid = list(grid)
+    # n = 0
+    # for i in range(0, len(grid) + 1, int(len(grid) / 10)):
+    #     futures = client.map(func, grid[i:i + int(len(grid) / 10)])
+    #     results = client.gather(futures)
+    #
+    #     gdf = gpd.GeoDataFrame(data=results, geometry="geometry", crs=wgs84_crs)
+    #     gdf.to_file(f"grid-4-44444_ellips-0-5-4_{n}.gpkg", driver="GPKG")
+    #     n += 1
+    #     client.restart()
 
-    futures = client.map(func, list(grid2))
+    # # merge all output files in one (output in FlatGeobuf and in parquet (without geometry)
+    # list_of_files = [f"grid-4-44444_ellips-0-5-4_{x}.gpkg" for x in range(0, 11)]
+    #
+    # numbe_of_rows = 0
+    # dggs = None
+    # for file_name in list_of_files:
+    #     cells = gpd.read_file(file_name, driver="GPKG")
+    #     numbe_of_rows += len(cells.index)
+    #     dggs = pd.concat([dggs,cells])
+    #     print("pass")
+    # print(numbe_of_rows)
+    # print(len(dggs.index))
+    # pd.DataFrame(dggs[["Cell_suid", "Cell_region", "Cell_shape", "Theoretical_area_of_cell", "Cell_nucleus", "Calculated_area_of_cell"]]).to_parquet("grid-4-44444-0-5-4.parquet")
+    # print("done")
+    # dggs.to_file("grid-4-44444-ellips-0-5-4_merged.fgb", driver="FlatGeobuf")
+
+    futures = client.map(func, list(grid))
     results = client.gather(futures)
 
     gdf = gpd.GeoDataFrame(data=results, geometry="geometry", crs=wgs84_crs)
 
-    gdf.to_file("grid-2-10000_ellips-0-5-4.gpkg", driver="GPKG")
+    gdf.to_file("grid_1_0-5-4.fgb", driver="FlatGeobuf")
+
+    pd.DataFrame(gdf[["Cell_suid", "Cell_region", "Cell_shape", "Theoretical_area_of_cell", "Cell_nucleus",
+                           "Calculated_area_of_cell"]]).to_parquet("grid_1_0-5-4.parquet")
