@@ -10,7 +10,7 @@ from shapely.ops import transform
 from dask.distributed import Client
 
 if __name__ == "__main__":
-    client = Client(processes=True)
+    client = Client(processes=True, n_workers=16)
 
     a_wgs84 = pyproj.list.get_ellps_map()["WGS84"]["a"]
     f_wgs84 = 1 / pyproj.list.get_ellps_map()["WGS84"]["rf"]
@@ -22,13 +22,14 @@ if __name__ == "__main__":
         ellipsoid=wgs84_ellipsoid, N_side=3, north_square=0, south_square=0
     )
 
-    print(f"Number of cells at level 2: {rdggs.num_cells(res_1=2)}")
-    print(f"Cell area at level 2 (plane): {rdggs.cell_area(resolution=2, plane=True)} m2")
+    level = 4
+    print(f"Number of cells at level {level}: {rdggs.num_cells(res_1=4)}")
+    print(f"Cell area at level {level} (plane): {rdggs.cell_area(resolution=4, plane=True)} m2")
     print(
-        f"Cell area at level 2 (ellipsoid): {rdggs.cell_area(resolution=2, plane=False)} m2"
+        f"Cell area at level {level} (ellipsoid): {rdggs.cell_area(resolution=4, plane=False)} m2"
     )
 
-    grid2 = rdggs.grid(2)
+    grid = rdggs.grid(level)
 
     cells_data = []
 
@@ -52,9 +53,9 @@ if __name__ == "__main__":
         cell_vertices = cell.vertices(plane=True)
         cell_polygon = Polygon(cell_vertices)
 
-        # densify cell boundary by factor 100000
+        # densify cell boundary by factor 44444
         cell_polygon = segmentize(
-            cell_polygon, max_segment_length=cell_polygon.length / 400000
+            cell_polygon, max_segment_length=cell_polygon.length / 44444
         )
 
         # project densified cell vertices to ellipsoid and construct shapely polygon on ellipsoid
@@ -85,11 +86,13 @@ if __name__ == "__main__":
         cell_data["Calculated_area_of_cell"] = cell_polygon.area
 
         return cell_data
+    grid = list(grid)
+    n = 0
+    for i in range(0, len(grid)+1, int(len(grid)/10)):
+        futures = client.map(func, grid[i:i+int(len(grid)/10)])
+        results = client.gather(futures)
 
-
-    futures = client.map(func, list(grid2))
-    results = client.gather(futures)
-
-    gdf = gpd.GeoDataFrame(data=results, geometry="geometry", crs=wgs84_crs)
-
-    gdf.to_file("grid-2-100000_ellips.gpkg", driver="GPKG")
+        gdf = gpd.GeoDataFrame(data=results, geometry="geometry", crs=wgs84_crs)
+        gdf.to_file(f"grid-4-44444_ellips_{n}.gpkg", driver="GPKG")
+        n += 1
+        client.restart()
