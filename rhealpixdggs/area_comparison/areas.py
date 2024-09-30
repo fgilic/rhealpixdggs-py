@@ -22,11 +22,11 @@ if __name__ == "__main__":
         ellipsoid=wgs84_ellipsoid, N_side=3, north_square=0, south_square=0
     )
 
-    level = 1
+    level = 4
     print(f"Number of cells at level {level}: {rdggs.num_cells(res_1=level)}")
     print(f"Cell area at level {level} (plane): {rdggs.cell_area(resolution=level, plane=True)} m2")
     print(
-        f"Cell area at level {level} (ellipsoid): {rdggs.cell_area(resolution=level, plane=False)} m2"
+        f"Cell area at level {level} (ellipsoid) - error (issue #18): {rdggs.cell_area(resolution=level, plane=False)} m2"
     )
 
     grid = rdggs.grid(level)
@@ -35,7 +35,7 @@ if __name__ == "__main__":
         cell_suid = str(cell)
         cell_region = cell.region()
         cell_shape = cell.ellipsoidal_shape()
-        cell_area_theoretical = cell.area(plane=False)
+        cell_area_theoretical = cell.area(plane=False) # theoretical area is wrong (issue #18)
         cell_nucleus = cell.nucleus(plane=False)
 
         cell_data = {
