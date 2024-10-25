@@ -811,7 +811,7 @@ class RHEALPixDGGS(object):
 
         # Use the column and row SUIDs of c to get the SUID of c.
         for i in range(resolution):
-            suid.append(self.child_order[(int(suid_row[i]), int(suid_col[i]))])
+            suid.append(self.child_order[(int(suid_row[i], N), int(suid_col[i], N))])
         return Cell(self, suid)
 
     def cell_from_region(self, ul, dr, plane=True):
