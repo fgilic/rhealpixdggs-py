@@ -9,14 +9,14 @@ if __name__ == "__main__":
     client = Client(processes=True, n_workers=16)
 
     # cleaning from duplicates (duplicated points on boundaries between strips)
-    # gdf = gpd.read_parquet("nucleus_built-up_raw.parquet")
+    # gdf = gpd.read_parquet("cell_nuclei_built-up_raw.parquet")
     # gdf_clean = gdf.drop_duplicates("suid")
     #
     # print(len(gdf_clean))
     #
-    # gdf_clean.to_parquet("nucleus_built-up_no_duplicates.parquet")
+    # gdf_clean.to_parquet("cell_nuclei_built-up_no_duplicates.parquet")
 
-    points = gpd.read_parquet("nucleus_built-up_no_duplicates.parquet")
+    points = gpd.read_parquet("cell_nuclei_built-up_no_duplicates.parquet")
     polygons = gpd.read_file("Reporting_units.gpkg", crs="EPSG:4326")
     points_list = points.to_dict("records")
     point_groups = np.array_split(points_list, 128)

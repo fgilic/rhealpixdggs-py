@@ -86,7 +86,7 @@ if __name__ == "__main__":
             n += 1
             continue
         gdf = gpd.GeoDataFrame(data=results, geometry="geometry", crs="EPSG:4326")
-        gdf.to_parquet(f"adriatic_strips/nucleus_test_{n}.parquet")
+        gdf.to_parquet(f"adriatic_strips/nuclei_{n}.parquet")
         n += 1
 
-    # TODO merge all files >= nucleus_built-up_raw.parquet
+    # TODO merge all files >= cell_nuclei_built-up_raw.parquet
