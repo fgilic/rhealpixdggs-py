@@ -739,6 +739,11 @@ class RHEALPixDGGS(object):
             >>> c = rdggs.cell_from_point(1, p)
             >>> print(c)
             Q3
+            >>> rdggs = RHEALPixDGGS(N_side=15)
+            >>> p = (80, -20)
+            >>> c = rdggs.cell_from_point(1, p, plane=False)
+            >>> print(c)
+            (Q, 178)
 
         """
         # Get the rectangular coordinates of p.
