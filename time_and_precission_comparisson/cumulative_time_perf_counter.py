@@ -307,67 +307,146 @@ num_points = [180+1, 1080+1,10800+1, 64800+1, 648000+1, 6480000+1]
 
 #########################################START#########################################
 # current numpy
+print("Current NumPy")
 for points in num_points:
     latitudes = np.linspace(-90, 90, points)
 
-    time_start = time.perf_counter()
-    for x in latitudes:
-        auth_lat_current_numpy(phi=x, e=0.08181919084262149, inverse=False, radians=False)
-    time_end = time.perf_counter()
-    time_duration = time_end - time_start
+    if len(latitudes) < 70000:
+        # if less than 70000 input latitudes repeat calculation 1000x and take minimum time
+        cumulative_times_list = []
+        for i in range(1000):
+            time_start = time.perf_counter()
+            for x in latitudes:
+                auth_lat_current_numpy(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+            time_end = time.perf_counter()
+            time_duration = time_end - time_start
+            cumulative_times_list.append(time_duration)
+        time_duration = min(cumulative_times_list)
+    else:
+        time_start = time.perf_counter()
+        for x in latitudes:
+            auth_lat_current_numpy(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+        time_end = time.perf_counter()
+        time_duration = time_end - time_start
     print(f"{points} {time_duration}")
 #
-# # current math
-# for points in num_points:
-#     latitudes = np.linspace(-90, 90, points)
+# current math
+print("\nCurrent math")
+for points in num_points:
+    latitudes = np.linspace(-90, 90, points)
+
+    if len(latitudes) < 70000:
+        # if less than 70000 input latitudes repeat calculation 1000x and take minimum time
+        cumulative_times_list = []
+        for i in range(1000):
+            time_start = time.perf_counter()
+            for x in latitudes:
+                auth_lat_current_math(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+            time_end = time.perf_counter()
+            time_duration = time_end - time_start
+            cumulative_times_list.append(time_duration)
+        time_duration = min(cumulative_times_list)
+    else:
+        time_start = time.perf_counter()
+        for x in latitudes:
+            auth_lat_current_math(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+        time_end = time.perf_counter()
+        time_duration = time_end - time_start
+    print(f"{points} {time_duration}")
 #
-#     time_start = time.perf_counter()
-#     for x in latitudes:
-#         auth_lat_current_math(phi=x, e=0.08181919084262149, inverse=False, radians=False)
-#     time_end = time.perf_counter()
-#     time_duration = time_end - time_start
-#     print(f"{points} {time_duration}")
+# modified
+print("\nModified")
+for points in num_points:
+    latitudes = np.linspace(-90, 90, points)
+
+    if len(latitudes) < 70000:
+        # if less than 70000 input latitudes repeat calculation 1000x and take minimum time
+        cumulative_times_list = []
+        for i in range(1000):
+            time_start = time.perf_counter()
+            for x in latitudes:
+                auth_lat_modified(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+            time_end = time.perf_counter()
+            time_duration = time_end - time_start
+            cumulative_times_list.append(time_duration)
+        time_duration = min(cumulative_times_list)
+    else:
+        time_start = time.perf_counter()
+        for x in latitudes:
+            auth_lat_modified(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+        time_end = time.perf_counter()
+        time_duration = time_end - time_start
+    print(f"{points} {time_duration}")
 #
-# # modified
-# for points in num_points:
-#     latitudes = np.linspace(-90, 90, points)
-#
-#     time_start = time.perf_counter()
-#     for x in latitudes:
-#         auth_lat_modified(phi=x, e=0.08181919084262149, inverse=False, radians=False)
-#     time_end = time.perf_counter()
-#     time_duration = time_end - time_start
-#     print(f"{points} {time_duration}")
-#
-# # current inverse numpy
-# for points in num_points:
-#     latitudes = np.linspace(-90, 90, points)
-#
-#     time_start = time.perf_counter()
-#     for x in latitudes:
-#         auth_lat_current_numpy(phi=x, e=0.08181919084262149, inverse=True, radians=False)
-#     time_end = time.perf_counter()
-#     time_duration = time_end - time_start
-#     print(f"{points} {time_duration}")
-#
-# # current inverse math
-# for points in num_points:
-#     latitudes = np.linspace(-90, 90, points)
-#
-#     time_start = time.perf_counter()
-#     for x in latitudes:
-#         auth_lat_current_math(phi=x, e=0.08181919084262149, inverse=True, radians=False)
-#     time_end = time.perf_counter()
-#     time_duration = time_end - time_start
-#     print(f"{points} {time_duration}")
-#
-# # modified inverse
-# for points in num_points:
-#     latitudes = np.linspace(-90, 90, points)
-#
-#     time_start = time.perf_counter()
-#     for x in latitudes:
-#         auth_lat_modified(phi=x, e=0.08181919084262149, inverse=True, radians=False)
-#     time_end = time.perf_counter()
-#     time_duration = time_end - time_start
-#     print(f"{points} {time_duration}")
+# current inverse numpy
+print("\nCurrent inverse NumPy")
+for points in num_points:
+    latitudes = np.linspace(-90, 90, points)
+
+    if len(latitudes) < 70000:
+        # if less than 70000 input latitudes repeat calculation 1000x and take minimum time
+        cumulative_times_list = []
+        for i in range(1000):
+            time_start = time.perf_counter()
+            for x in latitudes:
+                auth_lat_current_numpy(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+            time_end = time.perf_counter()
+            time_duration = time_end - time_start
+            cumulative_times_list.append(time_duration)
+        time_duration = min(cumulative_times_list)
+    else:
+        time_start = time.perf_counter()
+        for x in latitudes:
+            auth_lat_current_numpy(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+        time_end = time.perf_counter()
+        time_duration = time_end - time_start
+    print(f"{points} {time_duration}")
+
+# current inverse math
+print("\nCurrent inverse math")
+for points in num_points:
+    latitudes = np.linspace(-90, 90, points)
+
+    if len(latitudes) < 70000:
+        # if less than 70000 input latitudes repeat calculation 1000x and take minimum time
+        cumulative_times_list = []
+        for i in range(1000):
+            time_start = time.perf_counter()
+            for x in latitudes:
+                auth_lat_current_math(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+            time_end = time.perf_counter()
+            time_duration = time_end - time_start
+            cumulative_times_list.append(time_duration)
+        time_duration = min(cumulative_times_list)
+    else:
+        time_start = time.perf_counter()
+        for x in latitudes:
+            auth_lat_current_math(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+        time_end = time.perf_counter()
+        time_duration = time_end - time_start
+    print(f"{points} {time_duration}")
+
+
+# modified inverse
+print("\nModified inverse")
+for points in num_points:
+    latitudes = np.linspace(-90, 90, points)
+
+    if len(latitudes) < 70000:
+        # if less than 70000 input latitudes repeat calculation 1000x and take minimum time
+        cumulative_times_list = []
+        for i in range(1000):
+            time_start = time.perf_counter()
+            for x in latitudes:
+                auth_lat_modified(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+            time_end = time.perf_counter()
+            time_duration = time_end - time_start
+            cumulative_times_list.append(time_duration)
+        time_duration = min(cumulative_times_list)
+    else:
+        time_start = time.perf_counter()
+        for x in latitudes:
+            auth_lat_modified(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+        time_end = time.perf_counter()
+        time_duration = time_end - time_start
+    print(f"{points} {time_duration}")
