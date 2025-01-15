@@ -1,5 +1,5 @@
 import timeit
-
+# Ova analiza je u Obsidijanu dokumentirana
 setup1 = "import math"
 
 code1 = """

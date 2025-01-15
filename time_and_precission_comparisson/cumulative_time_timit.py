@@ -1,7 +1,12 @@
-import math, timeit
+import math, time, timeit
 import numpy as np
+import gc
 
+# # disable garbage collector
+# gc.disable()
 
+setup_auth_lat_current_numpy = """
+import numpy as np
 def auth_lat_current_numpy(
     phi: float, e: float, inverse: bool = False, radians: bool = False
 ) -> float:
@@ -35,7 +40,10 @@ def auth_lat_current_numpy(
         # Convert back to degrees.
         result = np.rad2deg(result)
     return result
+"""
 
+setup_auth_lat_current_math = """
+import math
 def auth_lat_current_math(
     phi: float, e: float, inverse: bool = False, radians: bool = False
 ) -> float:
@@ -69,30 +77,11 @@ def auth_lat_current_math(
         # Convert back to degrees.
         result = result * 180 / math.pi
     return result
+"""
 
-
-latitudes = [x for x in range(-90,91)]
-
-for x in latitudes:
-    exec_time = (
-            timeit.timeit(
-                f"auth_lat_old(phi={x}, e=0.08181919104281579, radians=False)", globals=globals(), number=100000)
-    )
-    print(f"{x} {exec_time}")
-
-latitudes = [x*np.pi/180 for x in range(-90,91)]
-
-for x in latitudes:
-    exec_time = (
-            timeit.timeit(
-                f"auth_lat_old(phi={x}, e=0.08181919104281579, radians=True)", globals=globals(), number=100000)
-    )
-    print(f"{x} {exec_time}")
-
-
-def auth_lat_new(
-    phi: float, e: float, inverse: bool = False, radians: bool = False
-) -> float:
+setup_auth_lat_modified = """
+import math
+def auth_lat_modified(phi: float, e: float, inverse: bool = False, radians: bool = False) -> float:
     if e == 0:
         return phi
     # Compute flattening f and third flattening n from eccentricity e.
@@ -290,21 +279,99 @@ def auth_lat_new(
             common_lat = common_lat * 180 / math.pi
 
         return common_lat
+"""
 
-latitudes = [x for x in range(-90,91)]
 
-for x in latitudes:
-    exec_time = (
-            timeit.timeit(
-                f"auth_lat_new(phi={x}, e=0.08181919104281579, radians=False)", globals=globals(), number=100000)
-    )
-    print(f"{x} {exec_time}")
+# for points in num_points:
+#     latitudes = np.linspace(-90, 90, points)
+#     cumulative_time = 0.0
+#     for x in latitudes:
+#         exec_time = (
+#                 timeit.timeit(
+#                     f"auth_lat_new(phi={x}, e=0.08181919104281579, radians=False)", globals=globals(), number=1)
+#         )
+#         cumulative_time += exec_time
+#     print(f"{points} {cumulative_time}")
 
-latitudes = [x*np.pi/180 for x in range(-90,91)]
+# num_points = [180+1, 1800+1,18000+1, 180000+1, 18000000+1]
+num_points = [180+1, 1080+1,10800+1, 64800+1, 648000+1]
 
-for x in latitudes:
-    exec_time = (
-            timeit.timeit(
-                f"auth_lat_new(phi={x}, e=0.08181919104281579, radians=True)", globals=globals(), number=100000)
-    )
-    print(f"{x} {exec_time}")
+# for points in num_points:
+#     latitudes = np.linspace(-90, 90, points)
+#     cumulative_time = 0.0
+#     for x in latitudes:
+#         exec_time = (
+#                 timeit.timeit(
+#                     f"auth_lat_old(phi={x}, e=0.08181919104281579, radians=False)", globals=globals(), number=1)
+#         )
+#         cumulative_time += exec_time
+#     print(f"{points} {cumulative_time}")
+#
+# for points in num_points:
+#     latitudes = np.linspace(-90, 90, points)
+#
+#     time_start = time.perf_counter()
+#     for x in latitudes:
+#         auth_lat_current_numpy(phi=x, e=0.08181919104281579, radians=False)
+#     time_end = time.perf_counter()
+#     time_duration = time_end - time_start
+#     print(f"{points} {time_duration}")
+
+
+##############################START############################################
+# current numpy
+for points in num_points:
+    latitudes = np.linspace(-90, 90, points)
+    cumulative_time = 0
+    for latitude in latitudes:
+        cumulative_time += timeit.timeit(stmt=f"auth_lat_current_numpy(phi={latitude}, e={0.08181919084262149}, inverse=False, radians=False)", setup=setup_auth_lat_current_numpy, number=1)
+
+    print(f"{points} {cumulative_time}")
+
+# # current math
+# for points in num_points:
+#     latitudes = np.linspace(-90, 90, points)
+#     cumulative_time = 0
+#     for latitude in latitudes:
+#         cumulative_time += timeit.timeit(stmt=f"auth_lat_current_math(phi={latitude}, e={0.08181919084262149}, inverse=False, radians=False)", setup=setup_auth_lat_current_math, number=1)
+#
+#     print(f"{points} {cumulative_time}")
+#
+
+# # modified
+# for points in num_points:
+#     latitudes = np.linspace(-90, 90, points)
+#     cumulative_time = 0
+#     for latitude in latitudes:
+#         cumulative_time += timeit.timeit(stmt=f"auth_lat_modified(phi={latitude}, e={0.08181919084262149}, inverse=False, radians=False)", setup=setup_auth_lat_modified, number=1)
+#
+#     print(f"{points} {cumulative_time}")
+
+#
+# # current numpy (inverse)
+# for points in num_points:
+#     latitudes = np.linspace(-90, 90, points)
+#     cumulative_time = 0
+#     for latitude in latitudes:
+#         cumulative_time += timeit.timeit(stmt=f"auth_lat_current_numpy(phi={latitude}, e={0.08181919084262149}, inverse=True, radians=False)", setup=setup_auth_lat_current_numpy, number=1)
+#
+#     print(f"{points} {cumulative_time}")
+
+# # current math (inverse)
+# for points in num_points:
+#     latitudes = np.linspace(-90, 90, points)
+#     cumulative_time = 0
+#     for latitude in latitudes:
+#         cumulative_time += timeit.timeit(stmt=f"auth_lat_current_math(phi={latitude}, e={0.08181919084262149}, inverse=True, radians=False)", setup=setup_auth_lat_current_math, number=1)
+#
+#     print(f"{points} {cumulative_time}")
+#
+
+# # modified (inverse)
+# for points in num_points:
+#     latitudes = np.linspace(-90, 90, points)
+#     cumulative_time = 0
+#     for latitude in latitudes:
+#         cumulative_time += timeit.timeit(stmt=f"auth_lat_modified(phi={latitude}, e={0.08181919084262149}, inverse=True, radians=False)", setup=setup_auth_lat_modified, number=1)
+#
+#     print(f"{points} {cumulative_time}")
