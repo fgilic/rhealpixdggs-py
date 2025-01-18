@@ -2,6 +2,8 @@ import math, timeit
 import numpy as np
 
 
+setup_auth_lat_current_numpy = """
+import numpy as np
 def auth_lat_current_numpy(
     phi: float, e: float, inverse: bool = False, radians: bool = False
 ) -> float:
@@ -35,7 +37,10 @@ def auth_lat_current_numpy(
         # Convert back to degrees.
         result = np.rad2deg(result)
     return result
+"""
 
+setup_auth_lat_current_math = """
+import math
 def auth_lat_current_math(
     phi: float, e: float, inverse: bool = False, radians: bool = False
 ) -> float:
@@ -69,30 +74,11 @@ def auth_lat_current_math(
         # Convert back to degrees.
         result = result * 180 / math.pi
     return result
+"""
 
-
-latitudes = [x for x in range(-90,91)]
-
-for x in latitudes:
-    exec_time = (
-            timeit.timeit(
-                f"auth_lat_old(phi={x}, e=0.08181919104281579, radians=False)", globals=globals(), number=100000)
-    )
-    print(f"{x} {exec_time}")
-
-latitudes = [x*np.pi/180 for x in range(-90,91)]
-
-for x in latitudes:
-    exec_time = (
-            timeit.timeit(
-                f"auth_lat_old(phi={x}, e=0.08181919104281579, radians=True)", globals=globals(), number=100000)
-    )
-    print(f"{x} {exec_time}")
-
-
-def auth_lat_new(
-    phi: float, e: float, inverse: bool = False, radians: bool = False
-) -> float:
+setup_auth_lat_modified = """
+import math
+def auth_lat_modified(phi: float, e: float, inverse: bool = False, radians: bool = False) -> float:
     if e == 0:
         return phi
     # Compute flattening f and third flattening n from eccentricity e.
@@ -290,21 +276,57 @@ def auth_lat_new(
             common_lat = common_lat * 180 / math.pi
 
         return common_lat
+"""
+
 
 latitudes = [x for x in range(-90,91)]
 
+print("Current (NumPy)")
 for x in latitudes:
     exec_time = (
-            timeit.timeit(
-                f"auth_lat_new(phi={x}, e=0.08181919104281579, radians=False)", globals=globals(), number=100000)
+            timeit.repeat(
+                f"auth_lat_current_numpy(phi={x}, e=0.08181919084262149, radians=False, inverse=False)", setup=setup_auth_lat_current_numpy, number=10000, repeat=100)
     )
-    print(f"{x} {exec_time}")
+    print(f"{x} {min(exec_time)/10000}")
 
-latitudes = [x*np.pi/180 for x in range(-90,91)]
 
+
+print("\nCurrent (math)")
 for x in latitudes:
     exec_time = (
-            timeit.timeit(
-                f"auth_lat_new(phi={x}, e=0.08181919104281579, radians=True)", globals=globals(), number=100000)
+            timeit.repeat(
+                f"auth_lat_current_math(phi={x}, e=0.08181919084262149, radians=False, inverse=False)", setup=setup_auth_lat_current_math, number=10000, repeat=100)
     )
-    print(f"{x} {exec_time}")
+    print(f"{x} {min(exec_time)/10000}")
+
+print("\nModified")
+for x in latitudes:
+    exec_time = (
+            timeit.repeat(
+                f"auth_lat_modified(phi={x}, e=0.08181919084262149, radians=False, inverse=False)", setup=setup_auth_lat_modified, number=10000, repeat=100)
+    )
+    print(f"{x} {min(exec_time)/10000}")
+
+print("Current inverse (NumPy)")
+for x in latitudes:
+    exec_time = (
+            timeit.repeat(
+                f"auth_lat_current_numpy(phi={x}, e=0.08181919084262149, radians=False, inverse=True)", setup=setup_auth_lat_current_numpy, number=10000, repeat=100)
+    )
+    print(f"{x} {min(exec_time)/10000}")
+
+print("\nCurrent inverse (math)")
+for x in latitudes:
+    exec_time = (
+            timeit.repeat(
+                f"auth_lat_current_math(phi={x}, e=0.08181919084262149, radians=False, inverse=True)", setup=setup_auth_lat_current_math, number=10000, repeat=100)
+    )
+    print(f"{x} {min(exec_time)/10000}")
+
+print("\nModified inverse")
+for x in latitudes:
+    exec_time = (
+            timeit.repeat(
+                f"auth_lat_modified(phi={x}, e=0.08181919084262149, radians=False, inverse=True)", setup=setup_auth_lat_modified, number=10000, repeat=100)
+    )
+    print(f"{x} {min(exec_time)/10000}")
