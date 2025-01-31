@@ -1,3 +1,16 @@
+# module for calculating errors produced by auth_lat() function (current and modified)
+# for all geodetic latitudes between -90deg and +90deg with 0.1deg step calculates authalic
+# latitude using: (1) direct formula with functions from mpmath library (high precision
+# calculations), (2) direct formula with functions from standard functions with double-precision
+# floating-pont precision modules/libraries (current statements), and (3) using power-series expansion
+# in terms of third eccentricity n up to n^6 (modified statements). Calculates differences
+# (i.e., errors): (2) - (1) and (3) - (1).
+# Invertes authalic latitudes calculated in (1) back to geodetic latitude by: (4) power-series
+# expansion in terms of eccentricity e up to e^6 (current statements) and (5) power-series expansion
+# in terms of third eccentricity n up to n^6 and (modified statements). Calculates differences
+# (i.e., errors): (4) - initial geodetic latitudes and (5) - initial geodetic latitudes.
+# Writes all results to the output CSV file.
+
 import csv
 import math
 

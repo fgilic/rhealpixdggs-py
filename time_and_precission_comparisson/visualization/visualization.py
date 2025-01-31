@@ -1,3 +1,7 @@
+# Module for generating SVG visualizations (world map in Robinson projection)
+# of errors produced by auth_lat() function. Attribute values for lines
+# (i.e., paralels with 0.1deg spacing) in "parallels_6min.geojson" are conversion errors.
+
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import geopandas as gpd

@@ -1,9 +1,18 @@
+# Module for measuring cumulative execution time of current and modified python statements
+# (geodetic to authalic and authalic to geodetic latitude conversions) for different number
+# of input latitudes. Input latitudes are all latitudes from -90deg to +90deg with different
+# steps between them (i.e., resolutions): 1deg, 10', 1', 10", 1" and 0.1".
+# Measures time for current (original and when in original statements NumPy functions
+# are replaced by corresponding math functions) and modified statements.
+# Uses timeit.timeit() to measure execution time.
+
 import math, time, timeit
 import numpy as np
 import gc
 
 # disable garbage collector
 gc.disable()
+
 
 def auth_lat_current_numpy(
     phi: float, e: float, inverse: bool = False, radians: bool = False
@@ -15,9 +24,9 @@ def auth_lat_current_numpy(
         phi = np.deg2rad(phi)
     if not inverse:
         # Compute authalic latitude from latitude phi.
-        q = ((1 - e**2) * np.sin(phi)) / (1 - (e * np.sin(phi)) ** 2) - (1 - e**2) / (
-            2.0 * e
-        ) * np.log((1 - e * np.sin(phi)) / (1 + e * np.sin(phi)))
+        q = ((1 - e**2) * np.sin(phi)) / (1 - (e * np.sin(phi)) ** 2) - (
+            1 - e**2
+        ) / (2.0 * e) * np.log((1 - e * np.sin(phi)) / (1 + e * np.sin(phi)))
         qp = 1 - (1 - e**2) / (2.0 * e) * np.log((1.0 - e) / (1.0 + e))
         ratio = q / qp
         # Avoid rounding errors.
@@ -29,8 +38,7 @@ def auth_lat_current_numpy(
         # Compute an approximation of latitude from authalic latitude phi.
         result = (
             phi
-            + (e**2 / 3.0 + 31 * e**4 / 180.0 + 517 * e**6 / 5040.0)
-            * np.sin(2 * phi)
+            + (e**2 / 3.0 + 31 * e**4 / 180.0 + 517 * e**6 / 5040.0) * np.sin(2 * phi)
             + (23 * e**4 / 360.0 + 251 * e**6 / 3780.0) * np.sin(4 * phi)
             + (761 * e**6 / 45360.0) * np.sin(6 * phi)
         )
@@ -38,6 +46,7 @@ def auth_lat_current_numpy(
         # Convert back to degrees.
         result = np.rad2deg(result)
     return result
+
 
 def auth_lat_current_math(
     phi: float, e: float, inverse: bool = False, radians: bool = False
@@ -49,9 +58,9 @@ def auth_lat_current_math(
         phi = phi * math.pi / 180
     if not inverse:
         # Compute authalic latitude from latitude phi.
-        q = ((1 - e**2) * math.sin(phi)) / (1 - (e * math.sin(phi)) ** 2) - (1 - e**2) / (
-            2.0 * e
-        ) * math.log((1 - e * math.sin(phi)) / (1 + e * math.sin(phi)))
+        q = ((1 - e**2) * math.sin(phi)) / (1 - (e * math.sin(phi)) ** 2) - (
+            1 - e**2
+        ) / (2.0 * e) * math.log((1 - e * math.sin(phi)) / (1 + e * math.sin(phi)))
         qp = 1 - (1 - e**2) / (2.0 * e) * math.log((1.0 - e) / (1.0 + e))
         ratio = q / qp
         # Avoid rounding errors.
@@ -63,8 +72,7 @@ def auth_lat_current_math(
         # Compute an approximation of latitude from authalic latitude phi.
         result = (
             phi
-            + (e**2 / 3.0 + 31 * e**4 / 180.0 + 517 * e**6 / 5040.0)
-            * math.sin(2 * phi)
+            + (e**2 / 3.0 + 31 * e**4 / 180.0 + 517 * e**6 / 5040.0) * math.sin(2 * phi)
             + (23 * e**4 / 360.0 + 251 * e**6 / 3780.0) * math.sin(4 * phi)
             + (761 * e**6 / 45360.0) * math.sin(6 * phi)
         )
@@ -74,7 +82,9 @@ def auth_lat_current_math(
     return result
 
 
-def auth_lat_modified(phi: float, e: float, inverse: bool = False, radians: bool = False) -> float:
+def auth_lat_modified(
+    phi: float, e: float, inverse: bool = False, radians: bool = False
+) -> float:
     if e == 0:
         return phi
     # Compute flattening f and third flattening n from eccentricity e.
@@ -91,9 +101,9 @@ def auth_lat_modified(phi: float, e: float, inverse: bool = False, radians: bool
                 # Convert to radians to do calculations below.
                 phi = phi * math.pi / 180
             # Compute authalic latitude from latitude phi.
-            q = ((1 - e**2) * math.sin(phi)) / (1 - (e * math.sin(phi)) ** 2) - (1 - e**2) / (
-                2.0 * e
-            ) * math.log((1 - e * math.sin(phi)) / (1 + e * math.sin(phi)))
+            q = ((1 - e**2) * math.sin(phi)) / (1 - (e * math.sin(phi)) ** 2) - (
+                1 - e**2
+            ) / (2.0 * e) * math.log((1 - e * math.sin(phi)) / (1 + e * math.sin(phi)))
             qp = 1 - (1 - e**2) / (2.0 * e) * math.log((1.0 - e) / (1.0 + e))
             ratio = q / qp
             # Avoid rounding errors.
@@ -265,7 +275,9 @@ def auth_lat_modified(phi: float, e: float, inverse: bool = False, radians: bool
             + n
             * (n * (n * (n * (n * (768272 / 467775 + n * 455935736 / 638512875)))))
             * math.sin(10 * phi)
-            + n * (n * (n * (n * (n * (n * 4210684958 / 1915538625))))) * math.sin(12 * phi)
+            + n
+            * (n * (n * (n * (n * (n * 4210684958 / 1915538625)))))
+            * math.sin(12 * phi)
         )
 
         if not radians:
@@ -286,10 +298,8 @@ def auth_lat_modified(phi: float, e: float, inverse: bool = False, radians: bool
 #     print(f"{points} {cumulative_time}")
 
 
-
-
 # num_points = [180+1, 1800+1,18000+1, 180000+1, 18000000+1]
-num_points = [180+1, 1080+1,10800+1, 64800+1, 648000+1, 6480000+1]
+num_points = [180 + 1, 1080 + 1, 10800 + 1, 64800 + 1, 648000 + 1, 6480000 + 1]
 
 # for points in num_points:
 #     latitudes = np.linspace(-90, 90, points)
@@ -301,8 +311,6 @@ num_points = [180+1, 1080+1,10800+1, 64800+1, 648000+1, 6480000+1]
 #         )
 #         cumulative_time += exec_time
 #     print(f"{points} {cumulative_time}")
-
-
 
 
 #########################################START#########################################
@@ -317,7 +325,9 @@ for points in num_points:
         for i in range(1000):
             time_start = time.perf_counter()
             for x in latitudes:
-                auth_lat_current_numpy(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+                auth_lat_current_numpy(
+                    phi=x, e=0.08181919084262149, inverse=False, radians=False
+                )
             time_end = time.perf_counter()
             time_duration = time_end - time_start
             cumulative_times_list.append(time_duration)
@@ -325,7 +335,9 @@ for points in num_points:
     else:
         time_start = time.perf_counter()
         for x in latitudes:
-            auth_lat_current_numpy(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+            auth_lat_current_numpy(
+                phi=x, e=0.08181919084262149, inverse=False, radians=False
+            )
         time_end = time.perf_counter()
         time_duration = time_end - time_start
     print(f"{points} {time_duration}")
@@ -341,7 +353,9 @@ for points in num_points:
         for i in range(1000):
             time_start = time.perf_counter()
             for x in latitudes:
-                auth_lat_current_math(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+                auth_lat_current_math(
+                    phi=x, e=0.08181919084262149, inverse=False, radians=False
+                )
             time_end = time.perf_counter()
             time_duration = time_end - time_start
             cumulative_times_list.append(time_duration)
@@ -349,7 +363,9 @@ for points in num_points:
     else:
         time_start = time.perf_counter()
         for x in latitudes:
-            auth_lat_current_math(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+            auth_lat_current_math(
+                phi=x, e=0.08181919084262149, inverse=False, radians=False
+            )
         time_end = time.perf_counter()
         time_duration = time_end - time_start
     print(f"{points} {time_duration}")
@@ -365,7 +381,9 @@ for points in num_points:
         for i in range(1000):
             time_start = time.perf_counter()
             for x in latitudes:
-                auth_lat_modified(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+                auth_lat_modified(
+                    phi=x, e=0.08181919084262149, inverse=False, radians=False
+                )
             time_end = time.perf_counter()
             time_duration = time_end - time_start
             cumulative_times_list.append(time_duration)
@@ -373,7 +391,9 @@ for points in num_points:
     else:
         time_start = time.perf_counter()
         for x in latitudes:
-            auth_lat_modified(phi=x, e=0.08181919084262149, inverse=False, radians=False)
+            auth_lat_modified(
+                phi=x, e=0.08181919084262149, inverse=False, radians=False
+            )
         time_end = time.perf_counter()
         time_duration = time_end - time_start
     print(f"{points} {time_duration}")
@@ -389,7 +409,9 @@ for points in num_points:
         for i in range(1000):
             time_start = time.perf_counter()
             for x in latitudes:
-                auth_lat_current_numpy(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+                auth_lat_current_numpy(
+                    phi=x, e=0.08181919084262149, inverse=True, radians=False
+                )
             time_end = time.perf_counter()
             time_duration = time_end - time_start
             cumulative_times_list.append(time_duration)
@@ -397,7 +419,9 @@ for points in num_points:
     else:
         time_start = time.perf_counter()
         for x in latitudes:
-            auth_lat_current_numpy(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+            auth_lat_current_numpy(
+                phi=x, e=0.08181919084262149, inverse=True, radians=False
+            )
         time_end = time.perf_counter()
         time_duration = time_end - time_start
     print(f"{points} {time_duration}")
@@ -413,7 +437,9 @@ for points in num_points:
         for i in range(1000):
             time_start = time.perf_counter()
             for x in latitudes:
-                auth_lat_current_math(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+                auth_lat_current_math(
+                    phi=x, e=0.08181919084262149, inverse=True, radians=False
+                )
             time_end = time.perf_counter()
             time_duration = time_end - time_start
             cumulative_times_list.append(time_duration)
@@ -421,7 +447,9 @@ for points in num_points:
     else:
         time_start = time.perf_counter()
         for x in latitudes:
-            auth_lat_current_math(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+            auth_lat_current_math(
+                phi=x, e=0.08181919084262149, inverse=True, radians=False
+            )
         time_end = time.perf_counter()
         time_duration = time_end - time_start
     print(f"{points} {time_duration}")
@@ -438,7 +466,9 @@ for points in num_points:
         for i in range(1000):
             time_start = time.perf_counter()
             for x in latitudes:
-                auth_lat_modified(phi=x, e=0.08181919084262149, inverse=True, radians=False)
+                auth_lat_modified(
+                    phi=x, e=0.08181919084262149, inverse=True, radians=False
+                )
             time_end = time.perf_counter()
             time_duration = time_end - time_start
             cumulative_times_list.append(time_duration)

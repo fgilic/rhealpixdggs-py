@@ -1,3 +1,9 @@
+# Module for measuring execution time for converting authalic to geodetic latitude
+# and vice versa. Measures time for all latitudes between -90deg and +90deg for each 1deg.
+# Measures time for current (original and when in original statements NumPy functions
+# are replaced by corresponding math functions) and modified statements.
+# Uses timeit.timeit() to measure execution time.
+
 import math, timeit
 import numpy as np
 
@@ -279,54 +285,65 @@ def auth_lat_modified(phi: float, e: float, inverse: bool = False, radians: bool
 """
 
 
-latitudes = [x for x in range(-90,91)]
+latitudes = [x for x in range(-90, 91)]
 
 print("Current (NumPy)")
 for x in latitudes:
-    exec_time = (
-            timeit.repeat(
-                f"auth_lat_current_numpy(phi={x}, e=0.08181919084262149, radians=False, inverse=False)", setup=setup_auth_lat_current_numpy, number=10000, repeat=100)
+    exec_time = timeit.repeat(
+        f"auth_lat_current_numpy(phi={x}, e=0.08181919084262149, radians=False, inverse=False)",
+        setup=setup_auth_lat_current_numpy,
+        number=10000,
+        repeat=100,
     )
     print(f"{x} {min(exec_time)/10000}")
 
 
-
 print("\nCurrent (math)")
 for x in latitudes:
-    exec_time = (
-            timeit.repeat(
-                f"auth_lat_current_math(phi={x}, e=0.08181919084262149, radians=False, inverse=False)", setup=setup_auth_lat_current_math, number=10000, repeat=100)
+    exec_time = timeit.repeat(
+        f"auth_lat_current_math(phi={x}, e=0.08181919084262149, radians=False, inverse=False)",
+        setup=setup_auth_lat_current_math,
+        number=10000,
+        repeat=100,
     )
     print(f"{x} {min(exec_time)/10000}")
 
 print("\nModified")
 for x in latitudes:
-    exec_time = (
-            timeit.repeat(
-                f"auth_lat_modified(phi={x}, e=0.08181919084262149, radians=False, inverse=False)", setup=setup_auth_lat_modified, number=10000, repeat=100)
+    exec_time = timeit.repeat(
+        f"auth_lat_modified(phi={x}, e=0.08181919084262149, radians=False, inverse=False)",
+        setup=setup_auth_lat_modified,
+        number=10000,
+        repeat=100,
     )
     print(f"{x} {min(exec_time)/10000}")
 
 print("Current inverse (NumPy)")
 for x in latitudes:
-    exec_time = (
-            timeit.repeat(
-                f"auth_lat_current_numpy(phi={x}, e=0.08181919084262149, radians=False, inverse=True)", setup=setup_auth_lat_current_numpy, number=10000, repeat=100)
+    exec_time = timeit.repeat(
+        f"auth_lat_current_numpy(phi={x}, e=0.08181919084262149, radians=False, inverse=True)",
+        setup=setup_auth_lat_current_numpy,
+        number=10000,
+        repeat=100,
     )
     print(f"{x} {min(exec_time)/10000}")
 
 print("\nCurrent inverse (math)")
 for x in latitudes:
-    exec_time = (
-            timeit.repeat(
-                f"auth_lat_current_math(phi={x}, e=0.08181919084262149, radians=False, inverse=True)", setup=setup_auth_lat_current_math, number=10000, repeat=100)
+    exec_time = timeit.repeat(
+        f"auth_lat_current_math(phi={x}, e=0.08181919084262149, radians=False, inverse=True)",
+        setup=setup_auth_lat_current_math,
+        number=10000,
+        repeat=100,
     )
     print(f"{x} {min(exec_time)/10000}")
 
 print("\nModified inverse")
 for x in latitudes:
-    exec_time = (
-            timeit.repeat(
-                f"auth_lat_modified(phi={x}, e=0.08181919084262149, radians=False, inverse=True)", setup=setup_auth_lat_modified, number=10000, repeat=100)
+    exec_time = timeit.repeat(
+        f"auth_lat_modified(phi={x}, e=0.08181919084262149, radians=False, inverse=True)",
+        setup=setup_auth_lat_modified,
+        number=10000,
+        repeat=100,
     )
     print(f"{x} {min(exec_time)/10000}")

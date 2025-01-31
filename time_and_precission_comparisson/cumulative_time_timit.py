@@ -1,3 +1,11 @@
+# Module for measuring cumulative execution time of current and modified python statements
+# (geodetic to authalic and authalic to geodetic latitude conversions) for different number
+# of input latitudes. Input latitudes are all latitudes from -90deg to +90deg with different
+# steps between them (i.e., resolutions): 1deg, 10', 1', 10", and 1".
+# Measures time for current (original and when in original statements NumPy functions
+# are replaced by corresponding math functions) and modified statements.
+# Uses timeit.timeit() to measure execution time.
+
 import math, time, timeit
 import numpy as np
 import gc
@@ -294,7 +302,7 @@ def auth_lat_modified(phi: float, e: float, inverse: bool = False, radians: bool
 #     print(f"{points} {cumulative_time}")
 
 # num_points = [180+1, 1800+1,18000+1, 180000+1, 18000000+1]
-num_points = [180+1, 1080+1,10800+1, 64800+1, 648000+1]
+num_points = [180 + 1, 1080 + 1, 10800 + 1, 64800 + 1, 648000 + 1]
 
 # for points in num_points:
 #     latitudes = np.linspace(-90, 90, points)
@@ -324,7 +332,11 @@ for points in num_points:
     latitudes = np.linspace(-90, 90, points)
     cumulative_time = 0
     for latitude in latitudes:
-        cumulative_time += timeit.timeit(stmt=f"auth_lat_current_numpy(phi={latitude}, e={0.08181919084262149}, inverse=False, radians=False)", setup=setup_auth_lat_current_numpy, number=1)
+        cumulative_time += timeit.timeit(
+            stmt=f"auth_lat_current_numpy(phi={latitude}, e={0.08181919084262149}, inverse=False, radians=False)",
+            setup=setup_auth_lat_current_numpy,
+            number=1,
+        )
 
     print(f"{points} {cumulative_time}")
 
