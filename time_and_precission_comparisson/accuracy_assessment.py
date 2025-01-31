@@ -8,29 +8,29 @@ import numpy as np
 mp.mp.dps = 70
 
 
-def auth_lat_direct_mpmath(fi, e2):
+def auth_lat_direct_mpmath(fi, e):
     fi = mp.mpf(str(fi))
-    e2 = mp.mpf(str(e2))
+    e = mp.mpf(str(e))
     return mp.degrees(
         mp.asin(
             (
-                (1 - e2)
+                (1 - mp.power(e, 2))
                 * (
                     mp.sin(mp.radians(fi))
-                    / (1 - e2 * mp.power(mp.sin(mp.radians(fi)), 2))
+                    / (1 - mp.power(e, 2) * mp.power(mp.sin(mp.radians(fi)), 2))
                     - 1
-                    / (2 * mp.sqrt(e2))
+                    / (2 * mp.sqrt(mp.power(e, 2)))
                     * mp.log(
-                        (1 - mp.sqrt(e2) * mp.sin(mp.radians(fi)))
-                        / (1 + mp.sqrt(e2) * mp.sin(mp.radians(fi)))
+                        (1 - mp.sqrt(mp.power(e, 2)) * mp.sin(mp.radians(fi)))
+                        / (1 + mp.sqrt(mp.power(e, 2)) * mp.sin(mp.radians(fi)))
                     )
                 )
             )
             / (
                 1
-                - (1 - e2)
-                / (2 * mp.sqrt(e2))
-                * mp.log((1 - mp.sqrt(e2)) / (1 + mp.sqrt(e2)))
+                - (1 - mp.power(e, 2))
+                / (2 * mp.sqrt(mp.power(e, 2)))
+                * mp.log((1 - mp.sqrt(mp.power(e, 2))) / (1 + mp.sqrt(mp.power(e, 2))))
             )
         )
     )
@@ -522,7 +522,6 @@ def auth_lat_new_mpmath(phi, e, inverse=False, radians=False):
 # WGS 84 (EPSG:7030)
 # https://epsg.org/ellipsoid_7030/WGS-84.html
 eccentricity = 0.08181919084262149
-eccentricity_2 = 0.006694379990141316
 
 
 common_latitudes = [x / 10 for x in range(-900, 901)]
@@ -546,7 +545,7 @@ with open("accuracy_results.csv", "w", newline="") as csvfile:
         ]
     )
     for phi in common_latitudes:
-        auth_latitude_mpmath = auth_lat_direct_mpmath(phi, eccentricity_2)
+        auth_latitude_mpmath = auth_lat_direct_mpmath(phi, eccentricity)
         auth_latitude_old = auth_lat_old(phi, eccentricity)
         auth_latitude_new = auth_lat_new(phi, eccentricity)
 
