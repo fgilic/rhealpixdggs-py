@@ -12,7 +12,7 @@ fig = plt.figure(figsize=(20, 10), frameon=False)
 ax = fig.add_subplot(1, 1, 1, projection=ccrs.Robinson())
 # ax.axis("off")
 ax.set_global()
-ax.coastlines(linewidth=1.5)
+ax.coastlines(linewidth=1.75)
 # ax.stock_img()
 
 grid_gdf = gpd.read_file("grid_30deg.geojson")
@@ -45,30 +45,46 @@ vmin = old_new_concat.min()
 vmax = old_new_concat.max()
 # values in (value, color) defined by bin edges with Quantiles, 6 bins
 # mapclassify.classify(old_new_concat, scheme="Quantiles", k=6)
-# 0, 0.00122, 0.00348, 0.00737, 0.01384, 0.02910, 5.86490
+# 0, 0.0013390670000000004, 0.003919687, 0.007541177, 0.014841380000000038, 0.03943446300000004, 8.869908902
 # and normalized from 0.0 to 1.0
 cmap = mpl.colors.LinearSegmentedColormap.from_list(
     N=50000000,
     name="geodetic-auth",
     colors=[
         (0, "#006837"),
-        (0.000208, "#4bb05c"),
-        (0.000593, "#b7e075"),
-        (0.001257, "#fffebe"),
-        (0.002360, "#fdbf6f"),
-        (0.004962, "#ea5739"),
+        (0.000150967, "#4bb05c"),
+        (0.000441908, "#b7e075"),
+        (0.000850198, "#fffebe"),
+        (0.001673228, "#fdbf6f"),
+        (0.00444587, "#ea5739"),
         (1, "#a50026"),
     ],
 )
 
 # # plot errors obtained by current statements (geodetic -> authalic)
-# paralels_gdf.iloc[:-1].plot(ax=ax, linewidth=0.35, column="ABS Diff (auth OLD - auth direct mpmath) E-12",
-#                             cmap=cmap, zorder=1, legend=True, vmin=vmin, vmax=vmax)
+# paralels_gdf.iloc[:-1].plot(
+#     ax=ax,
+#     linewidth=0.35,
+#     column="ABS Diff (auth OLD - auth direct mpmath) E-12",
+#     cmap=cmap,
+#     zorder=1,
+#     legend=True,
+#     vmin=vmin,
+#     vmax=vmax,
+# )
 # plt.savefig("geodetic-authalic_current.svg")
 
 # # plot errors obtained by modified statements (geodetic -> authalic)
-# paralels_gdf.iloc[:-1].plot(ax=ax, linewidth=0.35, column="ABS Diff (auth NEW - auth direct mpmath) E-12",
-#                             cmap=cmap, zorder=1, legend=True, vmin=vmin, vmax=vmax)
+# paralels_gdf.iloc[:-1].plot(
+#     ax=ax,
+#     linewidth=0.35,
+#     column="ABS Diff (auth NEW - auth direct mpmath) E-12",
+#     cmap=cmap,
+#     zorder=1,
+#     legend=True,
+#     vmin=vmin,
+#     vmax=vmax,
+# )
 # plt.savefig("geodetic-authalic_modified.svg")
 
 
@@ -81,20 +97,20 @@ old_new_concat = pd.concat(
 )
 vmin = old_new_concat.min()
 vmax = old_new_concat.max()
-# values in (value, color) defined by bin edges with Quantiles, 7 bins
-# mapclassify.classify(old_new_concat, scheme="Quantiles", k=7)
-# 0, 1e-03, 1e-02, 5.9933e+02, 2.336457e+03, 9.36728e+03
+# values in (value, color) defined by bin edges with Quantiles, 6 bins
+# mapclassify.classify(old_new_concat, scheme="Quantiles", k=6)
+# 0, 0, 0.004000, 0.030000, 1405.600000, 7976.770000, 14201.336000
 # and normalized from 0.0 to 1.0
 cmap = mpl.colors.LinearSegmentedColormap.from_list(
     N=50000000,
     name="auth-geodetic",
     colors=[
         (0, "#006837"),
-        (7.0416e-08, "#4bb05c"),
-        (7.0416e-07, "#b7e075"),
-        (4.2202e-02, "#fffebe"),
-        (1.6452e-01, "#fdbf6f"),
-        (6.5961e-01, "#ea5739"),
+        (0, "#4bb05c"),
+        (2.82e-07, "#b7e075"),
+        (2.11e-06, "#fffebe"),
+        (0.098977, "#fdbf6f"),
+        (0.561692, "#ea5739"),
         (1, "#a50026"),
     ],
 )
