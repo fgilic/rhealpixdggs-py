@@ -191,6 +191,13 @@ def lambert_inverse(point_xy, tangent_plane, geographic=False, radians=True):
         y_sphere = math.sqrt(1 - (x**2 + y**2) / 4) * y
         z_sphere = -(1 - (x**2 + y**2) / 2)
 
+    # rotate by 45deg around z axis
+    rotation_matrix = np.array(
+        [[math.cos(math.pi / 4), -math.sin(math.pi / 4), 0], [math.sin(math.pi / 4), math.cos(math.pi / 4), 0],
+         [0, 0, 1]])
+    vector = np.array([x_sphere, y_sphere, z_sphere])
+    x_sphere, y_sphere, z_sphere = np.matmul(rotation_matrix, vector)
+
     if not geographic:
         return (x_sphere, y_sphere, z_sphere)
     else:
