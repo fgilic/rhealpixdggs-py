@@ -9,13 +9,13 @@ import pyproj
 import shapely
 import geopandas as gpd
 
-n_side = 3
-projection = "aea"  # "aea" or "laea"
+n_side = 2
+projection = "laea"  # "aea" or "laea"
 exponent_for_segmentation = 18
 
 # points = [(20,1), (20,20), (20,41), (0, 42), (0, 60), (0, 85), (20,42), (20,60), (20,85)]
 
-cells_for_nside_3 = [
+cell_suids_for_nside_3 = [
     "Q35303300000030333",
     "Q08036306033006603",
     "Q02006060306633306",
@@ -26,7 +26,7 @@ cells_for_nside_3 = [
     "N23368146038840072",
     "N44202532308475755",
 ]
-cells_for_nside_2 = [
+cell_suids_for_nside_2 = [
     "Q023332003130203110001132003",
     "Q003332203112023312203312001",
     "Q001110201312203330221132003",
@@ -76,16 +76,20 @@ resolution = []
 if n_side == 3:
     rdggs = rdggs_003
     max_resolution = max_resolution_3
-    cell_suids = cells_for_nside_3
+    cell_suids = cell_suids_for_nside_3
 elif n_side == 2:
     rdggs = rdggs_002
     max_resolution = max_resolution_2
-    cell_suids = cells_for_nside_2
+    cell_suids = cell_suids_for_nside_2
 
-for cell_suid in cell_suids:
+for suid in cell_suids:
     # cell = rdggs.cell_from_point(resolution=cell_resolution, p=point, plane=False)
-    while len(cell_suid) > 0:
-        cell = rdggs.cell(tuple(cell_suid))
+    while len(suid) > 0:
+        suid_initial = list(suid)
+        suid = [suid_initial[0]]
+        for item in suid_initial[1:]:
+            suid.append(int(item))
+        cell = rdggs.cell(tuple(suid))
         cell_suid.append(str(cell))
         cell_region.append(cell.region())
         ellipsoidal_shape.append(cell.ellipsoidal_shape())
@@ -142,19 +146,19 @@ for cell_suid in cell_suids:
                 always_xy=True,
                 allow_ballpark=False,
             )
-            cell_suid = cell_suid[:-1]
 
-    cell_calculated_area = shapely.ops.transform(
-        transformer.transform, Polygon(boundary)
-    ).area
-    calculated_area.append(cell_calculated_area)
-    area_error = cell_theoretical_area - cell_calculated_area
-    error.append(area_error)
+        cell_calculated_area = shapely.ops.transform(
+            transformer.transform, Polygon(boundary)
+        ).area
+        calculated_area.append(cell_calculated_area)
+        area_error = cell_theoretical_area - cell_calculated_area
+        error.append(area_error)
 
-    print(str(cell), area_error)
+        print(str(cell), area_error)
 
-    boundary_lq = Polygon(cell.boundary(n=10, plane=False))
-    geometry.append(boundary_lq)
+        boundary_lq = Polygon(cell.boundary(n=10, plane=False))
+        geometry.append(boundary_lq)
+        suid = suid[:-1]
 
 gdf = gpd.GeoDataFrame(
     {
