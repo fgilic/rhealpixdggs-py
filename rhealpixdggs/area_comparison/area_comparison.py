@@ -108,71 +108,72 @@ for suid in cell_suids:
         cell_resolution = cell.resolution
         resolution.append(cell_resolution)
 
-        if cell_ellipsoidal_shape == "cap":
-            # Errors in cell area calculation because of approximation of boundary by intermediate points is largest
-            # for cap cells, therefore, area for cap cells is calculated by analytical formula from the bounding
-            # phi of the cap cell.
-            # Formula from Rapp 1991 (p. 42) https://kb.osu.edu/items/5cfd1585-a92a-5933-9469-366a5d6b6894
-            # For quad cells in equatorial region, area could also be calculated in a similar way, but since
-            # it is not as simple for dart and skew quad cells, we decided to calculate only cap cell area
-            # from analytical formula.
-            # Cap cell is bounded by one parallel and therefore accuracy of its calculation directly influences
-            # accuracy of areacalculation.
-            phi = cell.nw_vertex(plane=False)[1] * math.pi / 180.0
-            cell_calculated_area = math.pi * cell.ellipsoid.b**2 * (1 / (1 - cell.ellipsoid.e**2) + 1 / (2 * cell.ellipsoid.e) * math.log((1 + cell.ellipsoid.e) / (1 - cell.ellipsoid.e))) - math.pi * cell.ellipsoid.b**2 * (math.sin(phi) / (1 - cell.ellipsoid.e**2 * (math.sin(phi))**2) + 1 / (2*cell.ellipsoid.e) * math.log((1 + cell.ellipsoid.e * math.sin(phi))/(1 - cell.ellipsoid.e * math.sin(phi))))
-            calculated_area.append(cell_calculated_area)
+        # it turned out commented part below is not needed
+        # if cell_ellipsoidal_shape == "cap":
+        #     # Errors in cell area calculation because of approximation of boundary by intermediate points is largest
+        #     # for cap cells, therefore, area for cap cells is calculated by analytical formula from the bounding
+        #     # phi of the cap cell.
+        #     # Formula from Rapp 1991 (p. 42) https://kb.osu.edu/items/5cfd1585-a92a-5933-9469-366a5d6b6894
+        #     # For quad cells in equatorial region, area could also be calculated in a similar way, but since
+        #     # it is not as simple for dart and skew quad cells, we decided to calculate only cap cell area
+        #     # from analytical formula.
+        #     # Cap cell is bounded by one parallel and therefore accuracy of its calculation directly influences
+        #     # accuracy of area calculation.
+        #     phi = cell.nw_vertex(plane=False)[1] * math.pi / 180.0
+        #     cell_calculated_area = math.pi * cell.ellipsoid.b**2 * (1 / (1 - cell.ellipsoid.e**2) + 1 / (2 * cell.ellipsoid.e) * math.log((1 + cell.ellipsoid.e) / (1 - cell.ellipsoid.e))) - math.pi * cell.ellipsoid.b**2 * (math.sin(phi) / (1 - cell.ellipsoid.e**2 * (math.sin(phi))**2) + 1 / (2*cell.ellipsoid.e) * math.log((1 + cell.ellipsoid.e * math.sin(phi))/(1 - cell.ellipsoid.e * math.sin(phi))))
+        #     calculated_area.append(cell_calculated_area)
+        # else:
+        if cell_resolution == 0:
+            n = 2**exponent_for_segmentation
         else:
-            if cell_resolution == 0:
-                n = 2**exponent_for_segmentation
-            else:
-                n = int(2**exponent_for_segmentation / (n_side * cell_resolution))
-            boundary = cell.boundary(n=n, plane=False)
+            n = int(2**exponent_for_segmentation / (n_side * cell_resolution))
+        boundary = cell.boundary(n=n, plane=False)
 
-            if projection == "laea":
-                laea_conversion = LambertAzimuthalEqualAreaConversion(
-                    latitude_natural_origin=cell_nucleus[1],
-                    longitude_natural_origin=cell_nucleus[0],
-                )
-                wgs84_laea = pyproj.crs.ProjectedCRS(
-                    conversion=laea_conversion, geodetic_crs=wgs84_crs
-                )
+        if projection == "laea":
+            laea_conversion = LambertAzimuthalEqualAreaConversion(
+                latitude_natural_origin=cell_nucleus[1],
+                longitude_natural_origin=cell_nucleus[0],
+            )
+            wgs84_laea = pyproj.crs.ProjectedCRS(
+                conversion=laea_conversion, geodetic_crs=wgs84_crs
+            )
 
-                transformer = pyproj.Transformer.from_crs(
-                    crs_from=wgs84_crs,
-                    crs_to=wgs84_laea,
-                    always_xy=True,
-                    allow_ballpark=False,
-                )
+            transformer = pyproj.Transformer.from_crs(
+                crs_from=wgs84_crs,
+                crs_to=wgs84_laea,
+                always_xy=True,
+                allow_ballpark=False,
+            )
 
-            elif projection == "aea":
-                if -0.000001 < cell_nucleus[1] < 0.000001:
-                    if cell_nucleus[1] >= 0:
-                        cell_nucleus = (cell_nucleus[0], 0.01)
-                    else:
-                        cell_nucleus = (cell_nucleus[0], -0.01)
+        elif projection == "aea":
+            if -0.000001 < cell_nucleus[1] < 0.000001:
+                if cell_nucleus[1] >= 0:
+                    cell_nucleus = (cell_nucleus[0], 0.01)
+                else:
+                    cell_nucleus = (cell_nucleus[0], -0.01)
 
-                aea_conversion = AlbersEqualAreaConversion(
-                    latitude_first_parallel=cell_nucleus[1],
-                    latitude_second_parallel=cell_nucleus[1],
-                    latitude_false_origin=cell_nucleus[1],
-                    longitude_false_origin=cell_nucleus[0],
-                )
+            aea_conversion = AlbersEqualAreaConversion(
+                latitude_first_parallel=cell_nucleus[1],
+                latitude_second_parallel=cell_nucleus[1],
+                latitude_false_origin=cell_nucleus[1],
+                longitude_false_origin=cell_nucleus[0],
+            )
 
-                wgs84_aea = pyproj.crs.ProjectedCRS(
-                    conversion=aea_conversion, geodetic_crs=wgs84_crs
-                )
+            wgs84_aea = pyproj.crs.ProjectedCRS(
+                conversion=aea_conversion, geodetic_crs=wgs84_crs
+            )
 
-                transformer = pyproj.Transformer.from_crs(
-                    crs_from=wgs84_crs,
-                    crs_to=wgs84_aea,
-                    always_xy=True,
-                    allow_ballpark=False,
-                )
+            transformer = pyproj.Transformer.from_crs(
+                crs_from=wgs84_crs,
+                crs_to=wgs84_aea,
+                always_xy=True,
+                allow_ballpark=False,
+            )
 
-            cell_calculated_area = shapely.ops.transform(
-                transformer.transform, Polygon(boundary)
-            ).area
-            calculated_area.append(cell_calculated_area)
+        cell_calculated_area = shapely.ops.transform(
+            transformer.transform, Polygon(boundary)
+        ).area
+        calculated_area.append(cell_calculated_area)
 
         area_error = cell_theoretical_area - cell_calculated_area
         error.append(area_error)
