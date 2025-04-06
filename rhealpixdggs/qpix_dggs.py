@@ -1310,6 +1310,12 @@ class QPixDGGS(object):
         # cover.sort(key=lambda x: (x[2], -x[1]), reverse=True)
         # return [t[0] for t in cover]
 
+    def region_of_point(self, p, plane=True):
+        """
+        TODO determine region from point coordinates ('north_polar', 'equatorial' or 'south_polar')
+        """
+        pass
+
 
 # Some common rHEALPix DGGSs.
 WGS84_002 = QPixDGGS(
