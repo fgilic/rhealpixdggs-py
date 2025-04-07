@@ -60,6 +60,9 @@ WGS84_123 = dggs.RHEALPixDGGS(
 WGS84_123_RADIANS = dggs.RHEALPixDGGS(
     ellipsoid=WGS84_ELLIPSOID_RADIANS, north_square=1, south_square=2, N_side=3
 )
+WGS84_122 = dggs.RHEALPixDGGS(
+            ellipsoid=WGS84_ELLIPSOID, north_square=1, south_square=2, N_side=2
+        )
 
 
 class SCENZGridTestCase(unittest.TestCase):
@@ -545,6 +548,11 @@ class SCENZGridTestCase(unittest.TestCase):
                     u = [s] + t
                     X = rdggs.cell(u)
                     self.assertEqual(X.ellipsoidal_shape(), "skew_quad")
+        rdggs = WGS84_122
+        cell_n = rdggs.cell((CELLS0[0],))
+        cell_s = rdggs.cell((CELLS0[5],))
+        self.assertEqual(cell_n.ellipsoidal_shape(), "cap")
+        self.assertEqual(cell_s.ellipsoidal_shape(), "cap")
 
     def test_centroid(self):
         # Warning: This test is slow.
@@ -733,6 +741,32 @@ class SCENZGridTestCase(unittest.TestCase):
         get = rdggs.cell_from_point(1, p, plane=False)
         expect = rdggs.cell_from_point(1, (0, 0))
         self.assertEqual(get, expect)
+
+        # Test extreme value (point outside the planar DGGS)
+        p = (11500249, 56898969)
+        E = Ellipsoid(lon_0=0, lat_0=0, radians=False)
+        rdggs = RHEALPixDGGS(E)
+        get = rdggs.cell_from_point(0, p, plane=True)
+        self.assertIsNone(get)
+
+        # Assert inequality of non-coincident points
+        p1 = (0, 0)
+        p2 = (p1[0]+45,p1[1]+360)
+        E = Ellipsoid(lon_0=0, lat_0=0, radians=False)
+        rdggs = RHEALPixDGGS(E)
+        c1 = rdggs.cell_from_point(1, p1, plane=False)
+        c2 = rdggs.cell_from_point(1, p2, plane=False)
+        self.assertNotEqual(c1, c2)
+
+        # Assert equality of coincident points
+        # (Given a comparison point with >90 latitude, >180 longitude; i.e. assert that lat/lon wrap)
+        p1 = (0, 0)
+        p2 = (p1[0]+360,p1[1]+360)
+        E = Ellipsoid(lon_0=0, lat_0=0, radians=False)
+        rdggs = RHEALPixDGGS(E)
+        c1 = rdggs.cell_from_point(1, p1, plane=False)
+        c2 = rdggs.cell_from_point(1, p2, plane=False)
+        self.assertEqual(c1, c2)
 
     def test_cell_from_region(self):
         for rdggs in [WGS84_003, WGS84_003_RADIANS]:
