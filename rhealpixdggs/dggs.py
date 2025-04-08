@@ -2388,6 +2388,8 @@ class Cell(object):
             return "quad"
         N = self.N_side
         # Cap check.
+        if suid == tuple("N") or suid == tuple("S"):
+            return "cap"
         cap = True
         if N % 2 != 1:
             cap = False
