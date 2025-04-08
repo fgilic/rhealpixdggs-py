@@ -198,4 +198,4 @@ gdf = gpd.GeoDataFrame(
     }
 )
 gdf.to_csv(f"area_nside{n_side}_2-{exponent_for_segmentation}_{projection}_054.csv")
-gdf.to_file(f"area_nside{n_side}_2-{exponent_for_segmentation}_{projection}_054.fgb")
+gdf.to_file(f"area_nside{n_side}_2-{exponent_for_segmentation}_{projection}_054.geojson")
