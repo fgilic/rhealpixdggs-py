@@ -1,3 +1,12 @@
+# This module calculates cell areas on WGS 84 ellipsoid.
+# Cell boundary is approximated by intermediate points and then they are projected to the plane with LAEA or AEA
+# (cell centroid coordinates are used as latitude and longitude of the origin / standard parallel).
+# Cell SUIDs for N_side 2 and 3 are hardcoded: three cells from the equatorial region, three dart and three
+# skew quad cells. This SUIDs are from the highest resolution. Area is calculated for these cells and recursively
+# for their parent cells, up to resolution-0 cells.
+# Module also calculates difference between calculated cell area and its theoretical area and stores results in
+# CSV and GeoJSON file. Geometry in GeoJSON file is simplified (number of points along cell boundary is 10).
+
 from rhealpixdggs.dggs import RHEALPixDGGS
 from rhealpixdggs.ellipsoids import Ellipsoid
 from shapely import Polygon
@@ -9,6 +18,12 @@ import pyproj
 import shapely
 import geopandas as gpd
 import math
+
+# Define these three variables below.
+# "n_side" can be 2 or 3
+# "projection" can be 'laea' or 'aea' ('laea' better choice in this case)
+# "exponent_for_segmentation" is used to determine number of points along each cell boundary (for approximating cell
+# boundary before projection). Formula is: num_points = int(2**exponent_for_segmentation / (n_side * cell_resolution))
 
 n_side = 3  # 2 or 3
 projection = "laea"  # "aea" or "laea"
@@ -120,7 +135,20 @@ for suid in cell_suids:
         #     # Cap cell is bounded by one parallel and therefore accuracy of its calculation directly influences
         #     # accuracy of area calculation.
         #     phi = cell.nw_vertex(plane=False)[1] * math.pi / 180.0
-        #     cell_calculated_area = math.pi * cell.ellipsoid.b**2 * (1 / (1 - cell.ellipsoid.e**2) + 1 / (2 * cell.ellipsoid.e) * math.log((1 + cell.ellipsoid.e) / (1 - cell.ellipsoid.e))) - math.pi * cell.ellipsoid.b**2 * (math.sin(phi) / (1 - cell.ellipsoid.e**2 * (math.sin(phi))**2) + 1 / (2*cell.ellipsoid.e) * math.log((1 + cell.ellipsoid.e * math.sin(phi))/(1 - cell.ellipsoid.e * math.sin(phi))))
+        #     cell_calculated_area = math.pi * cell.ellipsoid.b**2 * (
+        #         1 / (1 - cell.ellipsoid.e**2)
+        #         + 1
+        #         / (2 * cell.ellipsoid.e)
+        #         * math.log((1 + cell.ellipsoid.e) / (1 - cell.ellipsoid.e))
+        #     ) - math.pi * cell.ellipsoid.b**2 * (
+        #         math.sin(phi) / (1 - cell.ellipsoid.e**2 * (math.sin(phi)) ** 2)
+        #         + 1
+        #         / (2 * cell.ellipsoid.e)
+        #         * math.log(
+        #             (1 + cell.ellipsoid.e * math.sin(phi))
+        #             / (1 - cell.ellipsoid.e * math.sin(phi))
+        #         )
+        #     )
         #     calculated_area.append(cell_calculated_area)
         # else:
         if cell_resolution == 0:
@@ -198,4 +226,6 @@ gdf = gpd.GeoDataFrame(
     }
 )
 gdf.to_csv(f"area_nside{n_side}_2-{exponent_for_segmentation}_{projection}_054.csv")
-gdf.to_file(f"area_nside{n_side}_2-{exponent_for_segmentation}_{projection}_054.geojson")
+gdf.to_file(
+    f"area_nside{n_side}_2-{exponent_for_segmentation}_{projection}_054.geojson"
+)
