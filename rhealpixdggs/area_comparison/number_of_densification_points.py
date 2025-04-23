@@ -11,10 +11,8 @@ from shapely.ops import transform
 from geographiclib.geodesic import Geodesic
 from math import floor, log10
 
-# manualy define n_side and exponent
-n_side = 2
-exponent = 9
-num_points = n_side**exponent
+# define n_side
+n_side = 3
 
 # client = Client(processes=True, n_workers=8)
 
@@ -27,7 +25,7 @@ wgs84_crs = pyproj.CRS.from_epsg(4326)
 
 wgs84_ellipsoid = ellipsoids.Ellipsoid(a=a_wgs84, f=f_wgs84)
 rdggs = dggs.RHEALPixDGGS(
-    ellipsoid=wgs84_ellipsoid, N_side=n_side, north_square=0, south_square=0, max_areal_resolution=0.01
+    ellipsoid=wgs84_ellipsoid, N_side=n_side, north_square=0, south_square=0, max_areal_resolution=0.5
 )
 
 level = 1
@@ -71,7 +69,7 @@ def cell_area(cell, num_points):
     )
 
     cell_polygon = shapely.ops.transform(transformer.transform, cell_polygon)
-    print("a")
+    print(cell_polygon.area)
     return cell_polygon.area
 
 def func(cell, n_side):
@@ -125,22 +123,22 @@ def func(cell, n_side):
 
     return cell_data
 
-cell = rdggs.cell_from_point(resolution = rdggs.max_resolution, p=(0,89.99999999999))
 
 max_resolution = rdggs.max_resolution
 
-point = (0, 89.99999999999)
-for resolution in range(max_resolution+1):
+point = (0, 40.9)
+for resolution in range(0, max_resolution+1):
     cell = rdggs.cell_from_point(resolution=resolution, p=point, plane=False)
     n_side = rdggs.N_side
     exp = 1
     area_1 = cell_area(cell, n_side ** exp)
+    area_2 = cell_area(cell, n_side ** (exp + 1))
     while True:
-        area_2 = cell_area(cell, n_side ** (exp+1))
-
-        if sig_figs(area_1, 14) == sig_figs(area_2, 14) or round(area_1, 6) == round(area_2, 6):
+        if sig_figs(area_1, 10) == sig_figs(area_2, 10):
+            print(f"Cell: {cell.suid}; shape: {cell.ellipsoidal_shape()}")
             print(f"Resolution {resolution}, n_side {n_side}: {n_side}**{exp}")
+            print(f"Theoretical area: {cell.area(plane=False)}")
             break
-
-        area_1 = area_2
         exp += 1
+        area_1 = area_2
+        area_2 = cell_area(cell, n_side ** (exp + 1))
