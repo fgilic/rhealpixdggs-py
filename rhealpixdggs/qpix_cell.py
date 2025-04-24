@@ -712,8 +712,8 @@ class Cell(object):
         dr = (ul[0] + w, ul[1] - w)
         dl = (ul[0], ul[1] - w)
         result = [ul, ur, dr, dl]
-        # TODO adapt
-        # if not plane:
+        # TODO adapt. For now, if plane=False, return points on ellipsoid, without reordering
+        if not plane:
         #     # Reorder result so that it starts with the northwest vertex.
         #     # Clockwise ordering is preserved when mapping from plane to
         #     # ellipsoid.
@@ -722,9 +722,9 @@ class Cell(object):
         #     result = result[i:] + result[:i]
         #     # Project to ellipsoid.
         #     # region = self.region()
-        #     result = [
-        #         self.rdggs.rosca_plonka(*p, inverse=True) for p in result
-        #     ]
+            result = [
+                self.rdggs.rosca_plonka(*p, inverse=True) for p in result
+            ]
         #     # if trim_dart and self.ellipsoidal_shape() == "dart":
         #     #     # Remove non-vertex point.
         #     #     if self.region() == "north_polar":
