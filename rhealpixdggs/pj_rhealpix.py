@@ -321,11 +321,11 @@ def rhealpix_sphere_inverse(
 
     """
     # Throw error if input coordinates are out of bounds.
-    if not in_rhealpix_image(
-        x, y, south_square=south_square, north_square=north_square
-    ):
-        print("Error (rsi): input coordinates (%.20f,%.20f) are out of bounds" % (x, y))
-        return
+    # if not in_rhealpix_image(
+    #     x, y, south_square=south_square, north_square=north_square
+    # ):
+    #     print("Error (rsi): input coordinates (%.20f,%.20f) are out of bounds" % (x, y))
+    #     return
     if region != "equatorial":
         x, y = combine_triangles(
             x, y, north_square=north_square, south_square=south_square, inverse=True
@@ -397,11 +397,11 @@ def rhealpix_ellipsoid_inverse(
 
     """
     # Throw error if input coordinates are out of bounds.
-    if not in_rhealpix_image(
-        x, y, south_square=south_square, north_square=north_square
-    ):
-        print("Error (rei): input coordinates (%.20f,%.20f) are out of bounds" % (x, y))
-        return
+    # if not in_rhealpix_image(
+    #     x, y, south_square=south_square, north_square=north_square
+    # ):
+    #     print("Error (rei): input coordinates (%.20f,%.20f) are out of bounds" % (x, y))
+    #     return
 
     if region != "equatorial":
         x, y = combine_triangles(

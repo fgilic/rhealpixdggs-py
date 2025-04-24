@@ -49,8 +49,6 @@ def sig_figs(x: float, precision: int):
 
 def cell_area(cell, num_points):
     cell_nucleus = cell.nucleus(plane=False)
-    cell_vertices = cell.boundary(n=num_points, plane=False)
-    cell_polygon = Polygon(cell_vertices)
 
     # get cell boundary in plane and construct shapely polygon
     cell_vertices = cell.boundary(n=num_points, plane=False)
@@ -72,56 +70,56 @@ def cell_area(cell, num_points):
     print(cell_polygon.area)
     return cell_polygon.area
 
-def func(cell, n_side):
-    cell_suid = str(cell)
-    cell_region = cell.region()
-    cell_shape = cell.ellipsoidal_shape()
-    cell_area_theoretical = cell.area(plane=False)
-    cell_nucleus = cell.nucleus(plane=False)
-
-    cell_data = {
-        "Cell_suid": cell_suid,
-        "Cell_region": cell_region,
-        "Cell_shape": cell_shape,
-        "Theoretical_area_of_cell": cell_area_theoretical,
-        "Cell_nucleus": str(cell_nucleus),
-    }
-
-    # get cell boundary in plane and construct shapely polygon
-    cell_vertices = cell.boundary(n=num_points, plane=False)
-    cell_polygon = Polygon(cell_vertices)
-
-    laea_conversion = LambertAzimuthalEqualAreaConversion(
-        latitude_natural_origin=cell_nucleus[1],
-        longitude_natural_origin=cell_nucleus[0],
-    )
-    wgs84_laea = pyproj.crs.ProjectedCRS(
-        conversion=laea_conversion, geodetic_crs=wgs84_crs
-    )
-
-    transformer = pyproj.Transformer.from_crs(
-        crs_from=wgs84_crs, crs_to=wgs84_laea, always_xy=True, allow_ballpark=False
-    )
-
-    # project densified polygon from ellipsoid to plane with LAEA
-    cell_polygon = shapely.ops.transform(transformer.transform, cell_polygon)
-
-    cell_data["Calculated_area_of_cell"] = cell_polygon.area
-
-    perimeter = 0
-    for point in enumerate(cell_vertices):
-        point_1 = point[1]
-        try:
-            point_2 = cell_vertices[point[0] + 1]
-        except IndexError:
-            point_2 = cell_vertices[0]
-        length = wgs84_geod.Inverse(point_1[1], point_1[0], point_2[1], point_2[0], outmask=1025)
-        perimeter += length["s12"]
-
-    cell_data["Perimeter"] = perimeter
-    cell_data["Cell_vertices"] = cell.vertices(plane=False)
-
-    return cell_data
+# def func(cell, n_side):
+#     cell_suid = str(cell)
+#     cell_region = cell.region()
+#     cell_shape = cell.ellipsoidal_shape()
+#     cell_area_theoretical = cell.area(plane=False)
+#     cell_nucleus = cell.nucleus(plane=False)
+#
+#     cell_data = {
+#         "Cell_suid": cell_suid,
+#         "Cell_region": cell_region,
+#         "Cell_shape": cell_shape,
+#         "Theoretical_area_of_cell": cell_area_theoretical,
+#         "Cell_nucleus": str(cell_nucleus),
+#     }
+#
+#     # get cell boundary in plane and construct shapely polygon
+#     cell_vertices = cell.boundary(n=num_points, plane=False)
+#     cell_polygon = Polygon(cell_vertices)
+#
+#     laea_conversion = LambertAzimuthalEqualAreaConversion(
+#         latitude_natural_origin=cell_nucleus[1],
+#         longitude_natural_origin=cell_nucleus[0],
+#     )
+#     wgs84_laea = pyproj.crs.ProjectedCRS(
+#         conversion=laea_conversion, geodetic_crs=wgs84_crs
+#     )
+#
+#     transformer = pyproj.Transformer.from_crs(
+#         crs_from=wgs84_crs, crs_to=wgs84_laea, always_xy=True, allow_ballpark=False
+#     )
+#
+#     # project densified polygon from ellipsoid to plane with LAEA
+#     cell_polygon = shapely.ops.transform(transformer.transform, cell_polygon)
+#
+#     cell_data["Calculated_area_of_cell"] = cell_polygon.area
+#
+#     perimeter = 0
+#     for point in enumerate(cell_vertices):
+#         point_1 = point[1]
+#         try:
+#             point_2 = cell_vertices[point[0] + 1]
+#         except IndexError:
+#             point_2 = cell_vertices[0]
+#         length = wgs84_geod.Inverse(point_1[1], point_1[0], point_2[1], point_2[0], outmask=1025)
+#         perimeter += length["s12"]
+#
+#     cell_data["Perimeter"] = perimeter
+#     cell_data["Cell_vertices"] = cell.vertices(plane=False)
+#
+#     return cell_data
 
 
 max_resolution = rdggs.max_resolution
