@@ -62,6 +62,7 @@ for resolution in range(0, max_resolution+1):
             print(f"QPIX DGGS resolution {resolution}, n_side {n_side}")
             print(f"Cell: {cell.suid}")
             print(f"Point: {point}")
+            print(f"Calculated perimeter: {perimeter_1}")
             print(f"num_of_perimeter_densification_points: {n_side}**{exp}")
             print("-----------")
             break

@@ -68,6 +68,7 @@ for resolution in range(0, max_resolution+1):
             print(f"Cell: {cell.suid}")
             print(f"Point: {point}")
             print(f"Theoretical area: {cell.area(plane=False)}")
+            print(f"Calculated area: {area_1}")
             print(f"num_of_area_densification_points: {n_side}**{exp}")
             print("-----------")
             break
