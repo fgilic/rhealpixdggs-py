@@ -195,6 +195,42 @@ def rosca_plonka_sphere(lam, phi, north_square=0, south_square=0):
 
 
 def rosca_plonka_sphere_inverse(x, y, north_square=0, south_square=0):
+    if y > math.sqrt(2 * math.pi / 3) / 2:
+        # level 0 cell N
+        # TODO add more checks in condition
+        if -2 * math.sqrt(2 * math.pi / 3) * north_square <= x < -math.sqrt(2 * math.pi / 3) * north_square:
+            x_translation = 3 * math.sqrt(
+                2 * math.pi / 3
+            ) / 2 - north_square * math.sqrt(2 * math.pi / 3)
+            y_translation = -math.sqrt(2 * math.pi / 3)
+            lon_0 = -135.0 + north_square * 90.0
+            x = x + x_translation
+            y = y + y_translation
+            x, y = map_to_curved((x, y))
+            laea = Proj(f"+proj=laea +lon_0={lon_0} +lat_0=90.0 +R=1.0")
+            lam, phi = laea(x, y, inverse=True, radians=True)
+            return lam, phi
+        else:
+            y = math.sqrt(2 * math.pi / 3) / 2
+        # take care of rounding errors for y
+    elif y < -math.sqrt(2 * math.pi / 3) / 2:
+        # level 0 cell S
+        # TODO add more checks in condition
+        if -2 * math.sqrt(2 * math.pi / 3) * south_square <= x < -math.sqrt(2 * math.pi / 3) * south_square:
+            x_translation = 3 * math.sqrt(
+                2 * math.pi / 3
+            ) / 2 - south_square * math.sqrt(2 * math.pi / 3)
+            y_translation = math.sqrt(2 * math.pi / 3)
+            lon_0 = -135.0 + south_square * 90.0
+            x = x + x_translation
+            y = y + y_translation
+            x, y = map_to_curved((x, y))
+            laea = Proj(f"+proj=laea +lon_0={lon_0} +lat_0=-90.0 +R=1.0")
+            lam, phi = laea(x, y, inverse=True, radians=True)
+            return lam, phi
+        else:
+            # take care of rounding errors for y
+            y = -math.sqrt(2 * math.pi / 3) / 2
     if (0.0 <= x < math.sqrt(2 * math.pi / 3)) and -math.sqrt(
         2 * math.pi / 3
     ) / 2 <= y <= math.sqrt(2 * math.pi / 3) / 2:
@@ -238,34 +274,7 @@ def rosca_plonka_sphere_inverse(x, y, north_square=0, south_square=0):
         laea = Proj("+proj=laea +lon_0=-135.0 +R=1.0")
         lam, phi = laea(x, y, inverse=True, radians=True)
         return lam, phi
-    elif y > math.sqrt(2 * math.pi / 3) / 2:
-        # level 0 cell N
-        # add more checks in condition
-        x_translation = 3 * math.sqrt(
-            2 * math.pi / 3
-        ) / 2 - north_square * math.sqrt(2 * math.pi / 3)
-        y_translation = -math.sqrt(2 * math.pi / 3)
-        lon_0 = -135.0 + north_square * 90.0
-        x = x + x_translation
-        y = y + y_translation
-        x, y = map_to_curved((x, y))
-        laea = Proj(f"+proj=laea +lon_0={lon_0} +lat_0=90.0 +R=1.0")
-        lam, phi = laea(x, y, inverse=True, radians=True)
-        return lam, phi
-    elif y < -math.sqrt(2 * math.pi / 3) / 2:
-        # level 0 cell S
-        # add more checks in condition
-        x_translation = 3 * math.sqrt(
-            2 * math.pi / 3
-        ) / 2 - south_square * math.sqrt(2 * math.pi / 3)
-        y_translation = math.sqrt(2 * math.pi / 3)
-        lon_0 = -135.0 + south_square * 90.0
-        x = x + x_translation
-        y = y + y_translation
-        x, y = map_to_curved((x, y))
-        laea = Proj(f"+proj=laea +lon_0={lon_0} +lat_0=-90.0 +R=1.0")
-        lam, phi = laea(x, y, inverse=True, radians=True)
-        return lam, phi
+
 
 
 def rosca_plonka_ellipsoid(lam, phi, e, north_square, south_square):
