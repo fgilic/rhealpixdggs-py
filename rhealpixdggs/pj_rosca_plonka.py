@@ -198,7 +198,7 @@ def rosca_plonka_sphere_inverse(x, y, north_square=0, south_square=0):
     if y > math.sqrt(2 * math.pi / 3) / 2:
         # level 0 cell N
         # TODO add more checks in condition
-        if -2 * math.sqrt(2 * math.pi / 3) + (north_square * math.sqrt(2 * math.pi / 3)) <= x < -math.sqrt(2 * math.pi / 3) + (north_square * math.sqrt(2 * math.pi / 3)):
+        if -2 * math.sqrt(2 * math.pi / 3) + (north_square * math.sqrt(2 * math.pi / 3)) <= x <= -math.sqrt(2 * math.pi / 3) + (north_square * math.sqrt(2 * math.pi / 3)):
             x_translation = 3 * math.sqrt(
                 2 * math.pi / 3
             ) / 2 - north_square * math.sqrt(2 * math.pi / 3)
@@ -216,7 +216,7 @@ def rosca_plonka_sphere_inverse(x, y, north_square=0, south_square=0):
     elif y < -math.sqrt(2 * math.pi / 3) / 2:
         # level 0 cell S
         # TODO add more checks in condition
-        if -2 * math.sqrt(2 * math.pi / 3) + (north_square * math.sqrt(2 * math.pi / 3)) <= x < -math.sqrt(2 * math.pi / 3) + (north_square * math.sqrt(2 * math.pi / 3)):
+        if -2 * math.sqrt(2 * math.pi / 3) + (north_square * math.sqrt(2 * math.pi / 3)) <= x <= -math.sqrt(2 * math.pi / 3) + (north_square * math.sqrt(2 * math.pi / 3)):
             x_translation = 3 * math.sqrt(
                 2 * math.pi / 3
             ) / 2 - south_square * math.sqrt(2 * math.pi / 3)
