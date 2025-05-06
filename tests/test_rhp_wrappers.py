@@ -14,11 +14,13 @@ Keep adding tests!
 # Import standard modules
 import unittest
 
-# Import my modules
+# Import my modules and classes
 import rhealpixdggs.rhp_wrappers as rhpw
+import rhealpixdggs.dggs as gs
 
 # Import helper modules
 import numpy as np
+import shapely as sh
 
 
 class RhpWrappersTestCase(unittest.TestCase):
@@ -32,13 +34,13 @@ class RhpWrappersTestCase(unittest.TestCase):
         self.assertEqual(cell_id, "Q3333333")
 
         cell_id = rhpw.geo_to_rhp(90, 0, 1)
-        self.assertEqual(cell_id, 'Q3')
-        
+        self.assertEqual(cell_id, "Q3")
+
         cell_id = rhpw.geo_to_rhp(90, -180, 0, plane=False)
-        self.assertEqual(cell_id, 'N')
-        
+        self.assertEqual(cell_id, "N")
+
         cell_id = rhpw.geo_to_rhp(90, -180, 0, plane=True)
-        self.assertEqual(cell_id, 'P')
+        self.assertEqual(cell_id, "P")
 
         # Point outside the DGGS
         cell_id = rhpw.geo_to_rhp(11500249, 56898969, 0, plane=True)
@@ -117,6 +119,10 @@ class RhpWrappersTestCase(unittest.TestCase):
 
         # Invalid parent id
         child_id = rhpw.rhp_to_center_child("X")
+        self.assertIsNone(child_id)
+
+        # DGGS with even number of cells on a side
+        child_id = rhpw.rhp_to_center_child(parent_id, dggs=gs.WGS84_002)
         self.assertIsNone(child_id)
 
     def test_rhp_to_geo_boundary(self):
@@ -434,6 +440,179 @@ class RhpWrappersTestCase(unittest.TestCase):
         # Invalid case
         kring = rhpw.k_ring("X", verbose=False)
         self.assertIsNone(kring)
+
+    def test_polyfill(self):
+        # Test data - plane
+        idx = ("N", 2, 1, 6, 0, 5, 5, 6, 1, 1)
+        cell = rhpw.Cell(rdggs=rhpw.WGS84_003, suid=idx)
+        plane_poly = sh.Polygon(cell.vertices())
+
+        # Uncompressed from polygon - plane
+        result = rhpw.polyfill(plane_poly, 10)
+        self.assertEqual(
+            result,
+            {
+                "N2160556110",
+                "N2160556111",
+                "N2160556112",
+                "N2160556113",
+                "N2160556114",
+                "N2160556115",
+                "N2160556116",
+                "N2160556117",
+                "N2160556118",
+            },
+        )
+
+        # Compressed from polygon - plane
+        self.assertEqual(rhpw.polyfill(plane_poly, 10, compress=True), {"N216055611"})
+
+        # Test data - sphere
+        eq_poly_n = sh.Polygon(
+            shell=[(-10, -10), (50, -10), (50, 40), (-10, 40), (-10, -10)],
+            holes=[
+                [(-5, 5), (25, 20), (45, 5), (-5, 5)],
+                [(-5, 25), (25, 30), (45, 25), (-5, 25)],
+            ],
+        )
+        eq_poly_s = sh.Polygon(
+            shell=[(-10, 10), (-10, -40), (50, -40), (50, 10), (-10, 10)],
+            holes=[
+                [(-5, -5), (45, -5), (25, -20), (-5, -5)],
+                [(-5, -25), (45, -25), (25, -30), (-5, -25)],
+            ],
+        )
+        po_poly_n = sh.Polygon(
+            shell=[(0, 75), (-30, 42), (0, 42), (30, 42), (0, 75)],
+            holes=[[(0, 70), (5, 60), (-5, 60), (0, 70)]],
+        )
+        po_poly_s = sh.Polygon(
+            shell=[(30, -42), (0, -75), (90, -75), (60, -42), (30, -42)],
+            holes=[[(10, -70), (20, -65), (10, -65), (10, -70)]],
+        )
+
+        # Polygon tests - sphere
+        self.assertEqual(rhpw.polyfill(eq_poly_n, 0, False), {"Q"})
+        self.assertEqual(rhpw.polyfill(eq_poly_s, 0, False), {"Q"})
+        self.assertEqual(rhpw.polyfill(po_poly_n, 1, False), {"N2"})
+        self.assertEqual(rhpw.polyfill(po_poly_s, 1, False), {"S7"})
+
+        # Multipolygon tests - sphere
+        result = rhpw.polyfill(
+            sh.MultiPolygon(polygons=[eq_poly_n, po_poly_n, po_poly_s]), 1, False
+        )
+        self.assertEqual(result, {"N2", "Q1", "Q3", "Q4", "S7"})
+
+        # Test data - malformed
+        no_area = sh.Polygon(shell=((0, 0), (1, 0), (2, 0), (0, 0)))
+        geom_res_mismatch = sh.Polygon(
+            shell=[(0, 0), (0, -40), (40, -40), (40, 0), (0, 0)]
+        )
+        multi_overlap = sh.MultiPolygon(polygons=[eq_poly_n, eq_poly_s])
+
+        # Malformed input geometries
+        self.assertIsNone(rhpw.polyfill(None, 0))
+        self.assertIsNone(rhpw.polyfill(sh.Polygon(), 0))
+        self.assertIsNone(rhpw.polyfill(sh.MultiPolygon(), 0))
+        self.assertIsNone(rhpw.polyfill(sh.Point(), 0))
+        self.assertIsNone(rhpw.polyfill(no_area, 0))
+        self.assertIsNone(rhpw.polyfill(multi_overlap, 0, False))
+        self.assertEqual(rhpw.polyfill(plane_poly, 1), set())
+        self.assertEqual(rhpw.polyfill(geom_res_mismatch, 0, False), set())
+
+    def test_linetrace(self):
+        # Test data
+        p_ls = sh.LineString(
+            [
+                (-14.793092, -37.005372),
+                (-15.621138, -40.323142),
+                (-18.333333, -36.483403),
+                (-14, -37),
+            ]
+        )
+        r_ls = sh.LineString(
+            [
+                (174.793092, -37.005372),
+                (175.621138, -40.323142),
+                (178.333333, -36.483403),
+                (174, -37),
+            ]
+        )
+        n_ls = sh.LineString(
+            [
+                (-134.998756, 86.549596),
+                (-179.141527, 88.504030),
+                (-44.874903, 86.549596),
+                (-89.669615, 86.549596),
+                (-134, 86),
+            ]
+        )
+
+        # Equatorial faces - line string
+        result = rhpw.linetrace(p_ls, 3, plane=False)
+        self.assertEqual(result, ["P874", "P877", "P876", "P873", "P874"])
+
+        result = rhpw.linetrace(r_ls, 3, plane=False)
+        self.assertEqual(result, ["R884", "R887", "R888", "R885", "R884"])
+
+        # Equatorial faces - multiline string
+        result = rhpw.linetrace(sh.MultiLineString(lines=[p_ls, r_ls]), 3, plane=False)
+        self.assertEqual(
+            result,
+            [
+                "P874",
+                "P877",
+                "P876",
+                "P873",
+                "P874",
+                "R884",
+                "R887",
+                "R888",
+                "R885",
+                "R884",
+            ],
+        )
+
+        # Lines crossing cube face boundaries (not involving cap cells)
+        s = gs.WGS84_003.cell(("S", 7))
+        e = gs.WGS84_003.cell(("P", 5))
+        result = rhpw.linetrace(
+            sh.LineString([s.centroid(False), e.centroid(False)]), 1, plane=False
+        )
+        self.assertEqual(result, ["S7", "S8", "P8", "P5"])
+
+        # Resolution mismatch (coarse resolution, short line segments)
+        result = rhpw.linetrace(p_ls, 2, plane=False)
+        self.assertEqual(result, ["P87"])
+
+        result = rhpw.linetrace(
+            sh.MultiLineString(lines=[p_ls, r_ls, n_ls]), 2, plane=False
+        )
+        self.assertEqual(result, ["P87", "R88", "N44"])
+
+        # Malformed input geometries
+        self.assertIsNone(rhpw.linetrace(sh.LineString(), 0))
+        self.assertIsNone(rhpw.linetrace(sh.LineString([(1, 1), (1, 1)]), 0))
+
+    @unittest.expectedFailure
+    def test_linetrace_known_failure(self):
+        n_ls = sh.LineString(
+            [
+                (-134.998756, 86.549596),
+                (-179.141527, 88.504030),
+                (-44.874903, 86.549596),
+                (-89.669615, 86.549596),
+                (-134, 86),
+            ]
+        )
+
+        # Cap faces - line string
+        # TODO: this is still wrong - should be "N444", "N445" and not "N444", "N447", "N448", "N445"
+        result = rhpw.linetrace(n_ls, 3, plane=False)
+        self.assertEqual(
+            result,
+            ["N447", "N444", "N445", "N448", "N447"],
+        )
 
 
 # ------------------------------------------------------------------------------

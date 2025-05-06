@@ -10,19 +10,20 @@ Release Notes
 -------------
 This package was originally authored in 2013 and has had only minor code updates since then.
 
-0.5.4 - current
+0.5.6 - current
 ^^^^^^^^^^^^^^^
-Code unchanged from 0.5.3 other than updating to Python 3.11
+Added support for a "linetrace" algorithm. This is a new algorithm that allows for the representation of lines on the sphere using a series of cells.
 
 Refer to file CHANGES.rst for a more detailed history of changes.
 
 Requirements 
 -------------
 * ``requirements.txt`` - all the module requirements for operation
-    - `NumPy >=1.7 <http://www.numpy.org/>`_ Base N-dimensional array package
-    - `SciPy >=0.12 <http://www.scipy.org/>`_ Fundamental library for scientific computing
-    - `Matplotlib >=1.2.1 <http://matplotlib.org/>`_ Comprehensive 2D Plotting
-    - `Pyproj >=1.9.3 <http://code.google.com/p/pyproj/>`_ Python interface to the PROJ.4 cartographic library
+    - `NumPy >=1.25.2,<2 <https://www.numpy.org/>`_ Base N-dimensional array package
+    - `SciPy >=1.11.2 <https://www.scipy.org/>`_ Fundamental library for scientific computing
+    - `Matplotlib >=3.7.2 <https://matplotlib.org/>`_ Comprehensive 2D Plotting
+    - `Pyproj >=3.6.1 <https://code.google.com/p/pyproj/>`_ Python interface to the PROJ.4 cartographic library
+    - `Shapely >=2.0.1 <https://shapely.readthedocs.io/>`_ Manipulation and analysis of planar GEOS geometries
 * ``requirements.dev.txt`` - packages needed for developing this package
 
 Installation
