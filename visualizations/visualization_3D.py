@@ -12,8 +12,8 @@ import shapely
 import geopandas as gpd
 import mayavi
 
-mayavi.mlab.figure(bgcolor=(1,0,0), size=(1700, 1700))
-
+mayavi.mlab.figure(bgcolor=(1, 1, 1), size=(2000, 2000))
+mayavi.mlab.move(up=1000)
 # EPSG:7030
 WGS84_A = WGS84_ELLIPSOID.a
 WGS84_F = WGS84_ELLIPSOID.f
@@ -48,7 +48,7 @@ z = np.outer(
 )
 s = mlab.mesh(x, y, z, color=(1,1,1))  # color=(0.513, 0.596, 0.725)
 
-rdggs = QPixDGGS(ellipsoid=ellipsoid, N_side=3)
+rdggs = QPixDGGS(ellipsoid=ellipsoid, N_side=2)
 cells = rdggs.grid(resolution=0)
 for cell in cells:
     cell_boundary = cell.boundary(n=10, plane=False, interior=True)
@@ -64,36 +64,68 @@ for cell in cells:
     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
     mlab.plot3d(x, y, z, color=(0, 0.5882, 0.62745), tube_radius=130000)
 
-cells = rdggs.grid(resolution=1)
-for cell in cells:
-    cell_boundary = cell.boundary(n=10, plane=False, interior=True)
-    points_3d = []
-    for point in cell_boundary:
-        lam, phi = point
-        n = a / math.sqrt(1 - e_2 * (math.sin(phi)) ** 2)
-        x = n * math.cos(phi) * math.cos(lam)
-        y = n * math.cos(phi) * math.sin(lam)
-        z = n * math.sin(phi)
-        points_3d.append((x,y,z))
-    polygon_3d = Polygon(points_3d)
-    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0, 0.5882, 0.62745), tube_radius=60000)
+# cells = rdggs.grid(resolution=1)
+# for cell in cells:
+#     cell_boundary = cell.boundary(n=10, plane=False, interior=True)
+#     points_3d = []
+#     for point in cell_boundary:
+#         lam, phi = point
+#         n = a / math.sqrt(1 - e_2 * (math.sin(phi)) ** 2)
+#         x = n * math.cos(phi) * math.cos(lam)
+#         y = n * math.cos(phi) * math.sin(lam)
+#         z = n * math.sin(phi)
+#         points_3d.append((x,y,z))
+#     polygon_3d = Polygon(points_3d)
+#     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+#     mlab.plot3d(x, y, z, color=(0, 0.5882, 0.62745), tube_radius=90000)
 
 
-cells = rdggs.grid(resolution=2)
-for cell in cells:
-    cell_boundary = cell.boundary(n=10, plane=False, interior=True)
-    points_3d = []
-    for point in cell_boundary:
-        lam, phi = point
-        n = a / math.sqrt(1 - e_2 * (math.sin(phi)) ** 2)
-        x = n * math.cos(phi) * math.cos(lam)
-        y = n * math.cos(phi) * math.sin(lam)
-        z = n * math.sin(phi)
-        points_3d.append((x,y,z))
-    polygon_3d = Polygon(points_3d)
-    x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
-    mlab.plot3d(x, y, z, color=(0.808, 0.157, 0.447), tube_radius=35000)
+# cells = rdggs.grid(resolution=2)
+# for cell in cells:
+#     cell_boundary = cell.boundary(n=10, plane=False, interior=True)
+#     points_3d = []
+#     for point in cell_boundary:
+#         lam, phi = point
+#         n = a / math.sqrt(1 - e_2 * (math.sin(phi)) ** 2)
+#         x = n * math.cos(phi) * math.cos(lam)
+#         y = n * math.cos(phi) * math.sin(lam)
+#         z = n * math.sin(phi)
+#         points_3d.append((x,y,z))
+#     polygon_3d = Polygon(points_3d)
+#     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+#     mlab.plot3d(x, y, z, color=(0, 0.5882, 0.62745), tube_radius=65000)
+
+
+# cells = rdggs.grid(resolution=3)
+# for cell in cells:
+#     cell_boundary = cell.boundary(n=3, plane=False, interior=True)
+#     points_3d = []
+#     for point in cell_boundary:
+#         lam, phi = point
+#         n = a / math.sqrt(1 - e_2 * (math.sin(phi)) ** 2)
+#         x = n * math.cos(phi) * math.cos(lam)
+#         y = n * math.cos(phi) * math.sin(lam)
+#         z = n * math.sin(phi)
+#         points_3d.append((x,y,z))
+#     polygon_3d = Polygon(points_3d)
+#     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+#     mlab.plot3d(x, y, z, color=(0, 0.5882, 0.62745), tube_radius=40000)
+
+
+# cells = rdggs.grid(resolution=4)
+# for cell in cells:
+#     cell_boundary = cell.boundary(n=3, plane=False, interior=True)
+#     points_3d = []
+#     for point in cell_boundary:
+#         lam, phi = point
+#         n = a / math.sqrt(1 - e_2 * (math.sin(phi)) ** 2)
+#         x = n * math.cos(phi) * math.cos(lam)
+#         y = n * math.cos(phi) * math.sin(lam)
+#         z = n * math.sin(phi)
+#         points_3d.append((x,y,z))
+#     polygon_3d = Polygon(points_3d)
+#     x, y, z = list(zip(*list(polygon_3d.boundary.coords)))
+#     mlab.plot3d(x, y, z, color=(0, 0.5882, 0.62745), tube_radius=23000)
 
 coastline_geometry = gpd.read_file("coastline_simplified.geojson").geometry
 coastline_gdf = gpd.GeoDataFrame({"geometry": coastline_geometry})
@@ -141,5 +173,6 @@ for linestring in grid_geometry:
 
 
 mlab.gcf().scene.parallel_projection = True
-mayavi.mlab.savefig("output.png")
+mayavi.mlab.savefig("q2_0.png", magnification=2)
+
 mlab.show()
