@@ -51,33 +51,33 @@ vmax = old_new_concat.max()
 # mapclassify.classify(old_new_concat, scheme="Quantiles", k=6)
 # 0, 0.0013390670000000004, 0.003919687, 0.007541177, 0.014841380000000038, 0.03943446300000004, 8.869908902
 # and normalized from 0.0 to 1.0
-cmap = mpl.colors.LinearSegmentedColormap.from_list(
-    N=50000000,
-    name="geodetic-auth",
-    colors=[
-        (0, "#006837"),
-        (0.000150967, "#4bb05c"),
-        (0.000441908, "#b7e075"),
-        (0.000850198, "#fffebe"),
-        (0.001673228, "#fdbf6f"),
-        (0.00444587, "#ea5739"),
-        (1, "#a50026"),
-    ],
-)
-
-# # plot errors obtained by current statements (geodetic -> authalic)
-# paralels_gdf.iloc[:-1].plot(
-#     ax=ax,
-#     linewidth=0.35,
-#     column="ABS Diff (auth OLD - auth direct mpmath) E-12",
-#     cmap=cmap,
-#     zorder=1,
-#     legend=True,
-#     vmin=vmin,
-#     vmax=vmax,
+# cmap = mpl.colors.LinearSegmentedColormap.from_list(
+#     N=50000000,
+#     name="geodetic-auth",
+#     colors=[
+#         (0, "#5E4FA2"),
+#         (0.000150967, "#5CB7AA"),
+#         (0.000441908, "#C3E79F"),
+#         (0.000850198, "#FFFFBE"),
+#         (0.001673228, "#FDC372"),
+#         (0.00444587, "#EA5E47"),
+#         (1, "#9E0142"),
+#     ],
 # )
-# plt.savefig("geodetic-authalic_current.svg")
-
+#
+# # # plot errors obtained by current statements (geodetic -> authalic)
+# # paralels_gdf.iloc[:-1].plot(
+# #     ax=ax,
+# #     linewidth=0.35,
+# #     column="ABS Diff (auth OLD - auth direct mpmath) E-12",
+# #     cmap=cmap,
+# #     zorder=1,
+# #     legend=True,
+# #     vmin=vmin,
+# #     vmax=vmax,
+# # )
+# # plt.savefig("geodetic-authalic_current.svg")
+#
 # # plot errors obtained by modified statements (geodetic -> authalic)
 # paralels_gdf.iloc[:-1].plot(
 #     ax=ax,
@@ -109,40 +109,40 @@ cmap = mpl.colors.LinearSegmentedColormap.from_list(
     N=50000000,
     name="auth-geodetic",
     colors=[
-        (0, "#006837"),
-        (0, "#4bb05c"),
-        (2.82e-07, "#b7e075"),
-        (2.11e-06, "#fffebe"),
-        (0.098977, "#fdbf6f"),
-        (0.561692, "#ea5739"),
-        (1, "#a50026"),
+        (0, "#5E4FA2"),
+        (0, "#5CB7AA"),
+        (2.82e-07, "#C3E79F"),
+        (2.11e-06, "#FFFFBE"),
+        (0.098977, "#FDC372"),
+        (0.561692, "#EA5E47"),
+        (1, "#9E0142"),
     ],
 )
-# # plot errors obtained by current statements (authalic -> geodetic)
-# paralels_gdf.plot(
-#     ax=ax,
-#     linewidth=0.35,
-#     column="ABS Diff (auth inv OLD - common) E-12",
-#     cmap=cmap,
-#     zorder=1,
-#     legend=True,
-#     vmin=vmin,
-#     vmax=vmax,
-# )
-# plt.savefig("authalic-geodetic_current.svg")
-
 # plot errors obtained by current statements (authalic -> geodetic)
 paralels_gdf.plot(
     ax=ax,
     linewidth=0.35,
-    column="ABS Diff (auth inv NEW - common) E-12",
+    column="ABS Diff (auth inv OLD - common) E-12",
     cmap=cmap,
     zorder=1,
     legend=True,
     vmin=vmin,
     vmax=vmax,
 )
-plt.savefig("authalic-geodetic_modified.svg")
+plt.savefig("authalic-geodetic_current.svg")
+
+# # plot errors obtained by current statements (authalic -> geodetic)
+# paralels_gdf.plot(
+#     ax=ax,
+#     linewidth=0.35,
+#     column="ABS Diff (auth inv NEW - common) E-12",
+#     cmap=cmap,
+#     zorder=1,
+#     legend=True,
+#     vmin=vmin,
+#     vmax=vmax,
+# )
+# plt.savefig("authalic-geodetic_modified.svg")
 
 
 # ax.plot(-0.08, 51.53, 'o', transform=ccrs.PlateCarree())
