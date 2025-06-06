@@ -63,13 +63,13 @@ if __name__ == "__main__":
     file = "GLC_FCS30D_clip.tif"
     rds = rioxarray.open_rasterio(file)
 
-    # for resolution-0 cell N
-    ul = (-11410316.69813838 - 150.0, 13830206)
-    lr = (-10916581.107087167 + 150.0, 13362154.881385537 - 150.0)
+    # # for resolution-0 cell N
+    # ul = (-11410316.69813838 - 150.0, 13830206)
+    # lr = (-10916581.107087167 + 150.0, 13362154.881385537 - 150.0)
 
-    # # for resolution-0 cell Q
-    # ul = (1864504.2712097983 - 150.0, 4610068)
-    # lr = (2229473.4874547026 + 150.0, 4362884.740540902 - 150.0)
+    # for resolution-0 cell Q
+    ul = (1864504.2712097983 - 150.0, 4610068)
+    lr = (2229473.4874547026 + 150.0, 4362884.740540902 - 150.0)
     number_of_strips = 1200
     strip_height = (ul[1] - lr[1]) / number_of_strips
 
@@ -92,7 +92,7 @@ if __name__ == "__main__":
             n += 1
             continue
         gdf = gpd.GeoDataFrame(data=results, geometry="geometry", crs="EPSG:4326")
-        gdf.to_parquet(f"adriatic_strips/nuclei_QPix_N_{n}.parquet")
+        gdf.to_parquet(f"adriatic_strips/nuclei_QPix_Q_{n}.parquet")
         n += 1
 
     # TODO merge all files >= cell_nuclei_built-up_raw.parquet
