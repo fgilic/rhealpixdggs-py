@@ -95,4 +95,17 @@ if __name__ == "__main__":
         gdf.to_parquet(f"adriatic_strips/nuclei_QPix_Q_{n}.parquet")
         n += 1
 
-    # TODO merge all files >= cell_nuclei_built-up_raw.parquet
+#
+# # merge all files >= cell_nuclei_built-up_raw.parquet
+# from os import listdir
+# import pandas as pd
+# import shapely
+# points = []
+# for file in listdir("medgu\\adriatic_strips"):
+#     df = pd.read_parquet(f"medgu\\adriatic_strips\\{file}")
+#     points_list = df.to_dict(orient="records")
+#     for record in points_list:
+#         record["geometry"]=shapely.from_wkb(record["geometry"])
+#         points.append(record)
+# gdf = gpd.GeoDataFrame(data=points, geometry="geometry", crs="EPSG:4326")
+# gdf.to_parquet("cell_nuclei_QPix_built-up_raw.parquet")
