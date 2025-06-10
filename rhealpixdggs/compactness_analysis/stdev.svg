@@ -1,0 +1,1967 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="453.543307pt" height="189.92126pt" viewBox="0 0 453.543307 189.92126" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2025-06-10T19:53:26.217489</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.7.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 189.92126 
+L 453.543307 189.92126 
+L 453.543307 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 45.02 150.12126 
+L 221.371654 150.12126 
+L 221.371654 25.44 
+L 45.02 25.44 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 53.035984 150.12126 
+L 53.035984 25.44 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m0210ec30a3" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m0210ec30a3" x="53.035984" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <!-- 0 -->
+      <g transform="translate(50.967859 163.60126) scale(0.08 -0.08)">
+       <defs>
+        <path id="Oswald-Light-30" d="M 1651 -64 
+Q 1190 -64 921 134 
+Q 653 333 537 678 
+Q 422 1024 422 1466 
+L 422 3718 
+Q 422 4166 540 4508 
+Q 659 4851 931 5043 
+Q 1203 5235 1651 5235 
+Q 2112 5235 2384 5043 
+Q 2656 4851 2774 4508 
+Q 2893 4166 2893 3718 
+L 2893 1466 
+Q 2893 1018 2774 672 
+Q 2656 326 2387 131 
+Q 2118 -64 1651 -64 
+z
+M 1651 307 
+Q 1952 307 2115 460 
+Q 2278 614 2345 867 
+Q 2413 1120 2413 1427 
+L 2413 3750 
+Q 2413 4064 2345 4317 
+Q 2278 4570 2118 4717 
+Q 1958 4864 1651 4864 
+Q 1357 4864 1193 4717 
+Q 1030 4570 963 4317 
+Q 896 4064 896 3750 
+L 896 1427 
+Q 896 1120 963 867 
+Q 1030 614 1196 460 
+Q 1363 307 1651 307 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#Oswald-Light-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 73.075945 150.12126 
+L 73.075945 25.44 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="73.075945" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- 1 -->
+      <g transform="translate(71.68407 163.60126) scale(0.08 -0.08)">
+       <defs>
+        <path id="Oswald-Light-31" d="M 1075 0 
+L 1075 4557 
+Q 1037 4499 921 4441 
+Q 806 4384 668 4339 
+Q 531 4294 419 4259 
+Q 307 4224 275 4218 
+L 275 4595 
+Q 365 4621 486 4672 
+Q 608 4723 729 4796 
+Q 851 4870 969 4966 
+Q 1088 5062 1171 5184 
+L 1549 5184 
+L 1549 0 
+L 1075 0 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#Oswald-Light-31"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 93.115906 150.12126 
+L 93.115906 25.44 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="93.115906" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <!-- 2 -->
+      <g transform="translate(91.175906 163.60126) scale(0.08 -0.08)">
+       <defs>
+        <path id="Oswald-Light-32" d="M 314 0 
+L 314 346 
+L 1709 2483 
+Q 1862 2720 1996 2941 
+Q 2131 3162 2217 3405 
+Q 2304 3648 2304 3955 
+Q 2304 4371 2134 4608 
+Q 1965 4845 1613 4845 
+Q 1299 4845 1126 4704 
+Q 954 4563 886 4316 
+Q 819 4070 819 3763 
+L 819 3648 
+L 352 3648 
+L 352 3776 
+Q 352 4256 480 4579 
+Q 608 4902 880 5068 
+Q 1152 5235 1594 5235 
+Q 2182 5235 2476 4886 
+Q 2771 4538 2771 3917 
+Q 2771 3603 2681 3340 
+Q 2592 3078 2451 2838 
+Q 2310 2598 2157 2355 
+L 864 397 
+L 2662 397 
+L 2662 0 
+L 314 0 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#Oswald-Light-32"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 113.155866 150.12126 
+L 113.155866 25.44 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="113.155866" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <!-- 3 -->
+      <g transform="translate(111.227741 163.60126) scale(0.08 -0.08)">
+       <defs>
+        <path id="Oswald-Light-33" d="M 1523 -64 
+Q 1120 -64 864 93 
+Q 608 250 489 531 
+Q 371 813 371 1197 
+L 371 1325 
+L 826 1325 
+Q 826 1312 826 1273 
+Q 826 1235 826 1216 
+Q 832 941 896 739 
+Q 960 538 1113 429 
+Q 1267 320 1523 320 
+Q 1766 320 1936 425 
+Q 2106 531 2192 774 
+Q 2278 1018 2278 1408 
+Q 2278 1888 2105 2192 
+Q 1933 2496 1504 2509 
+Q 1491 2509 1440 2509 
+Q 1389 2509 1376 2509 
+L 1376 2957 
+Q 1389 2957 1440 2957 
+Q 1491 2957 1504 2957 
+Q 1920 2957 2099 3190 
+Q 2278 3424 2278 3942 
+Q 2278 4346 2128 4602 
+Q 1978 4858 1574 4858 
+Q 1184 4858 1008 4637 
+Q 832 4416 826 3955 
+Q 826 3942 826 3913 
+Q 826 3885 826 3866 
+L 371 3866 
+L 371 3987 
+Q 371 4371 489 4649 
+Q 608 4928 877 5081 
+Q 1146 5235 1568 5235 
+Q 1978 5235 2240 5068 
+Q 2502 4902 2630 4611 
+Q 2758 4320 2758 3942 
+Q 2758 3398 2550 3100 
+Q 2342 2803 2016 2726 
+Q 2208 2675 2377 2521 
+Q 2547 2368 2652 2096 
+Q 2758 1824 2758 1414 
+Q 2758 979 2633 643 
+Q 2509 307 2240 121 
+Q 1971 -64 1523 -64 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#Oswald-Light-33"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 133.195827 150.12126 
+L 133.195827 25.44 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="133.195827" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <!-- 4 -->
+      <g transform="translate(131.239577 163.60126) scale(0.08 -0.08)">
+       <defs>
+        <path id="Oswald-Light-34" d="M 1882 0 
+L 1882 1517 
+L 320 1517 
+L 320 1990 
+L 1792 5184 
+L 2342 5184 
+L 2342 1939 
+L 2938 1939 
+L 2938 1517 
+L 2342 1517 
+L 2342 0 
+L 1882 0 
+z
+M 794 1939 
+L 1882 1939 
+L 1882 4563 
+L 794 1939 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#Oswald-Light-34"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 153.235787 150.12126 
+L 153.235787 25.44 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="153.235787" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <!-- 5 -->
+      <g transform="translate(151.327662 163.60126) scale(0.08 -0.08)">
+       <defs>
+        <path id="Oswald-Light-35" d="M 1542 -58 
+Q 1126 -58 873 102 
+Q 621 262 505 576 
+Q 390 890 390 1338 
+L 858 1338 
+Q 858 1024 922 793 
+Q 986 563 1139 441 
+Q 1293 320 1562 320 
+Q 1856 320 2009 470 
+Q 2163 621 2220 915 
+Q 2278 1210 2278 1638 
+Q 2278 2112 2211 2393 
+Q 2144 2675 1987 2800 
+Q 1830 2925 1568 2925 
+Q 1370 2925 1197 2816 
+Q 1024 2707 896 2496 
+L 506 2496 
+L 506 5184 
+L 2522 5184 
+L 2522 4742 
+L 915 4742 
+L 896 2944 
+Q 1011 3091 1206 3190 
+Q 1402 3290 1690 3290 
+Q 2074 3290 2307 3101 
+Q 2541 2912 2643 2553 
+Q 2746 2195 2746 1696 
+Q 2746 1280 2682 953 
+Q 2618 627 2474 400 
+Q 2330 173 2102 57 
+Q 1875 -58 1542 -58 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#Oswald-Light-35"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_13">
+      <path d="M 173.275748 150.12126 
+L 173.275748 25.44 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="173.275748" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <!-- 6 -->
+      <g transform="translate(171.279498 163.60126) scale(0.08 -0.08)">
+       <defs>
+        <path id="Oswald-Light-36" d="M 1619 -64 
+Q 1190 -64 928 131 
+Q 666 326 544 694 
+Q 422 1062 422 1562 
+L 422 3629 
+Q 422 4109 537 4470 
+Q 653 4832 915 5033 
+Q 1178 5235 1613 5235 
+Q 2003 5235 2259 5100 
+Q 2515 4966 2646 4700 
+Q 2778 4435 2778 4038 
+Q 2778 4026 2781 3984 
+Q 2784 3942 2784 3930 
+L 2317 3930 
+Q 2317 4429 2160 4640 
+Q 2003 4851 1632 4851 
+Q 1414 4851 1248 4745 
+Q 1082 4640 986 4397 
+Q 890 4154 890 3738 
+L 890 2758 
+Q 1005 2867 1225 2963 
+Q 1446 3059 1722 3059 
+Q 2150 3059 2393 2899 
+Q 2637 2739 2739 2400 
+Q 2842 2061 2842 1517 
+Q 2842 1043 2720 684 
+Q 2598 326 2332 131 
+Q 2067 -64 1619 -64 
+z
+M 1619 326 
+Q 1875 326 2038 438 
+Q 2202 550 2285 793 
+Q 2368 1037 2368 1427 
+Q 2368 1850 2320 2131 
+Q 2272 2413 2115 2553 
+Q 1958 2694 1619 2694 
+Q 1466 2694 1325 2646 
+Q 1184 2598 1069 2531 
+Q 954 2464 890 2400 
+L 890 1504 
+Q 890 1088 966 829 
+Q 1043 570 1206 448 
+Q 1370 326 1619 326 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#Oswald-Light-36"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_15">
+      <path d="M 193.315709 150.12126 
+L 193.315709 25.44 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="193.315709" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <!-- 7 -->
+      <g transform="translate(191.771959 163.60126) scale(0.08 -0.08)">
+       <defs>
+        <path id="Oswald-Light-37" d="M 691 0 
+L 1702 4806 
+L 134 4806 
+L 134 5184 
+L 2176 5184 
+L 2176 4954 
+L 1146 0 
+L 691 0 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#Oswald-Light-37"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_17">
+      <path d="M 213.355669 150.12126 
+L 213.355669 25.44 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="213.355669" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <!-- 8 -->
+      <g transform="translate(211.359419 163.60126) scale(0.08 -0.08)">
+       <defs>
+        <path id="Oswald-Light-38" d="M 1600 -64 
+Q 1152 -64 886 118 
+Q 621 301 499 627 
+Q 378 954 378 1389 
+Q 378 1728 445 1955 
+Q 512 2182 621 2329 
+Q 730 2477 864 2566 
+Q 998 2656 1126 2720 
+Q 813 2848 621 3145 
+Q 429 3443 429 3936 
+Q 429 4314 544 4608 
+Q 659 4902 918 5068 
+Q 1178 5235 1600 5235 
+Q 2022 5235 2278 5065 
+Q 2534 4896 2646 4601 
+Q 2758 4307 2758 3923 
+Q 2758 3430 2569 3142 
+Q 2381 2854 2067 2720 
+Q 2195 2656 2329 2566 
+Q 2464 2477 2569 2329 
+Q 2675 2182 2745 1955 
+Q 2816 1728 2816 1389 
+Q 2816 954 2697 627 
+Q 2579 301 2310 118 
+Q 2042 -64 1600 -64 
+z
+M 1600 314 
+Q 1856 314 2022 429 
+Q 2189 544 2272 784 
+Q 2355 1024 2355 1389 
+Q 2355 1709 2281 1949 
+Q 2208 2189 2045 2336 
+Q 1882 2483 1600 2502 
+Q 1318 2483 1148 2336 
+Q 979 2189 905 1949 
+Q 832 1709 832 1389 
+Q 832 1024 918 784 
+Q 1005 544 1174 429 
+Q 1344 314 1600 314 
+z
+M 1600 2931 
+Q 1869 2944 2019 3078 
+Q 2170 3213 2234 3440 
+Q 2298 3667 2298 3942 
+Q 2298 4390 2131 4624 
+Q 1965 4858 1600 4858 
+Q 1229 4858 1059 4624 
+Q 890 4390 890 3942 
+Q 890 3667 954 3440 
+Q 1018 3213 1174 3078 
+Q 1331 2944 1600 2931 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#Oswald-Light-38"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_10">
+     <!-- Resolution -->
+     <g transform="translate(115.319264 177.22126) scale(0.1 -0.1)">
+      <defs>
+       <path id="Oswald-Light-52" d="M 454 0 
+L 454 5184 
+L 1626 5184 
+Q 2112 5184 2390 5027 
+Q 2669 4870 2790 4572 
+Q 2912 4275 2912 3866 
+Q 2912 3578 2848 3322 
+Q 2784 3066 2630 2886 
+Q 2477 2707 2195 2650 
+L 2989 0 
+L 2515 0 
+L 1754 2547 
+L 941 2547 
+L 941 0 
+L 454 0 
+z
+M 941 2906 
+L 1600 2906 
+Q 1926 2906 2105 3014 
+Q 2285 3123 2361 3334 
+Q 2438 3546 2438 3866 
+Q 2438 4346 2272 4582 
+Q 2106 4819 1613 4819 
+L 941 4819 
+L 941 2906 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-65" d="M 1286 -58 
+Q 941 -58 720 80 
+Q 499 218 393 538 
+Q 288 858 288 1389 
+L 288 2323 
+Q 288 2874 397 3184 
+Q 506 3494 730 3625 
+Q 954 3757 1293 3757 
+Q 1683 3757 1888 3590 
+Q 2093 3424 2173 3088 
+Q 2253 2752 2253 2227 
+L 2253 1894 
+L 755 1894 
+L 755 1248 
+Q 755 890 809 682 
+Q 864 474 982 384 
+Q 1101 294 1286 294 
+Q 1427 294 1542 348 
+Q 1658 403 1725 560 
+Q 1792 717 1792 1005 
+L 1792 1261 
+L 2246 1261 
+L 2246 1056 
+Q 2246 550 2038 246 
+Q 1830 -58 1286 -58 
+z
+M 755 2163 
+L 1792 2163 
+L 1792 2470 
+Q 1792 2765 1760 2973 
+Q 1728 3181 1622 3293 
+Q 1517 3405 1286 3405 
+Q 1094 3405 976 3321 
+Q 858 3238 806 3024 
+Q 755 2810 755 2413 
+L 755 2163 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-73" d="M 1203 -58 
+Q 762 -58 499 227 
+Q 237 512 198 992 
+L 589 1114 
+Q 627 685 787 489 
+Q 947 294 1235 294 
+Q 1478 294 1609 432 
+Q 1741 570 1741 819 
+Q 1741 998 1632 1180 
+Q 1523 1363 1293 1562 
+L 787 1997 
+Q 538 2208 410 2419 
+Q 282 2630 282 2925 
+Q 282 3194 394 3376 
+Q 506 3558 704 3657 
+Q 902 3757 1165 3757 
+Q 1594 3757 1814 3485 
+Q 2035 3213 2054 2784 
+L 1722 2675 
+Q 1702 2925 1638 3088 
+Q 1574 3251 1459 3328 
+Q 1344 3405 1184 3405 
+Q 973 3405 841 3286 
+Q 710 3168 710 2957 
+Q 710 2790 774 2662 
+Q 838 2534 1011 2374 
+L 1536 1907 
+Q 1690 1773 1830 1619 
+Q 1971 1466 2060 1277 
+Q 2150 1088 2150 832 
+Q 2150 544 2032 349 
+Q 1914 154 1702 48 
+Q 1491 -58 1203 -58 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-6f" d="M 1274 -58 
+Q 896 -58 681 105 
+Q 467 269 377 579 
+Q 288 890 288 1338 
+L 288 2362 
+Q 288 2810 377 3120 
+Q 467 3430 681 3593 
+Q 896 3757 1274 3757 
+Q 1664 3757 1875 3593 
+Q 2086 3430 2176 3120 
+Q 2266 2810 2266 2362 
+L 2266 1338 
+Q 2266 890 2176 579 
+Q 2086 269 1875 105 
+Q 1664 -58 1274 -58 
+z
+M 1274 294 
+Q 1517 294 1629 422 
+Q 1741 550 1766 784 
+Q 1792 1018 1792 1312 
+L 1792 2387 
+Q 1792 2688 1766 2915 
+Q 1741 3142 1629 3273 
+Q 1517 3405 1274 3405 
+Q 1030 3405 921 3273 
+Q 813 3142 787 2915 
+Q 762 2688 762 2387 
+L 762 1312 
+Q 762 1018 787 784 
+Q 813 550 921 422 
+Q 1030 294 1274 294 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-6c" d="M 422 0 
+L 422 5184 
+L 890 5184 
+L 890 0 
+L 422 0 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-75" d="M 902 -58 
+Q 717 -58 589 38 
+Q 461 134 393 307 
+Q 326 480 326 730 
+L 326 3699 
+L 800 3699 
+L 800 832 
+Q 800 544 886 429 
+Q 973 314 1152 314 
+Q 1318 314 1488 416 
+Q 1658 518 1805 678 
+L 1805 3699 
+L 2272 3699 
+L 2272 0 
+L 1805 0 
+L 1805 410 
+Q 1626 205 1395 73 
+Q 1165 -58 902 -58 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-74" d="M 1235 -45 
+Q 966 -45 822 60 
+Q 678 166 624 348 
+Q 570 531 570 768 
+L 570 3392 
+L 115 3392 
+L 115 3699 
+L 570 3699 
+L 570 4845 
+L 1037 4845 
+L 1037 3699 
+L 1651 3699 
+L 1651 3392 
+L 1037 3392 
+L 1037 813 
+Q 1037 544 1097 432 
+Q 1158 320 1363 320 
+Q 1421 320 1494 329 
+Q 1568 339 1632 352 
+L 1632 -6 
+Q 1536 -26 1433 -35 
+Q 1331 -45 1235 -45 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-69" d="M 410 0 
+L 410 3699 
+L 877 3699 
+L 877 0 
+L 410 0 
+z
+M 410 4211 
+L 410 4845 
+L 877 4845 
+L 877 4211 
+L 410 4211 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-6e" d="M 358 0 
+L 358 3699 
+L 826 3699 
+L 826 3315 
+Q 1005 3507 1229 3632 
+Q 1453 3757 1715 3757 
+Q 1901 3757 2029 3664 
+Q 2157 3571 2221 3395 
+Q 2285 3219 2285 2970 
+L 2285 0 
+L 1818 0 
+L 1818 2867 
+Q 1818 3155 1731 3273 
+Q 1645 3392 1466 3392 
+Q 1306 3392 1139 3296 
+Q 973 3200 826 3046 
+L 826 0 
+L 358 0 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#Oswald-Light-52"/>
+      <use xlink:href="#Oswald-Light-65" x="51.199997"/>
+      <use xlink:href="#Oswald-Light-73" x="90.699982"/>
+      <use xlink:href="#Oswald-Light-6f" x="126.999969"/>
+      <use xlink:href="#Oswald-Light-6c" x="166.899963"/>
+      <use xlink:href="#Oswald-Light-75" x="187.09996"/>
+      <use xlink:href="#Oswald-Light-74" x="228.299957"/>
+      <use xlink:href="#Oswald-Light-69" x="256.299942"/>
+      <use xlink:href="#Oswald-Light-6f" x="276.699936"/>
+      <use xlink:href="#Oswald-Light-6e" x="316.59993"/>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_19">
+      <path d="M 45.02 144.590398 
+L 221.371654 144.590398 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <defs>
+       <path id="m44ffc06ff7" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="45.02" y="144.590398" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <!-- 0.00 -->
+      <g transform="translate(24.16375 147.830398) scale(0.08 -0.08)">
+       <defs>
+        <path id="Oswald-Light-2e" d="M 384 0 
+L 384 704 
+L 877 704 
+L 877 0 
+L 384 0 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-30" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-30" x="121.499985"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_21">
+      <path d="M 45.02 121.19712 
+L 221.371654 121.19712 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="45.02" y="121.19712" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <!-- 0.02 -->
+      <g transform="translate(24.42 124.43712) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-30" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-32" x="121.499985"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_23">
+      <path d="M 45.02 97.803841 
+L 221.371654 97.803841 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="45.02" y="97.803841" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <!-- 0.04 -->
+      <g transform="translate(24.3875 101.043841) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-30" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-34" x="121.499985"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_25">
+      <path d="M 45.02 74.410562 
+L 221.371654 74.410562 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="45.02" y="74.410562" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <!-- 0.06 -->
+      <g transform="translate(24.3075 77.650562) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-30" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-36" x="121.499985"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_27">
+      <path d="M 45.02 51.017284 
+L 221.371654 51.017284 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="45.02" y="51.017284" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <!-- 0.08 -->
+      <g transform="translate(24.3075 54.257284) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-30" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-38" x="121.499985"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_29">
+      <path d="M 45.02 27.624005 
+L 221.371654 27.624005 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="45.02" y="27.624005" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <!-- 0.10 -->
+      <g transform="translate(25.51625 30.864005) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-31" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-30" x="104.599976"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_17">
+     <!-- Compactness standar deviation -->
+     <g transform="translate(18.26375 140.488442) rotate(-90) scale(0.1 -0.1)">
+      <defs>
+       <path id="Oswald-Light-43" d="M 1658 -64 
+Q 1133 -64 848 153 
+Q 563 371 454 739 
+Q 346 1107 346 1555 
+L 346 3616 
+Q 346 4096 458 4461 
+Q 570 4826 858 5030 
+Q 1146 5235 1658 5235 
+Q 2125 5235 2390 5056 
+Q 2656 4877 2771 4547 
+Q 2886 4218 2886 3763 
+L 2886 3450 
+L 2426 3450 
+L 2426 3750 
+Q 2426 4090 2371 4333 
+Q 2317 4576 2150 4710 
+Q 1984 4845 1664 4845 
+Q 1312 4845 1136 4701 
+Q 960 4557 899 4294 
+Q 838 4032 838 3686 
+L 838 1478 
+Q 838 1094 912 838 
+Q 986 582 1165 454 
+Q 1344 326 1664 326 
+Q 1990 326 2153 467 
+Q 2317 608 2371 861 
+Q 2426 1114 2426 1453 
+L 2426 1792 
+L 2886 1792 
+L 2886 1485 
+Q 2886 1030 2780 681 
+Q 2675 333 2409 134 
+Q 2144 -64 1658 -64 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-6d" d="M 358 0 
+L 358 3699 
+L 794 3699 
+L 794 3322 
+Q 979 3539 1203 3651 
+Q 1427 3763 1664 3763 
+Q 1856 3763 2019 3660 
+Q 2182 3558 2253 3283 
+Q 2445 3520 2675 3641 
+Q 2906 3763 3162 3763 
+Q 3322 3763 3466 3686 
+Q 3610 3610 3699 3424 
+Q 3789 3238 3789 2918 
+L 3789 0 
+L 3354 0 
+L 3354 2906 
+Q 3354 3232 3248 3337 
+Q 3142 3443 2982 3443 
+Q 2803 3443 2624 3340 
+Q 2445 3238 2285 3059 
+Q 2291 3027 2294 2992 
+Q 2298 2957 2298 2918 
+L 2298 0 
+L 1856 0 
+L 1856 2906 
+Q 1856 3232 1750 3337 
+Q 1645 3443 1485 3443 
+Q 1312 3443 1133 3340 
+Q 954 3238 794 3066 
+L 794 0 
+L 358 0 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-70" d="M 358 -1216 
+L 358 3699 
+L 826 3699 
+L 826 3392 
+Q 941 3533 1113 3645 
+Q 1286 3757 1536 3757 
+Q 1805 3757 1968 3632 
+Q 2131 3507 2220 3296 
+Q 2310 3085 2342 2822 
+Q 2374 2560 2374 2285 
+L 2374 1504 
+Q 2374 1030 2297 681 
+Q 2221 333 2025 137 
+Q 1830 -58 1485 -58 
+Q 1261 -58 1097 57 
+Q 934 173 826 294 
+L 826 -1216 
+L 358 -1216 
+z
+M 1414 314 
+Q 1626 314 1731 448 
+Q 1837 582 1872 848 
+Q 1907 1114 1907 1491 
+L 1907 2285 
+Q 1907 2643 1872 2889 
+Q 1837 3136 1728 3264 
+Q 1619 3392 1402 3392 
+Q 1222 3392 1072 3296 
+Q 922 3200 826 3104 
+L 826 582 
+Q 928 474 1078 394 
+Q 1229 314 1414 314 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-61" d="M 922 -58 
+Q 704 -58 537 54 
+Q 371 166 275 355 
+Q 179 544 179 768 
+Q 179 1050 262 1248 
+Q 346 1446 518 1603 
+Q 691 1760 979 1910 
+Q 1267 2061 1670 2246 
+L 1670 2509 
+Q 1670 2848 1632 3043 
+Q 1594 3238 1494 3321 
+Q 1395 3405 1210 3405 
+Q 1069 3405 950 3347 
+Q 832 3290 765 3152 
+Q 698 3014 698 2771 
+L 698 2643 
+L 237 2650 
+Q 243 3213 476 3485 
+Q 710 3757 1235 3757 
+Q 1734 3757 1936 3459 
+Q 2138 3162 2138 2534 
+L 2138 736 
+Q 2138 640 2144 489 
+Q 2150 339 2160 204 
+Q 2170 70 2176 0 
+L 1760 0 
+Q 1741 122 1718 272 
+Q 1696 422 1690 512 
+Q 1613 288 1414 115 
+Q 1216 -58 922 -58 
+z
+M 1075 339 
+Q 1216 339 1328 409 
+Q 1440 480 1529 579 
+Q 1619 678 1670 781 
+L 1670 1933 
+Q 1402 1792 1206 1677 
+Q 1011 1562 889 1453 
+Q 768 1344 707 1206 
+Q 646 1069 646 883 
+Q 646 589 774 464 
+Q 902 339 1075 339 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-63" d="M 1280 -58 
+Q 845 -58 633 134 
+Q 422 326 355 656 
+Q 288 986 288 1402 
+L 288 2266 
+Q 288 2778 371 3107 
+Q 454 3437 668 3597 
+Q 883 3757 1280 3757 
+Q 1670 3757 1875 3609 
+Q 2080 3462 2150 3193 
+Q 2221 2925 2221 2573 
+L 2221 2394 
+L 1786 2394 
+L 1786 2573 
+Q 1786 2899 1738 3078 
+Q 1690 3258 1578 3331 
+Q 1466 3405 1280 3405 
+Q 1062 3405 947 3302 
+Q 832 3200 793 2966 
+Q 755 2733 755 2342 
+L 755 1306 
+Q 755 749 864 521 
+Q 973 294 1286 294 
+Q 1504 294 1613 393 
+Q 1722 493 1754 691 
+Q 1786 890 1786 1184 
+L 1786 1389 
+L 2221 1389 
+L 2221 1210 
+Q 2221 838 2153 553 
+Q 2086 269 1881 105 
+Q 1677 -58 1280 -58 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-20" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-64" d="M 1178 -58 
+Q 704 -58 496 300 
+Q 288 659 288 1491 
+L 288 2176 
+Q 288 2662 358 3014 
+Q 429 3366 617 3561 
+Q 806 3757 1158 3757 
+Q 1376 3757 1539 3657 
+Q 1702 3558 1811 3437 
+L 1811 5184 
+L 2278 5184 
+L 2278 0 
+L 1811 0 
+L 1811 262 
+Q 1702 141 1545 41 
+Q 1389 -58 1178 -58 
+z
+M 1274 314 
+Q 1427 314 1564 384 
+Q 1702 454 1811 557 
+L 1811 3130 
+Q 1715 3219 1574 3305 
+Q 1434 3392 1261 3392 
+Q 954 3392 854 3120 
+Q 755 2848 755 2330 
+L 755 1453 
+Q 755 1082 796 826 
+Q 838 570 950 442 
+Q 1062 314 1274 314 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-72" d="M 390 0 
+L 390 3699 
+L 864 3699 
+L 864 3194 
+Q 1043 3488 1273 3613 
+Q 1504 3738 1715 3738 
+Q 1734 3738 1753 3738 
+Q 1773 3738 1798 3731 
+L 1798 3232 
+Q 1754 3251 1690 3260 
+Q 1626 3270 1568 3270 
+Q 1350 3270 1174 3168 
+Q 998 3066 864 2842 
+L 864 0 
+L 390 0 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-76" d="M 915 0 
+L 115 3699 
+L 589 3699 
+L 1190 538 
+L 1786 3699 
+L 2240 3699 
+L 1466 0 
+L 915 0 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#Oswald-Light-43"/>
+      <use xlink:href="#Oswald-Light-6f" x="49.899994"/>
+      <use xlink:href="#Oswald-Light-6d" x="89.799988"/>
+      <use xlink:href="#Oswald-Light-70" x="154.199982"/>
+      <use xlink:href="#Oswald-Light-61" x="195.899979"/>
+      <use xlink:href="#Oswald-Light-63" x="234.399963"/>
+      <use xlink:href="#Oswald-Light-74" x="273.299957"/>
+      <use xlink:href="#Oswald-Light-6e" x="301.299942"/>
+      <use xlink:href="#Oswald-Light-65" x="342.199936"/>
+      <use xlink:href="#Oswald-Light-73" x="381.699921"/>
+      <use xlink:href="#Oswald-Light-73" x="417.999908"/>
+      <use xlink:href="#Oswald-Light-20" x="454.299896"/>
+      <use xlink:href="#Oswald-Light-73" x="474.69989"/>
+      <use xlink:href="#Oswald-Light-74" x="510.999878"/>
+      <use xlink:href="#Oswald-Light-61" x="538.999863"/>
+      <use xlink:href="#Oswald-Light-6e" x="577.499847"/>
+      <use xlink:href="#Oswald-Light-64" x="618.399841"/>
+      <use xlink:href="#Oswald-Light-61" x="659.699829"/>
+      <use xlink:href="#Oswald-Light-72" x="698.199814"/>
+      <use xlink:href="#Oswald-Light-20" x="727.999802"/>
+      <use xlink:href="#Oswald-Light-64" x="748.399796"/>
+      <use xlink:href="#Oswald-Light-65" x="789.699783"/>
+      <use xlink:href="#Oswald-Light-76" x="829.199768"/>
+      <use xlink:href="#Oswald-Light-69" x="865.999756"/>
+      <use xlink:href="#Oswald-Light-61" x="886.39975"/>
+      <use xlink:href="#Oswald-Light-74" x="924.899734"/>
+      <use xlink:href="#Oswald-Light-69" x="952.899719"/>
+      <use xlink:href="#Oswald-Light-6f" x="973.299713"/>
+      <use xlink:href="#Oswald-Light-6e" x="1013.199707"/>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_31">
+    <path d="M 53.035984 31.10733 
+L 73.075945 137.573381 
+L 93.115906 101.313309 
+L 113.155866 93.5605 
+L 133.195827 89.717188 
+L 153.235787 88.196004 
+L 173.275748 87.665599 
+L 193.315709 87.494017 
+L 213.355669 87.441189 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #a00083; stroke-width: 1.2; stroke-linecap: square"/>
+    <defs>
+     <path id="m9deb99e6b4" d="M -2 2 
+L 2 2 
+L 2 -2 
+L -2 -2 
+z
+" style="stroke: #a00083; stroke-linejoin: miter"/>
+    </defs>
+    <g clip-path="url(#p76ba9a7ccb)">
+     <use xlink:href="#m9deb99e6b4" x="53.035984" y="31.10733" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="73.075945" y="137.573381" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="93.115906" y="101.313309" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="113.155866" y="93.5605" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="133.195827" y="89.717188" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="153.235787" y="88.196004" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="173.275748" y="87.665599" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="193.315709" y="87.494017" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="213.355669" y="87.441189" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="line2d_32">
+    <path d="M 53.035984 143.852488 
+L 73.075945 144.45393 
+L 93.115906 123.327153 
+L 113.155866 132.169446 
+L 133.195827 133.338406 
+L 153.235787 132.689128 
+L 173.275748 132.27912 
+L 193.315709 132.11494 
+L 213.355669 132.058258 
+" clip-path="url(#p76ba9a7ccb)" style="fill: none; stroke: #0096a0; stroke-width: 1.2; stroke-linecap: square"/>
+    <defs>
+     <path id="m083b35cf19" d="M -2 2 
+L 2 2 
+L 2 -2 
+L -2 -2 
+z
+" style="stroke: #0096a0; stroke-linejoin: miter"/>
+    </defs>
+    <g clip-path="url(#p76ba9a7ccb)">
+     <use xlink:href="#m083b35cf19" x="53.035984" y="143.852488" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="73.075945" y="144.45393" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="93.115906" y="123.327153" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="113.155866" y="132.169446" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="133.195827" y="133.338406" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="153.235787" y="132.689128" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="173.275748" y="132.27912" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="193.315709" y="132.11494" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="213.355669" y="132.058258" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 45.02 150.12126 
+L 45.02 25.44 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 221.371654 150.12126 
+L 221.371654 25.44 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 45.02 150.12126 
+L 221.371654 150.12126 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 45.02 25.44 
+L 221.371654 25.44 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_18">
+    <!-- Nside = 2 -->
+    <g transform="translate(115.655983 19.44) scale(0.11 -0.11)">
+     <defs>
+      <path id="Oswald-Light-4e" d="M 454 0 
+L 454 5184 
+L 806 5184 
+L 2458 1158 
+L 2458 5184 
+L 2880 5184 
+L 2880 0 
+L 2534 0 
+L 877 4070 
+L 877 0 
+L 454 0 
+z
+" transform="scale(0.015625)"/>
+      <path id="Oswald-Light-3d" d="M 333 3021 
+L 333 3373 
+L 2234 3373 
+L 2234 3021 
+L 333 3021 
+z
+M 333 1952 
+L 333 2304 
+L 2234 2304 
+L 2234 1952 
+L 333 1952 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#Oswald-Light-4e"/>
+     <use xlink:href="#Oswald-Light-73" x="51.999985"/>
+     <use xlink:href="#Oswald-Light-69" x="88.299973"/>
+     <use xlink:href="#Oswald-Light-64" x="108.699966"/>
+     <use xlink:href="#Oswald-Light-65" x="149.999954"/>
+     <use xlink:href="#Oswald-Light-20" x="189.499939"/>
+     <use xlink:href="#Oswald-Light-3d" x="209.899933"/>
+     <use xlink:href="#Oswald-Light-20" x="249.999924"/>
+     <use xlink:href="#Oswald-Light-32" x="270.399918"/>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_7">
+    <path d="M 266.391654 150.12126 
+L 442.743307 150.12126 
+L 442.743307 25.44 
+L 266.391654 25.44 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_10">
+     <g id="line2d_33">
+      <path d="M 274.407638 150.12126 
+L 274.407638 25.44 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="274.407638" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <!-- 0 -->
+      <g transform="translate(272.339513 163.60126) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_35">
+      <path d="M 306.471575 150.12126 
+L 306.471575 25.44 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="306.471575" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <!-- 1 -->
+      <g transform="translate(305.0797 163.60126) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-31"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_37">
+      <path d="M 338.535512 150.12126 
+L 338.535512 25.44 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="338.535512" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <!-- 2 -->
+      <g transform="translate(336.595512 163.60126) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-32"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_13">
+     <g id="line2d_39">
+      <path d="M 370.599449 150.12126 
+L 370.599449 25.44 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="370.599449" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <!-- 3 -->
+      <g transform="translate(368.671324 163.60126) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-33"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_14">
+     <g id="line2d_41">
+      <path d="M 402.663386 150.12126 
+L 402.663386 25.44 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="402.663386" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <!-- 4 -->
+      <g transform="translate(400.707136 163.60126) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-34"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_15">
+     <g id="line2d_43">
+      <path d="M 434.727323 150.12126 
+L 434.727323 25.44 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#m0210ec30a3" x="434.727323" y="150.12126" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <!-- 5 -->
+      <g transform="translate(432.819198 163.60126) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-35"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_25">
+     <!-- Resolution -->
+     <g transform="translate(336.690918 177.22126) scale(0.1 -0.1)">
+      <use xlink:href="#Oswald-Light-52"/>
+      <use xlink:href="#Oswald-Light-65" x="51.199997"/>
+      <use xlink:href="#Oswald-Light-73" x="90.699982"/>
+      <use xlink:href="#Oswald-Light-6f" x="126.999969"/>
+      <use xlink:href="#Oswald-Light-6c" x="166.899963"/>
+      <use xlink:href="#Oswald-Light-75" x="187.09996"/>
+      <use xlink:href="#Oswald-Light-74" x="228.299957"/>
+      <use xlink:href="#Oswald-Light-69" x="256.299942"/>
+      <use xlink:href="#Oswald-Light-6f" x="276.699936"/>
+      <use xlink:href="#Oswald-Light-6e" x="316.59993"/>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_7">
+     <g id="line2d_45">
+      <path d="M 266.391654 145.195777 
+L 442.743307 145.195777 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="266.391654" y="145.195777" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <!-- 0.00 -->
+      <g transform="translate(245.535404 148.435777) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-30" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-30" x="121.499985"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_47">
+      <path d="M 266.391654 121.677706 
+L 442.743307 121.677706 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_48">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="266.391654" y="121.677706" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <!-- 0.02 -->
+      <g transform="translate(245.791654 124.917706) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-30" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-32" x="121.499985"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_49">
+      <path d="M 266.391654 98.159635 
+L 442.743307 98.159635 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_50">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="266.391654" y="98.159635" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <!-- 0.04 -->
+      <g transform="translate(245.759154 101.399635) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-30" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-34" x="121.499985"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_51">
+      <path d="M 266.391654 74.641565 
+L 442.743307 74.641565 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_52">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="266.391654" y="74.641565" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_29">
+      <!-- 0.06 -->
+      <g transform="translate(245.679154 77.881565) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-30" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-36" x="121.499985"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_53">
+      <path d="M 266.391654 51.123494 
+L 442.743307 51.123494 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_54">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="266.391654" y="51.123494" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_30">
+      <!-- 0.08 -->
+      <g transform="translate(245.679154 54.363494) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-30" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-38" x="121.499985"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_55">
+      <path d="M 266.391654 27.605423 
+L 442.743307 27.605423 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_56">
+      <g>
+       <use xlink:href="#m44ffc06ff7" x="266.391654" y="27.605423" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_31">
+      <!-- 0.10 -->
+      <g transform="translate(246.887904 30.845423) scale(0.08 -0.08)">
+       <use xlink:href="#Oswald-Light-30"/>
+       <use xlink:href="#Oswald-Light-2e" x="51.699997"/>
+       <use xlink:href="#Oswald-Light-31" x="69.799988"/>
+       <use xlink:href="#Oswald-Light-30" x="104.599976"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_32">
+     <!-- Compactness standar deviation -->
+     <g transform="translate(239.635404 140.488442) rotate(-90) scale(0.1 -0.1)">
+      <use xlink:href="#Oswald-Light-43"/>
+      <use xlink:href="#Oswald-Light-6f" x="49.899994"/>
+      <use xlink:href="#Oswald-Light-6d" x="89.799988"/>
+      <use xlink:href="#Oswald-Light-70" x="154.199982"/>
+      <use xlink:href="#Oswald-Light-61" x="195.899979"/>
+      <use xlink:href="#Oswald-Light-63" x="234.399963"/>
+      <use xlink:href="#Oswald-Light-74" x="273.299957"/>
+      <use xlink:href="#Oswald-Light-6e" x="301.299942"/>
+      <use xlink:href="#Oswald-Light-65" x="342.199936"/>
+      <use xlink:href="#Oswald-Light-73" x="381.699921"/>
+      <use xlink:href="#Oswald-Light-73" x="417.999908"/>
+      <use xlink:href="#Oswald-Light-20" x="454.299896"/>
+      <use xlink:href="#Oswald-Light-73" x="474.69989"/>
+      <use xlink:href="#Oswald-Light-74" x="510.999878"/>
+      <use xlink:href="#Oswald-Light-61" x="538.999863"/>
+      <use xlink:href="#Oswald-Light-6e" x="577.499847"/>
+      <use xlink:href="#Oswald-Light-64" x="618.399841"/>
+      <use xlink:href="#Oswald-Light-61" x="659.699829"/>
+      <use xlink:href="#Oswald-Light-72" x="698.199814"/>
+      <use xlink:href="#Oswald-Light-20" x="727.999802"/>
+      <use xlink:href="#Oswald-Light-64" x="748.399796"/>
+      <use xlink:href="#Oswald-Light-65" x="789.699783"/>
+      <use xlink:href="#Oswald-Light-76" x="829.199768"/>
+      <use xlink:href="#Oswald-Light-69" x="865.999756"/>
+      <use xlink:href="#Oswald-Light-61" x="886.39975"/>
+      <use xlink:href="#Oswald-Light-74" x="924.899734"/>
+      <use xlink:href="#Oswald-Light-69" x="952.899719"/>
+      <use xlink:href="#Oswald-Light-6f" x="973.299713"/>
+      <use xlink:href="#Oswald-Light-6e" x="1013.199707"/>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_57">
+    <path d="M 274.407638 31.10733 
+L 306.471575 97.366545 
+L 338.535512 92.379333 
+L 370.599449 88.682425 
+L 402.663386 87.87857 
+L 434.727323 87.74309 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #a00083; stroke-width: 1.2; stroke-linecap: square"/>
+    <g clip-path="url(#p39df463d32)">
+     <use xlink:href="#m9deb99e6b4" x="274.407638" y="31.10733" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="306.471575" y="97.366545" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="338.535512" y="92.379333" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="370.599449" y="88.682425" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="402.663386" y="87.87857" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     <use xlink:href="#m9deb99e6b4" x="434.727323" y="87.74309" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="line2d_58">
+    <path d="M 274.407638 144.45393 
+L 306.471575 122.839122 
+L 338.535512 137.655064 
+L 370.599449 133.816052 
+L 402.663386 132.788288 
+L 434.727323 132.604127 
+" clip-path="url(#p39df463d32)" style="fill: none; stroke: #0096a0; stroke-width: 1.2; stroke-linecap: square"/>
+    <g clip-path="url(#p39df463d32)">
+     <use xlink:href="#m083b35cf19" x="274.407638" y="144.45393" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="306.471575" y="122.839122" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="338.535512" y="137.655064" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="370.599449" y="133.816052" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="402.663386" y="132.788288" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     <use xlink:href="#m083b35cf19" x="434.727323" y="132.604127" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 266.391654 150.12126 
+L 266.391654 25.44 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 442.743307 150.12126 
+L 442.743307 25.44 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 266.391654 150.12126 
+L 442.743307 150.12126 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 266.391654 25.44 
+L 442.743307 25.44 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_33">
+    <!-- Nside = 3 -->
+    <g transform="translate(337.043965 19.44) scale(0.11 -0.11)">
+     <use xlink:href="#Oswald-Light-4e"/>
+     <use xlink:href="#Oswald-Light-73" x="51.999985"/>
+     <use xlink:href="#Oswald-Light-69" x="88.299973"/>
+     <use xlink:href="#Oswald-Light-64" x="108.699966"/>
+     <use xlink:href="#Oswald-Light-65" x="149.999954"/>
+     <use xlink:href="#Oswald-Light-20" x="189.499939"/>
+     <use xlink:href="#Oswald-Light-3d" x="209.899933"/>
+     <use xlink:href="#Oswald-Light-20" x="249.999924"/>
+     <use xlink:href="#Oswald-Light-33" x="270.399918"/>
+    </g>
+   </g>
+   <g id="legend_1">
+    <g id="patch_12">
+     <path d="M 349.80112 63.44 
+L 435.743307 63.44 
+Q 437.743307 63.44 437.743307 61.44 
+L 437.743307 32.44 
+Q 437.743307 30.44 435.743307 30.44 
+L 349.80112 30.44 
+Q 347.80112 30.44 347.80112 32.44 
+L 347.80112 61.44 
+Q 347.80112 63.44 349.80112 63.44 
+z
+" style="fill: #ffffff; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="line2d_59">
+     <path d="M 351.80112 39.04 
+L 361.80112 39.04 
+L 371.80112 39.04 
+" style="fill: none; stroke: #a00083; stroke-width: 1.2; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#m9deb99e6b4" x="361.80112" y="39.04" style="fill: #ffffff; stroke: #a00083; stroke-linejoin: miter"/>
+     </g>
+    </g>
+    <g id="text_34">
+     <!-- rHEALPix DGGS -->
+     <g transform="translate(379.80112 42.54) scale(0.1 -0.1)">
+      <defs>
+       <path id="Oswald-Light-48" d="M 454 0 
+L 454 5184 
+L 941 5184 
+L 941 2886 
+L 2573 2886 
+L 2573 5184 
+L 3059 5184 
+L 3059 0 
+L 2573 0 
+L 2573 2522 
+L 941 2522 
+L 941 0 
+L 454 0 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-45" d="M 448 0 
+L 448 5184 
+L 2323 5184 
+L 2323 4806 
+L 941 4806 
+L 941 2861 
+L 2067 2861 
+L 2067 2502 
+L 941 2502 
+L 941 365 
+L 2336 365 
+L 2336 0 
+L 448 0 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-41" d="M 173 0 
+L 1267 5184 
+L 1779 5184 
+L 2880 0 
+L 2400 0 
+L 2144 1389 
+L 909 1389 
+L 646 0 
+L 173 0 
+z
+M 979 1741 
+L 2080 1741 
+L 1530 4538 
+L 979 1741 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-4c" d="M 454 0 
+L 454 5184 
+L 941 5184 
+L 941 365 
+L 2413 365 
+L 2413 0 
+L 454 0 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-50" d="M 454 0 
+L 454 5184 
+L 1696 5184 
+Q 2163 5184 2432 5011 
+Q 2701 4838 2813 4531 
+Q 2925 4224 2925 3808 
+Q 2925 3443 2806 3132 
+Q 2688 2822 2416 2636 
+Q 2144 2451 1702 2451 
+L 941 2451 
+L 941 0 
+L 454 0 
+z
+M 941 2816 
+L 1562 2816 
+Q 1875 2816 2070 2909 
+Q 2266 3002 2355 3219 
+Q 2445 3437 2445 3808 
+Q 2445 4205 2368 4425 
+Q 2291 4646 2102 4732 
+Q 1914 4819 1568 4819 
+L 941 4819 
+L 941 2816 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-78" d="M 102 0 
+L 979 1933 
+L 147 3699 
+L 608 3699 
+L 1242 2342 
+L 1850 3699 
+L 2323 3699 
+L 1459 1882 
+L 2336 0 
+L 1888 0 
+L 1197 1453 
+L 550 0 
+L 102 0 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-44" d="M 454 0 
+L 454 5184 
+L 1581 5184 
+Q 2125 5184 2429 4995 
+Q 2733 4806 2861 4460 
+Q 2989 4115 2989 3661 
+L 2989 1600 
+Q 2989 1120 2861 758 
+Q 2733 397 2438 198 
+Q 2144 0 1626 0 
+L 454 0 
+z
+M 941 365 
+L 1594 365 
+Q 2003 365 2195 534 
+Q 2387 704 2438 1001 
+Q 2490 1299 2490 1677 
+L 2490 3610 
+Q 2490 4000 2422 4265 
+Q 2355 4531 2160 4668 
+Q 1965 4806 1574 4806 
+L 941 4806 
+L 941 365 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-47" d="M 1626 -70 
+Q 1133 -70 854 134 
+Q 576 339 461 713 
+Q 346 1088 346 1581 
+L 346 3603 
+Q 346 4102 458 4467 
+Q 570 4832 854 5033 
+Q 1139 5235 1658 5235 
+Q 2125 5235 2397 5062 
+Q 2669 4890 2790 4557 
+Q 2912 4224 2912 3744 
+L 2912 3565 
+L 2451 3565 
+L 2451 3744 
+Q 2451 4115 2384 4358 
+Q 2317 4602 2150 4723 
+Q 1984 4845 1664 4845 
+Q 1306 4845 1126 4691 
+Q 947 4538 892 4269 
+Q 838 4000 838 3654 
+L 838 1523 
+Q 838 1146 905 880 
+Q 973 614 1155 470 
+Q 1338 326 1670 326 
+Q 1997 326 2169 470 
+Q 2342 614 2412 883 
+Q 2483 1152 2483 1536 
+L 2483 2144 
+L 1715 2144 
+L 1715 2509 
+L 2931 2509 
+L 2931 0 
+L 2618 0 
+L 2560 589 
+Q 2464 294 2243 112 
+Q 2022 -70 1626 -70 
+z
+" transform="scale(0.015625)"/>
+       <path id="Oswald-Light-53" d="M 1555 -64 
+Q 1133 -64 854 112 
+Q 576 288 435 605 
+Q 294 922 262 1344 
+L 691 1472 
+Q 723 1152 806 893 
+Q 890 634 1069 483 
+Q 1248 333 1562 333 
+Q 1907 333 2099 512 
+Q 2291 691 2291 1082 
+Q 2291 1427 2121 1676 
+Q 1952 1926 1658 2202 
+L 742 3078 
+Q 499 3315 384 3568 
+Q 269 3821 269 4122 
+Q 269 4659 589 4947 
+Q 909 5235 1440 5235 
+Q 1715 5235 1936 5164 
+Q 2157 5094 2313 4937 
+Q 2470 4781 2560 4531 
+Q 2650 4282 2682 3923 
+L 2266 3814 
+Q 2240 4141 2160 4374 
+Q 2080 4608 1910 4729 
+Q 1741 4851 1440 4851 
+Q 1120 4851 915 4684 
+Q 710 4518 710 4166 
+Q 710 3955 790 3782 
+Q 870 3610 1075 3411 
+L 1990 2547 
+Q 2298 2259 2522 1907 
+Q 2746 1555 2746 1114 
+Q 2746 723 2595 460 
+Q 2445 198 2176 67 
+Q 1907 -64 1555 -64 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#Oswald-Light-72"/>
+      <use xlink:href="#Oswald-Light-48" x="29.799988"/>
+      <use xlink:href="#Oswald-Light-45" x="84.699982"/>
+      <use xlink:href="#Oswald-Light-41" x="124.499969"/>
+      <use xlink:href="#Oswald-Light-4c" x="172.199966"/>
+      <use xlink:href="#Oswald-Light-50" x="210.399963"/>
+      <use xlink:href="#Oswald-Light-69" x="258.699951"/>
+      <use xlink:href="#Oswald-Light-78" x="279.099945"/>
+      <use xlink:href="#Oswald-Light-20" x="317.09993"/>
+      <use xlink:href="#Oswald-Light-44" x="337.499924"/>
+      <use xlink:href="#Oswald-Light-47" x="389.599915"/>
+      <use xlink:href="#Oswald-Light-47" x="441.499908"/>
+      <use xlink:href="#Oswald-Light-53" x="493.399902"/>
+     </g>
+    </g>
+    <g id="line2d_60">
+     <path d="M 351.80112 54.04 
+L 361.80112 54.04 
+L 371.80112 54.04 
+" style="fill: none; stroke: #0096a0; stroke-width: 1.2; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#m083b35cf19" x="361.80112" y="54.04" style="fill: #ffffff; stroke: #0096a0; stroke-linejoin: miter"/>
+     </g>
+    </g>
+    <g id="text_35">
+     <!-- QPix DGGS -->
+     <g transform="translate(379.80112 57.54) scale(0.1 -0.1)">
+      <defs>
+       <path id="Oswald-Light-51" d="M 2758 -1018 
+Q 2618 -941 2464 -793 
+Q 2310 -646 2153 -451 
+Q 1997 -256 1856 -58 
+Q 1818 -64 1776 -64 
+Q 1734 -64 1690 -64 
+Q 1178 -64 886 137 
+Q 595 339 470 700 
+Q 346 1062 346 1530 
+L 346 3680 
+Q 346 4154 474 4502 
+Q 602 4851 896 5043 
+Q 1190 5235 1690 5235 
+Q 2195 5235 2489 5043 
+Q 2784 4851 2912 4502 
+Q 3040 4154 3040 3680 
+L 3040 1523 
+Q 3040 1152 2963 848 
+Q 2886 544 2710 329 
+Q 2534 115 2227 19 
+Q 2310 -83 2416 -208 
+Q 2522 -333 2634 -441 
+Q 2746 -550 2822 -608 
+L 2758 -1018 
+z
+M 1690 326 
+Q 2035 326 2220 464 
+Q 2406 602 2476 848 
+Q 2547 1094 2547 1421 
+L 2547 3770 
+Q 2547 4096 2476 4339 
+Q 2406 4582 2224 4713 
+Q 2042 4845 1690 4845 
+Q 1350 4845 1168 4713 
+Q 986 4582 912 4339 
+Q 838 4096 838 3770 
+L 838 1421 
+Q 838 1094 912 848 
+Q 986 602 1168 464 
+Q 1350 326 1690 326 
+z
+" transform="scale(0.015625)"/>
+      </defs>
+      <use xlink:href="#Oswald-Light-51"/>
+      <use xlink:href="#Oswald-Light-50" x="52.999985"/>
+      <use xlink:href="#Oswald-Light-69" x="101.299973"/>
+      <use xlink:href="#Oswald-Light-78" x="121.699966"/>
+      <use xlink:href="#Oswald-Light-20" x="159.699951"/>
+      <use xlink:href="#Oswald-Light-44" x="180.099945"/>
+      <use xlink:href="#Oswald-Light-47" x="232.199936"/>
+      <use xlink:href="#Oswald-Light-47" x="284.09993"/>
+      <use xlink:href="#Oswald-Light-53" x="335.999924"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p76ba9a7ccb">
+   <rect x="45.02" y="25.44" width="176.351654" height="124.68126"/>
+  </clipPath>
+  <clipPath id="p39df463d32">
+   <rect x="266.391654" y="25.44" width="176.351654" height="124.68126"/>
+  </clipPath>
+ </defs>
+</svg>
