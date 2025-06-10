@@ -35,7 +35,7 @@ WGS84_F = (
 # WGS84_F = 1 / 298.257222100882711  # GRS80 from https://en.wikipedia.org/wiki/World_Geodetic_System
 # WGS84_F = 1 / 298.257223563  # new value from EPSG:7030
 WGS84_B = WGS84_A * (1 - WGS84_F)
-WGS84_E = sqrt(WGS84_F * (1 - WGS84_F))
+WGS84_E = sqrt(WGS84_F * (2 - WGS84_F))
 WGS84_R_A = sqrt(WGS84_A**2 / 2 + WGS84_B**2 / 2 * (arctanh(WGS84_E) / WGS84_E))
 R_EM = 6371000  # Earth's mean radius
 
