@@ -24,34 +24,37 @@ import math
 # "projection" can be 'laea' or 'aea' ('laea' better choice in this case)
 # "exponent_for_segmentation" is used to determine number of points along each cell boundary (for approximating cell
 # boundary before projection). Formula is: num_points = int(2**exponent_for_segmentation / (n_side * cell_resolution))
-n_side = 3  # 2 or 3
+
+n_side = 2  # 2 or 3
 projection = "laea"  # "aea" or "laea"
 exponent_for_segmentation = 20
 
 # points = [(20,1), (20,20), (20,41), (0, 42), (0, 60), (0, 85), (20,42), (20,60), (20,85)]
 
 cell_suids_for_nside_3 = [
-    "Q35303300000030333",
-    "Q08036306033006603",
-    "Q02006060306633306",
-    "N22222242666424224",
-    "N24466246246642262",
-    "N44222442426464644",
-    "N20222250876403105",
-    "N23368146038840072",
-    "N44202532308475755",
+    "Q1111111111111111111",
+    "Q1777777777777777777",
+    "Q4444444444444444444",
+    "N2222222222222222222",
+    "N2444444444444444444",
+    "N4266666666666666666",
+    "N7777777777777777777",
+    "N7111111111111111111",
+    "N4711111111111111111",
 ]
+
 cell_suids_for_nside_2 = [
-    "Q023332003130203110001132003",
-    "Q003332203112023312203312001",
-    "Q001110201312203330221132003",
-    "N111111111121122221222112111",
-    "N112122212111222121212222122",
-    "N122211211211112212111221211",
-    "N110001110020033221322002010",
-    "N103033212011333031312233133",
-    "N122201311210002312111320210",
+    "Q122222222222222222222222222222",
+    "Q102222222222222222222222222222",
+    "Q100000000000000000000000000000",
+    "N111111111111111111111111111111",
+    "N121111111111111111111111111111",
+    "N112222222222222222222222222222",
+    "N011111111111111111111111111111",
+    "N013333333333333333333333333333",
+    "N030000000000000000000000000000",
 ]
+# cells for n_side=2 that are crossing antimeridian: N0, N03, N1 and N12
 
 wgs84_crs = pyproj.CRS.from_epsg(4326)
 
@@ -65,18 +68,18 @@ rdggs_003 = RHEALPixDGGS(
     N_side=3,
     north_square=0,
     south_square=0,
-    max_areal_resolution=0.01,
+    max_areal_resolution=0.000000001,
 )
 rdggs_002 = RHEALPixDGGS(
     ellipsoid=ellipsoid,
     N_side=2,
     north_square=0,
     south_square=0,
-    max_areal_resolution=0.01,
+    max_areal_resolution=0.000000001,
 )
 
-max_resolution_3 = rdggs_003.max_resolution
-max_resolution_2 = rdggs_002.max_resolution
+max_resolution_3 = 19
+max_resolution_2 = 30
 
 cell_suid = []
 cell_region = []
@@ -224,5 +227,7 @@ gdf = gpd.GeoDataFrame(
         "error": error,
     }
 )
-gdf.to_csv(f"area_nside{n_side}_2-{exponent_for_segmentation}_{projection}.csv")
-gdf.to_file(f"area_nside{n_side}_2-{exponent_for_segmentation}_{projection}.geojson")
+gdf.to_csv(f"new_area_nside{n_side}_2-{exponent_for_segmentation}_{projection}.csv")
+gdf.to_file(
+    f"new_area_nside{n_side}_2-{exponent_for_segmentation}_{projection}.geojson"
+)
